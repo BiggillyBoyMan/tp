@@ -9,11 +9,12 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.ApplicationStatus.ApplicationStatus;
+import seedu.address.model.Company.Description;
+import seedu.address.model.Company.CompanyName;
+import seedu.address.model.Company.Email;
+import seedu.address.model.Company.JobType;
+import seedu.address.model.Industry.Industry;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -41,13 +42,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
-    public static Name parseName(String name) throws ParseException {
+    public static CompanyName parseName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        if (!CompanyName.isValidName(trimmedName)) {
+            throw new ParseException(CompanyName.MESSAGE_CONSTRAINTS);
         }
-        return new Name(trimmedName);
+        return new CompanyName(trimmedName);
     }
 
     /**
@@ -56,13 +57,18 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+    public static JobType parseJobType(String jobTypeString) throws ParseException {
+        requireNonNull(jobTypeString);
+        String trimmedJobType = jobTypeString.trim();
+
+        // 1. Check validity using the static method on the JobType class
+        if (!JobType.isValidJobType(trimmedJobType)) {
+            // 2. Throw with the correct constraint message
+            throw new ParseException(JobType.MESSAGE_CONSTRAINTS);
         }
-        return new Phone(trimmedPhone);
+
+        // 3. Create and return the new JobType object
+        return new JobType(trimmedJobType);
     }
 
     /**
@@ -71,13 +77,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+    public static Description parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if (!Description.isValidDescription(trimmedDescription)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
         }
-        return new Address(trimmedAddress);
+        return new Description(trimmedDescription);
     }
 
     /**
@@ -101,24 +107,33 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code tag} is invalid.
      */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+    public static Industry parseIndustry(String industry) throws ParseException {
+        requireNonNull(industry);
+        String trimmedIndustry = industry.trim();
+        if (!Industry.isValidIndustry(trimmedIndustry)) {
+            throw new ParseException(Industry.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
+        return new Industry(trimmedIndustry);
     }
 
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+    /**
+     * Parses a {@code String statusString} into an {@code ApplicationStatus}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param statusString The status string to parse.
+     * @return An ApplicationStatus object.
+     * @throws ParseException if the given {@code statusString} is invalid.
+     */
+    public static ApplicationStatus parseStatus(String statusString) throws ParseException {
+        requireNonNull(statusString);
+        String trimmedStatus = statusString.trim();
+        if (!ApplicationStatus.isValidStatus(trimmedStatus)) {
+            // Check validity against the predefined set of statuses
+            throw new ParseException(ApplicationStatus.MESSAGE_CONSTRAINTS);
         }
-        return tagSet;
+        return new ApplicationStatus(trimmedStatus);
     }
 }

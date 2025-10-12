@@ -3,12 +3,9 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.Company.*;
+import seedu.address.model.Company.CompanyName;
+import seedu.address.model.Industry.Industry;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -21,39 +18,39 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
-    private Name name;
-    private Phone phone;
+    private CompanyName companyName;
+    private JobType jobType;
     private Email email;
-    private Address address;
-    private Set<Tag> tags;
+    private Description description;
+    private Set<Industry> industries;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
      */
     public PersonBuilder() {
-        name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
+        companyName = new CompanyName(DEFAULT_NAME);
+        jobType = new JobType(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
-        tags = new HashSet<>();
+        description = new Description(DEFAULT_ADDRESS);
+        industries = new HashSet<>();
     }
 
     /**
      * Initializes the PersonBuilder with the data of {@code personToCopy}.
      */
-    public PersonBuilder(Person personToCopy) {
-        name = personToCopy.getName();
-        phone = personToCopy.getPhone();
-        email = personToCopy.getEmail();
-        address = personToCopy.getAddress();
-        tags = new HashSet<>(personToCopy.getTags());
+    public PersonBuilder(InternshipApplication internshipApplicationToCopy) {
+        companyName = internshipApplicationToCopy.getName();
+        jobType = internshipApplicationToCopy.getJobType();
+        email = internshipApplicationToCopy.getEmail();
+        description = internshipApplicationToCopy.getDescription();
+        industries = new HashSet<>(internshipApplicationToCopy.getIndustry());
     }
 
     /**
      * Sets the {@code Name} of the {@code Person} that we are building.
      */
     public PersonBuilder withName(String name) {
-        this.name = new Name(name);
+        this.companyName = new CompanyName(name);
         return this;
     }
 
@@ -61,7 +58,7 @@ public class PersonBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+        this.industries = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
@@ -69,7 +66,7 @@ public class PersonBuilder {
      * Sets the {@code Address} of the {@code Person} that we are building.
      */
     public PersonBuilder withAddress(String address) {
-        this.address = new Address(address);
+        this.description = new Description(address);
         return this;
     }
 
@@ -77,7 +74,7 @@ public class PersonBuilder {
      * Sets the {@code Phone} of the {@code Person} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+        this.jobType = new JobType(phone);
         return this;
     }
 
@@ -89,8 +86,8 @@ public class PersonBuilder {
         return this;
     }
 
-    public Person build() {
-        return new Person(name, phone, email, address, tags);
+    public InternshipApplication build() {
+        return new InternshipApplication(companyName, jobType, email, description, industries);
     }
 
 }

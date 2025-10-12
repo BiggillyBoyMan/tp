@@ -80,45 +80,45 @@ Adds a new internship application to BizBook.
 Format: `add n/COMPANY_NAME p/PHONE_NUMBER s/STATUS e/EMAIL a/ADDRESS [t/TAG]…`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
+A internshipApplication can have any number of industries (including 0)
 </div>
 
 Examples:
 * `add n/Google p/98765432 e/careers@google.com s/Pending a/70 Pasir Panjang Road, #03-71 t/tech t/pending`
 * `add n/DBS Bank t/finance e/internships@dbs.com s/Rejected a/12 Marina Boulevard p/12345678 t/interview`
 
-### Listing all persons : `list`
+### Listing all internshipApplications : `list`
 
 Shows a list of all internship applications in BizBook.
 
 Format: `list
 
-### Editing a person : `edit`
+### Editing a internshipApplication : `edit`
 
-Edits an existing person in the address book.
+Edits an existing internshipApplication in the description book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the internshipApplication at the specified `INDEX`. The index refers to the index number shown in the displayed internshipApplication list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+* When editing industries, the existing industries of the internshipApplication will be removed i.e adding of industries is not cumulative.
+* You can remove all the internshipApplication’s industries by typing `t/` without
+    specifying any industries after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit 1 p/91234567 e/johndoe@example.com` Edits the jobType number and email description of the 1st internshipApplication to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 2 n/Betsy Crower t/` Edits the companyName of the 2nd internshipApplication to be `Betsy Crower` and clears all existing industries.
 
-### Locating persons by name: `find`
+### Locating internshipApplications by companyName: `find`
 
-Finds persons whose names contain any of the given keywords.
+Finds internshipApplications whose names contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
+* Only the companyName is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
@@ -128,23 +128,23 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a person : `delete`
+### Deleting a internshipApplication : `delete`
 
-Deletes the specified person from the address book.
+Deletes the specified internshipApplication from the description book.
 
 Format: `delete INDEX`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the internshipApplication at the specified `INDEX`.
+* The index refers to the index number shown in the displayed internshipApplication list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `list` followed by `delete 2` deletes the 2nd internshipApplication in the description book.
+* `find Betsy` followed by `delete 1` deletes the 1st internshipApplication in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from the description book.
 
 Format: `clear`
 
