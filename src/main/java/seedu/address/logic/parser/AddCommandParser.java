@@ -1,15 +1,22 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDUSTRY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_JOB_TYPE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ApplicationStatus.ApplicationStatus;
-import seedu.address.model.Company.*;
+import seedu.address.model.Company.CompanyName;
+import seedu.address.model.Company.Description;
+import seedu.address.model.Company.Email;
+import seedu.address.model.Company.InternshipApplication;
 import seedu.address.model.Company.JobType;
 import seedu.address.model.Industry.Industry;
 
@@ -24,15 +31,17 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_COMPANY_NAME, PREFIX_DESCRIPTION, PREFIX_EMAIL, PREFIX_INDUSTRY, PREFIX_JOB_TYPE, PREFIX_STATUS);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_COMPANY_NAME,
+                PREFIX_DESCRIPTION, PREFIX_EMAIL, PREFIX_INDUSTRY, PREFIX_JOB_TYPE, PREFIX_STATUS);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_COMPANY_NAME, PREFIX_DESCRIPTION, PREFIX_EMAIL, PREFIX_INDUSTRY, PREFIX_JOB_TYPE, PREFIX_STATUS)
+        if (!arePrefixesPresent(argMultimap, PREFIX_COMPANY_NAME, PREFIX_DESCRIPTION, PREFIX_EMAIL,
+                PREFIX_INDUSTRY, PREFIX_JOB_TYPE, PREFIX_STATUS)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_COMPANY_NAME, PREFIX_DESCRIPTION, PREFIX_EMAIL, PREFIX_INDUSTRY, PREFIX_JOB_TYPE, PREFIX_STATUS);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_COMPANY_NAME, PREFIX_DESCRIPTION,
+                PREFIX_EMAIL, PREFIX_INDUSTRY, PREFIX_JOB_TYPE, PREFIX_STATUS);
         CompanyName companyName = ParserUtil.parseName(argMultimap.getValue(PREFIX_COMPANY_NAME).get());
         JobType jobType = ParserUtil.parseJobType(argMultimap.getValue(PREFIX_JOB_TYPE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());

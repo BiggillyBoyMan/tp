@@ -5,10 +5,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.Company.*;
+import seedu.address.model.ApplicationStatus.ApplicationStatus;
 import seedu.address.model.Company.CompanyName;
+import seedu.address.model.Company.Description;
+import seedu.address.model.Company.Email;
+import seedu.address.model.Company.InternshipApplication;
+import seedu.address.model.Company.JobType;
 import seedu.address.model.Industry.Industry;
+import seedu.address.model.ReadOnlyAddressBook;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -16,24 +20,9 @@ import seedu.address.model.Industry.Industry;
 public class SampleDataUtil {
     public static InternshipApplication[] getSamplePersons() {
         return new InternshipApplication[] {
-            new InternshipApplication(new CompanyName("Alex Yeoh"), new JobType("87438807"), new Email("alexyeoh@example.com"),
-                new Description("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends")),
-            new InternshipApplication(new CompanyName("Bernice Yu"), new JobType("99272758"), new Email("berniceyu@example.com"),
-                new Description("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends")),
-            new InternshipApplication(new CompanyName("Charlotte Oliveiro"), new JobType("93210283"), new Email("charlotte@example.com"),
-                new Description("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("neighbours")),
-            new InternshipApplication(new CompanyName("David Li"), new JobType("91031282"), new Email("lidavid@example.com"),
-                new Description("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("family")),
-            new InternshipApplication(new CompanyName("Irfan Ibrahim"), new JobType("92492021"), new Email("irfan@example.com"),
-                new Description("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("classmates")),
-            new InternshipApplication(new CompanyName("Roy Balakrishnan"), new JobType("92624417"), new Email("royb@example.com"),
-                new Description("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("colleagues"))
+            new InternshipApplication(new CompanyName("XYZ PTE LTD"), new Industry("Finance"),
+                    new JobType("SWE Intern"), new Description("Need to be proficient in c++"),
+                    new ApplicationStatus("Saved"), new Email("XYZ@gmail.com"))
         };
     }
 

@@ -1,53 +1,58 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import seedu.address.model.Company.*;
+import seedu.address.model.ApplicationStatus.ApplicationStatus;
 import seedu.address.model.Company.CompanyName;
+import seedu.address.model.Company.Description;
+import seedu.address.model.Company.Email;
+import seedu.address.model.Company.InternshipApplication;
+import seedu.address.model.Company.JobType;
 import seedu.address.model.Industry.Industry;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building InternshipApplication objects.
  */
 public class PersonBuilder {
 
     public static final String DEFAULT_NAME = "Amy Bee";
-    public static final String DEFAULT_PHONE = "85355255";
+    public static final String DEFAULT_JOB_TYPE = "Software Engineer";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_DESCRIPTION = "Backend microservices";
+    public static final String DEFAULT_INDUSTRY = "Technology";
+    public static final String DEFAULT_STATUS = "Saved";
 
     private CompanyName companyName;
     private JobType jobType;
     private Email email;
     private Description description;
-    private Set<Industry> industries;
+    private Industry industry;
+    private ApplicationStatus status;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
      */
     public PersonBuilder() {
         companyName = new CompanyName(DEFAULT_NAME);
-        jobType = new JobType(DEFAULT_PHONE);
+        jobType = new JobType(DEFAULT_JOB_TYPE);
         email = new Email(DEFAULT_EMAIL);
-        description = new Description(DEFAULT_ADDRESS);
-        industries = new HashSet<>();
+        description = new Description(DEFAULT_DESCRIPTION);
+        industry = new Industry(DEFAULT_INDUSTRY);
+        status = new ApplicationStatus(DEFAULT_STATUS);
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the PersonBuilder with the data of {@code applicationToCopy}.
      */
-    public PersonBuilder(InternshipApplication internshipApplicationToCopy) {
-        companyName = internshipApplicationToCopy.getName();
-        jobType = internshipApplicationToCopy.getJobType();
-        email = internshipApplicationToCopy.getEmail();
-        description = internshipApplicationToCopy.getDescription();
-        industries = new HashSet<>(internshipApplicationToCopy.getIndustry());
+    public PersonBuilder(InternshipApplication applicationToCopy) {
+        companyName = applicationToCopy.getName();
+        jobType = applicationToCopy.getJobType();
+        email = applicationToCopy.getEmail();
+        description = applicationToCopy.getDescription();
+        industry = applicationToCopy.getIndustry();
+        status = applicationToCopy.getStatus();
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code CompanyName} of the {@code InternshipApplication} that we are building.
      */
     public PersonBuilder withName(String name) {
         this.companyName = new CompanyName(name);
@@ -55,39 +60,46 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Sets the {@code JobType} of the {@code InternshipApplication} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
-        this.industries = SampleDataUtil.getTagSet(tags);
+    public PersonBuilder withJobType(String jobType) {
+        this.jobType = new JobType(jobType);
         return this;
     }
 
     /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
-     */
-    public PersonBuilder withAddress(String address) {
-        this.description = new Description(address);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
-     */
-    public PersonBuilder withPhone(String phone) {
-        this.jobType = new JobType(phone);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Email} of the {@code Person} that we are building.
+     * Sets the {@code Email} of the {@code InternshipApplication} that we are building.
      */
     public PersonBuilder withEmail(String email) {
         this.email = new Email(email);
         return this;
     }
 
-    public InternshipApplication build() {
-        return new InternshipApplication(companyName, jobType, email, description, industries);
+    /**
+     * Sets the {@code Description} of the {@code InternshipApplication} that we are building.
+     */
+    public PersonBuilder withDescription(String description) {
+        this.description = new Description(description);
+        return this;
     }
 
+    /**
+     * Sets the {@code Industry} of the {@code InternshipApplication} that we are building.
+     */
+    public PersonBuilder withIndustry(String industry) {
+        this.industry = new Industry(industry);
+        return this;
+    }
+
+    /**
+     * Sets the {@code ApplicationStatus} of the {@code InternshipApplication} that we are building.
+     */
+    public PersonBuilder withStatus(String status) {
+        this.status = new ApplicationStatus(status);
+        return this;
+    }
+
+    public InternshipApplication build() {
+        return new InternshipApplication(companyName, industry, jobType, description, status, email);
+    }
 }

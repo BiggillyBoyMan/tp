@@ -3,8 +3,8 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INDUSTRY_FINANCE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -45,9 +45,9 @@ public class DescriptionBookTest {
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        InternshipApplication editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+        // Two persons with the same identity fields (same name)
+        InternshipApplication editedAlice = new PersonBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB)
+                .withIndustry(VALID_INDUSTRY_FINANCE).build();
         List<InternshipApplication> newInternshipApplications = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newInternshipApplications);
 
@@ -73,8 +73,8 @@ public class DescriptionBookTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
-        InternshipApplication editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+        InternshipApplication editedAlice = new PersonBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB)
+                .withIndustry(VALID_INDUSTRY_FINANCE).build();
         assertTrue(addressBook.hasPerson(editedAlice));
     }
 
@@ -93,7 +93,8 @@ public class DescriptionBookTest {
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
-        private final ObservableList<InternshipApplication> internshipApplications = FXCollections.observableArrayList();
+        private final ObservableList<InternshipApplication> internshipApplications =
+                FXCollections.observableArrayList();
 
         AddressBookStub(Collection<InternshipApplication> internshipApplications) {
             this.internshipApplications.setAll(internshipApplications);

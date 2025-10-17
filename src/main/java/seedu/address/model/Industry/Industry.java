@@ -10,11 +10,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Industry {
 
     // NOTE: The message constraints below have been updated to match the values defined in VALID_INDUSTRIES.
-    public static final String MESSAGE_CONSTRAINTS = "Invalid Industry. Please use one of: Technology, Finance, Consulting, Healthcare, Marketing, Operations, Graphic Design.";
+    public static final String MESSAGE_CONSTRAINTS = "Invalid Industry. Please use one of: Technology, "
+            + "Finance, Consulting, Healthcare, Marketing, Operations, Graphic Design.";
 
     // The predefined list of valid industries, used for validation.
     public static final String[] VALID_INDUSTRIES = {
-            "Technology", "Finance", "Consulting", "Healthcare", "Marketing", "Operations", "Graphic Design"
+        "Technology", "Finance", "Consulting", "Healthcare", "Marketing", "Operations", "Graphic Design"
     };
 
     public final String value;
@@ -31,12 +32,19 @@ public class Industry {
     }
 
     /**
-     * Returns true if a given string is one of the valid industry names.
+     * Returns true if a given string is one of the valid industry names,
+     * ignoring case and leading/trailing whitespace.
      */
     public static boolean isValidIndustry(String test) {
+        // 1. Remove leading/trailing whitespace
+        String trimmedTest = test.trim();
+
+        // 2. Convert the trimmed input to a consistent case (e.g., uppercase) for comparison
+        String upperCaseTest = trimmedTest.toUpperCase();
+
         for (String validIndustry : VALID_INDUSTRIES) {
-            // Checks for an exact match against the predefined list.
-            if (validIndustry.equals(test)) {
+            // Compare the uppercase input against the uppercase valid industry
+            if (validIndustry.toUpperCase().equals(upperCaseTest)) {
                 return true;
             }
         }

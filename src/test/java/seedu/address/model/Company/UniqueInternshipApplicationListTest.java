@@ -3,8 +3,8 @@ package seedu.address.model.Company;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INDUSTRY_FINANCE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
@@ -42,8 +42,8 @@ public class UniqueInternshipApplicationListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueCompanyList.add(ALICE);
-        InternshipApplication editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+        InternshipApplication editedAlice = new PersonBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB)
+                .withIndustry(VALID_INDUSTRY_FINANCE).build();
         assertTrue(uniqueCompanyList.contains(editedAlice));
     }
 
@@ -85,8 +85,8 @@ public class UniqueInternshipApplicationListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniqueCompanyList.add(ALICE);
-        InternshipApplication editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+        InternshipApplication editedAlice = new PersonBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB)
+                .withIndustry(VALID_INDUSTRY_FINANCE).build();
         uniqueCompanyList.setPerson(ALICE, editedAlice);
         UniqueCompanyList expectedUniqueCompanyList = new UniqueCompanyList();
         expectedUniqueCompanyList.add(editedAlice);
@@ -143,7 +143,8 @@ public class UniqueInternshipApplicationListTest {
 
     @Test
     public void setPersons_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueCompanyList.setPersons((List<InternshipApplication>) null));
+        assertThrows(NullPointerException.class, () -> uniqueCompanyList.setPersons(
+                (List<InternshipApplication>) null));
     }
 
     @Test
@@ -159,7 +160,8 @@ public class UniqueInternshipApplicationListTest {
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<InternshipApplication> listWithDuplicateInternshipApplications = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniqueCompanyList.setPersons(listWithDuplicateInternshipApplications));
+        assertThrows(DuplicatePersonException.class, () -> uniqueCompanyList.setPersons(
+                listWithDuplicateInternshipApplications));
     }
 
     @Test

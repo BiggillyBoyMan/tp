@@ -11,7 +11,7 @@ public class JobType {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone numbers should only contain numbers, and it should be at least 3 digits long";
+            "Job types should only contain alphanumeric characters and spaces, and should not be blank";
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
     public static final int MAX_LENGTH = 50;
     public final String value;
@@ -19,7 +19,7 @@ public class JobType {
     /**
      * Constructs a {@code JobType}.
      *
-     * @param JobType A valid phone number.
+     * @param JobType A valid Job Type.
      */
     public JobType(String JobType) {
         requireNonNull(JobType);
@@ -28,7 +28,7 @@ public class JobType {
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid job type.
      */
     public static boolean isValidJobType(String test) {
         return test.matches(VALIDATION_REGEX);

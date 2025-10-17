@@ -2,17 +2,18 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDUSTRY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_JOB_TYPE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ApplicationStatus.ApplicationStatus;
 import seedu.address.model.Industry.Industry;
 
 /**
@@ -28,7 +29,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_COMPANY_NAME, PREFIX_DESCRIPTION, PREFIX_EMAIL, PREFIX_INDUSTRY, PREFIX_JOB_TYPE, PREFIX_STATUS);
+                ArgumentTokenizer.tokenize(args, PREFIX_COMPANY_NAME, PREFIX_INDUSTRY, PREFIX_JOB_TYPE,
+                        PREFIX_EMAIL, PREFIX_DESCRIPTION, PREFIX_STATUS);
 
         Index index;
 
@@ -38,47 +40,63 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_COMPANY_NAME, PREFIX_DESCRIPTION, PREFIX_EMAIL, PREFIX_INDUSTRY, PREFIX_JOB_TYPE, PREFIX_STATUS);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_COMPANY_NAME, PREFIX_INDUSTRY, PREFIX_JOB_TYPE,
+                PREFIX_EMAIL, PREFIX_DESCRIPTION, PREFIX_STATUS);
 
-        EditPersonDescriptor editApplicationDescriptor = new EditPersonDescriptor();
+        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
         if (argMultimap.getValue(PREFIX_COMPANY_NAME).isPresent()) {
-            editApplicationDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_COMPANY_NAME).get()));
-        }
-        if (argMultimap.getValue(PREFIX_JOB_TYPE).isPresent()) {
-            editApplicationDescriptor.setPhone(ParserUtil.parseJobType(argMultimap.getValue(PREFIX_JOB_TYPE).get()));
-        }
-        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            editApplicationDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
-        }
-        if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            editApplicationDescriptor.setAddress(ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
+            editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_COMPANY_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_INDUSTRY).isPresent()) {
-
+            String industryStr = argMultimap.getValue(PREFIX_INDUSTRY).get();
+            String normalizedIndustry = normalizeIndustry(industryStr);
+            editPersonDescriptor.setIndustry(ParserUtil.parseIndustry(normalizedIndustry));
+        }
+        if (argMultimap.getValue(PREFIX_JOB_TYPE).isPresent()) {
+            editPersonDescriptor.setJobType(ParserUtil.parseJobType(argMultimap.getValue(PREFIX_JOB_TYPE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
+            editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
+        }
+        if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
+            editPersonDescriptor.setDescription(
+                    ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
+        }
+        if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
+            String statusStr = argMultimap.getValue(PREFIX_STATUS).get();
+            String normalizedStatus = normalizeStatus(statusStr);
+            editPersonDescriptor.setStatus(ParserUtil.parseStatus(normalizedStatus));
         }
 
-
-        if (!editApplicationDescriptor.isAnyFieldEdited()) {
+        if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditCommand(index, editApplicationDescriptor);
+        return new EditCommand(index, editPersonDescriptor);
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
+     * Normalizes the industry string to match the predefined capitalization.
      */
-    private Optional<Set<Industry>> parseTagsForEdit(Collection<String> tags) throws ParseException {
-        assert tags != null;
-
-        if (tags.isEmpty()) {
-            return Optional.empty();
+    private String normalizeIndustry(String industryInput) {
+        for (String validIndustry : Industry.VALID_INDUSTRIES) {
+            if (validIndustry.equalsIgnoreCase(industryInput)) {
+                return validIndustry;
+            }
         }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return Optional.of(ParserUtil.parseTags(tagSet));
+        return industryInput; // Let the validator in ParserUtil handle invalid input
     }
 
+    /**
+     * Normalizes the status string to match the predefined capitalization.
+     */
+    private String normalizeStatus(String statusInput) {
+        for (String validStatus : ApplicationStatus.VALID_STATUSES) {
+            if (validStatus.equalsIgnoreCase(statusInput)) {
+                return validStatus;
+            }
+        }
+        return statusInput; // Let the validator in ParserUtil handle invalid input
+    }
 }

@@ -2,16 +2,12 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ApplicationStatus.ApplicationStatus;
-import seedu.address.model.Company.Description;
 import seedu.address.model.Company.CompanyName;
+import seedu.address.model.Company.Description;
 import seedu.address.model.Company.Email;
 import seedu.address.model.Company.JobType;
 import seedu.address.model.Industry.Industry;
@@ -116,9 +112,6 @@ public class ParserUtil {
         return new Industry(trimmedIndustry);
     }
 
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
-     */
     /**
      * Parses a {@code String statusString} into an {@code ApplicationStatus}.
      * Leading and trailing whitespaces will be trimmed.

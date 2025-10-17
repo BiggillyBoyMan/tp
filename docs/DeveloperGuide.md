@@ -419,9 +419,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Use case ends.
 
 * 3a. No applications match the given status.
-  
+
   * 3a1. BizBook shows a message indicating no matches found.
-  
+
     Use case ends.
 
 #### Use case: UC04 - Add notes to an application
@@ -442,9 +442,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 2a. The list is empty.
-  
+
   * 2a1. BizBook shows a message indicating no applications exist.
-  
+
     Use case ends.
 
 * 4a. The given index is invalid.

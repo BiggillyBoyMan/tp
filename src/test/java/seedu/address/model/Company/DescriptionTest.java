@@ -14,24 +14,27 @@ public class DescriptionTest {
     }
 
     @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
-        String invalidAddress = "";
-        assertThrows(IllegalArgumentException.class, () -> new Description(invalidAddress));
+    public void constructor_invalidDescription_throwsIllegalArgumentException() {
+        String invalidDescription = "a".repeat(201); // 201 characters, exceeds max length
+        assertThrows(IllegalArgumentException.class, () -> new Description(invalidDescription));
     }
 
     @Test
-    public void isValidAddress() {
-        // null address
-        assertThrows(NullPointerException.class, () -> Description.isValidAddress(null));
+    public void isValidDescription() {
+        // null description
+        assertThrows(NullPointerException.class, () -> Description.isValidDescription(null));
 
-        // invalid addresses
-        assertFalse(Description.isValidAddress("")); // empty string
-        assertFalse(Description.isValidAddress(" ")); // spaces only
+        // invalid descriptions - exceeds 200 characters
+        assertFalse(Description.isValidDescription("a".repeat(201))); // 201 characters
 
-        // valid addresses
-        assertTrue(Description.isValidAddress("Blk 456, Den Road, #01-355"));
-        assertTrue(Description.isValidAddress("-")); // one character
-        assertTrue(Description.isValidAddress("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
+        // valid descriptions
+        assertTrue(Description.isValidDescription("")); // empty string is valid
+        assertTrue(Description.isValidDescription(" ")); // spaces only is valid
+        assertTrue(Description.isValidDescription("Blk 456, Den Road, #01-355"));
+        assertTrue(Description.isValidDescription("-")); // one character
+        // long description
+        assertTrue(Description.isValidDescription("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA"));
+        assertTrue(Description.isValidDescription("a".repeat(200))); // exactly 200 characters is valid
     }
 
     @Test

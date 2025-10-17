@@ -9,11 +9,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class ApplicationStatus {
 
-    public static final String MESSAGE_CONSTRAINTS = "Invalid status. Please use one of: Saved, Applied, Interviewing, Offer, Rejected.";
+    public static final String MESSAGE_CONSTRAINTS = "Invalid status. Please use one of: "
+            + "Saved, Applied, Interviewing, Offer, Rejected.";
 
     // The predefined list of valid application statuses.
     public static final String[] VALID_STATUSES = {
-            "Saved", "Applied", "Interviewing", "Offer", "Rejected"
+        "Saved", "Applied", "Interviewing", "Offer", "Rejected"
     };
     public static final String DEFAULT_STATUS = "Saved";
 

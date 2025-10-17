@@ -14,36 +14,35 @@ public class JobTypeTest {
     }
 
     @Test
-    public void constructor_invalidPhone_throwsIllegalArgumentException() {
-        String invalidPhone = "";
-        assertThrows(IllegalArgumentException.class, () -> new JobType(invalidPhone));
+    public void constructor_invalidJobType_throwsIllegalArgumentException() {
+        String invalidJobType = "";
+        assertThrows(IllegalArgumentException.class, () -> new JobType(invalidJobType));
     }
 
     @Test
-    public void isValidPhone() {
-        // null phone number
+    public void isValidJobType() {
+        // null job type
         assertThrows(NullPointerException.class, () -> JobType.isValidJobType(null));
 
-        // invalid phone numbers
+        // invalid job types
         assertFalse(JobType.isValidJobType("")); // empty string
         assertFalse(JobType.isValidJobType(" ")); // spaces only
-        assertFalse(JobType.isValidJobType("91")); // less than 3 numbers
-        assertFalse(JobType.isValidJobType("phone")); // non-numeric
-        assertFalse(JobType.isValidJobType("9011p041")); // alphabets within digits
-        assertFalse(JobType.isValidJobType("9312 1534")); // spaces within digits
+        assertFalse(JobType.isValidJobType("Software@Engineer")); // contains special characters
+        assertFalse(JobType.isValidJobType("Data-Analyst")); // contains dash
 
-        // valid phone numbers
-        assertTrue(JobType.isValidJobType("911")); // exactly 3 numbers
-        assertTrue(JobType.isValidJobType("93121534"));
-        assertTrue(JobType.isValidJobType("124293842033123")); // long phone numbers
+        // valid job types
+        assertTrue(JobType.isValidJobType("Software Engineer")); // alphanumeric with spaces
+        assertTrue(JobType.isValidJobType("SWE Intern")); // alphanumeric with spaces
+        assertTrue(JobType.isValidJobType("Data Scientist 2023")); // alphanumeric with numbers and spaces
+        assertTrue(JobType.isValidJobType("Intern")); // single word
     }
 
     @Test
     public void equals() {
-        JobType jobType = new JobType("999");
+        JobType jobType = new JobType("Software Engineer");
 
         // same values -> returns true
-        assertTrue(jobType.equals(new JobType("999")));
+        assertTrue(jobType.equals(new JobType("Software Engineer")));
 
         // same object -> returns true
         assertTrue(jobType.equals(jobType));
@@ -55,6 +54,6 @@ public class JobTypeTest {
         assertFalse(jobType.equals(5.0f));
 
         // different values -> returns false
-        assertFalse(jobType.equals(new JobType("995")));
+        assertFalse(jobType.equals(new JobType("Data Analyst")));
     }
 }

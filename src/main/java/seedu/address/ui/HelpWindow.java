@@ -15,35 +15,8 @@ import seedu.address.commons.core.LogsCenter;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String HELP_MESSAGE = String.join("\n",
-            "BizBook - Internship Tracker",
-            "",
-            "Application Fields:",
-            "  • Company Name",
-            "  • Industry",
-            "  • Job Title",
-            "  • Description",
-            "  • Status: ToApply | Applied | Interviewing | Offer | Rejected",
-            "",
-            "Commands:",
-            "  1) add <COMPANY>, <INDUSTRY>, <JOB_TITLE>, <DESCRIPTION>, <APPLICATION_STATUS>",
-            "     - Add a new application with all fields",
-            "     - Example: add Google, Technology, Software Engineering Intern, Full-stack development role, ToApply",
-            "",
-            "  2) list",
-            "     - List all applications",
-            "",
-            "  3) status <INDEX> <STATUS>",
-            "     - Update status of an application",
-            "     - STATUS: ToApply | Applied | Interviewing | Offer | Rejected",
-            "     - Example: status 2 Interviewing",
-            "",
-            "  4) delete <INDEX>",
-            "     - Delete an application",
-            "     - Example: delete 3",
-            "",
-            "  5) help",
-            "     - Show this help");
+    public static final String USERGUIDE_URL = "https://ay2526s1-cs2103t-t10-1.github.io/tp/UserGuide.html";
+    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
@@ -124,7 +97,7 @@ public class HelpWindow extends UiPart<Stage> {
     private void copyUrl() {
         final Clipboard clipboard = Clipboard.getSystemClipboard();
         final ClipboardContent url = new ClipboardContent();
-        url.putString(HELP_MESSAGE);
+        url.putString(USERGUIDE_URL);
         clipboard.setContent(url);
     }
 }

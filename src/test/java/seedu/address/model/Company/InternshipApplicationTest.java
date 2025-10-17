@@ -3,12 +3,11 @@ package seedu.address.model.Company;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INDUSTRY_FINANCE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_JOB_TYPE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
@@ -18,11 +17,12 @@ import seedu.address.testutil.PersonBuilder;
 
 public class InternshipApplicationTest {
 
-    @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        InternshipApplication internshipApplication = new PersonBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> internshipApplication.getIndustry().remove(0));
-    }
+    // Industry is no longer a list, so this test is removed
+    // @Test
+    // public void asObservableList_modifyList_throwsUnsupportedOperationException() {
+    //     InternshipApplication internshipApplication = new PersonBuilder().build();
+    //     assertThrows(UnsupportedOperationException.class, () -> internshipApplication.getIndustry().remove(0));
+    // }
 
     @Test
     public void isSamePerson() {
@@ -33,8 +33,9 @@ public class InternshipApplicationTest {
         assertFalse(ALICE.isSameApplication(null));
 
         // same name, all other attributes different -> returns true
-        InternshipApplication editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        InternshipApplication editedAlice = new PersonBuilder(ALICE).withJobType(VALID_JOB_TYPE_BOB)
+                .withEmail(VALID_EMAIL_BOB).withDescription(VALID_DESCRIPTION_BOB)
+                .withIndustry(VALID_INDUSTRY_FINANCE).build();
         assertTrue(ALICE.isSameApplication(editedAlice));
 
         // different name, all other attributes same -> returns false
@@ -73,27 +74,31 @@ public class InternshipApplicationTest {
         InternshipApplication editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different phone -> returns false
-        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        // different job type -> returns false
+        editedAlice = new PersonBuilder(ALICE).withJobType(VALID_JOB_TYPE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different email -> returns false
-        editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        // Note: Email is not part of equals() comparison, so different emails are considered equal
+        // This is intentional as email doesn't define application identity
+
+        // different description -> returns false
+        editedAlice = new PersonBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different address -> returns false
-        editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
+        // different industry -> returns false
+        editedAlice = new PersonBuilder(ALICE).withIndustry(VALID_INDUSTRY_FINANCE).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different tags -> returns false
-        editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
+        // different status -> returns false
+        editedAlice = new PersonBuilder(ALICE).withStatus("Rejected").build();
         assertFalse(ALICE.equals(editedAlice));
     }
 
     @Test
     public void toStringMethod() {
-        String expected = InternshipApplication.class.getCanonicalName() + "{name=" + ALICE.getName() + ", phone=" + ALICE.getJobType()
-                + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getDescription() + ", tags=" + ALICE.getIndustry() + "}";
+        String expected = InternshipApplication.class.getCanonicalName() + "{companyName=" + ALICE.getName()
+                + ", industry=" + ALICE.getIndustry() + ", jobType=" + ALICE.getJobType()
+                + ", description=" + ALICE.getDescription() + ", status=" + ALICE.getStatus() + "}";
         assertEquals(expected, ALICE.toString());
     }
 }

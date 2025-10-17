@@ -1,25 +1,32 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDUSTRY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_JOB_TYPE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.Company.*;
+import seedu.address.model.ApplicationStatus.ApplicationStatus;
 import seedu.address.model.Company.CompanyName;
+import seedu.address.model.Company.Description;
+import seedu.address.model.Company.Email;
+import seedu.address.model.Company.InternshipApplication;
+import seedu.address.model.Company.JobType;
 import seedu.address.model.Industry.Industry;
+import seedu.address.model.Model;
+
 
 /**
  * Edits the details of an existing person in the address book.
@@ -28,22 +35,23 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the application identified "
+            + "by the index number used in the displayed application list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_COMPANY_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_COMPANY_NAME + "COMPANY_NAME] "
+            + "[" + PREFIX_INDUSTRY + "INDUSTRY] "
+            + "[" + PREFIX_JOB_TYPE + "JOB_TYPE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
+            + "[" + PREFIX_STATUS + "STATUS]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
+            + PREFIX_JOB_TYPE + "SWE Intern "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Application: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This application already exists in BizBook.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -69,32 +77,49 @@ public class EditCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        InternshipApplication internshipApplicationToEdit = lastShownList.get(index.getZeroBased());
-        InternshipApplication editedInternshipApplication = createEditedPerson(internshipApplicationToEdit, editPersonDescriptor);
+        if (!editPersonDescriptor.isAnyFieldEdited()) {
+            throw new CommandException(MESSAGE_NOT_EDITED);
+        }
 
-        if (!internshipApplicationToEdit.isSameApplication(editedInternshipApplication) && model.hasPerson(editedInternshipApplication)) {
+        InternshipApplication internshipApplicationToEdit = lastShownList.get(index.getZeroBased());
+        InternshipApplication editedInternshipApplication = createEditedApplication(
+                internshipApplicationToEdit, editPersonDescriptor);
+
+        if (!internshipApplicationToEdit.isSameApplication(editedInternshipApplication)
+                && model.hasPerson(editedInternshipApplication)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
         model.setPerson(internshipApplicationToEdit, editedInternshipApplication);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedInternshipApplication)));
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS,
+                Messages.format(editedInternshipApplication)));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * Creates and returns a {@code InternshipApplication} with the details of {@code applicationToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static InternshipApplication createEditedPerson(InternshipApplication internshipApplicationToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert internshipApplicationToEdit != null;
+    private static InternshipApplication createEditedApplication(
+            InternshipApplication applicationToEdit,
+            EditPersonDescriptor editPersonDescriptor) {
+        assert applicationToEdit != null;
 
-        CompanyName updatedCompanyName = editPersonDescriptor.getName().orElse(internshipApplicationToEdit.getName());
-        JobType updatedJobType = editPersonDescriptor.getPhone().orElse(internshipApplicationToEdit.getJobType());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(internshipApplicationToEdit.getEmail());
-        Description updatedDescription = editPersonDescriptor.getAddress().orElse(internshipApplicationToEdit.getDescription());
-        Set<Industry> updatedIndustries = editPersonDescriptor.getTags().orElse(internshipApplicationToEdit.getIndustry());
+        CompanyName updatedCompanyName = editPersonDescriptor.getName()
+                .orElse(applicationToEdit.getName());
+        Industry updatedIndustry = editPersonDescriptor.getIndustry()
+                .orElse(applicationToEdit.getIndustry());
+        JobType updatedJobType = editPersonDescriptor.getJobType()
+                .orElse(applicationToEdit.getJobType());
+        Email updatedEmail = editPersonDescriptor.getEmail()
+                .orElse(applicationToEdit.getEmail());
+        Description updatedDescription = editPersonDescriptor.getDescription()
+                .orElse(applicationToEdit.getDescription());
+        ApplicationStatus updatedStatus = editPersonDescriptor.getStatus()
+                .orElse(applicationToEdit.getStatus());
 
-        return new InternshipApplication(updatedCompanyName, updatedJobType, updatedEmail, updatedDescription, updatedIndustries);
+        return new InternshipApplication(updatedCompanyName, updatedIndustry, updatedJobType,
+                updatedDescription, updatedStatus, updatedEmail);
     }
 
     @Override
@@ -122,35 +147,36 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the application with. Each non-empty field value will replace the
+     * corresponding field value of the application.
      */
     public static class EditPersonDescriptor {
         private CompanyName companyName;
+        private Industry industry;
         private JobType jobType;
         private Email email;
         private Description description;
-        private Set<Industry> industries;
+        private ApplicationStatus status;
 
         public EditPersonDescriptor() {}
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.companyName);
-            setPhone(toCopy.jobType);
+            setIndustry(toCopy.industry);
+            setJobType(toCopy.jobType);
             setEmail(toCopy.email);
-            setAddress(toCopy.description);
-            setTags(toCopy.industries);
+            setDescription(toCopy.description);
+            setStatus(toCopy.status);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(companyName, jobType, email, description, industries);
+            return CollectionUtil.isAnyNonNull(companyName, industry, jobType, email, description, status);
         }
 
         public void setName(CompanyName companyName) {
@@ -161,11 +187,19 @@ public class EditCommand extends Command {
             return Optional.ofNullable(companyName);
         }
 
-        public void setPhone(JobType jobType) {
+        public void setIndustry(Industry industry) {
+            this.industry = industry;
+        }
+
+        public Optional<Industry> getIndustry() {
+            return Optional.ofNullable(industry);
+        }
+
+        public void setJobType(JobType jobType) {
             this.jobType = jobType;
         }
 
-        public Optional<JobType> getPhone() {
+        public Optional<JobType> getJobType() {
             return Optional.ofNullable(jobType);
         }
 
@@ -177,29 +211,20 @@ public class EditCommand extends Command {
             return Optional.ofNullable(email);
         }
 
-        public void setAddress(Description description) {
+        public void setDescription(Description description) {
             this.description = description;
         }
 
-        public Optional<Description> getAddress() {
+        public Optional<Description> getDescription() {
             return Optional.ofNullable(description);
         }
 
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Industry> industries) {
-            this.industries = (industries != null) ? new HashSet<>(industries) : null;
+        public void setStatus(ApplicationStatus status) {
+            this.status = status;
         }
 
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Industry>> getTags() {
-            return (industries != null) ? Optional.of(Collections.unmodifiableSet(industries)) : Optional.empty();
+        public Optional<ApplicationStatus> getStatus() {
+            return Optional.ofNullable(status);
         }
 
         @Override
@@ -215,21 +240,23 @@ public class EditCommand extends Command {
 
             EditPersonDescriptor otherEditPersonDescriptor = (EditPersonDescriptor) other;
             return Objects.equals(companyName, otherEditPersonDescriptor.companyName)
+                    && Objects.equals(industry, otherEditPersonDescriptor.industry)
                     && Objects.equals(jobType, otherEditPersonDescriptor.jobType)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(description, otherEditPersonDescriptor.description)
-                    && Objects.equals(industries, otherEditPersonDescriptor.industries);
+                    && Objects.equals(status, otherEditPersonDescriptor.status);
         }
 
         @Override
         public String toString() {
             return new ToStringBuilder(this)
-                    .add("name", companyName)
-                    .add("phone", jobType)
-                    .add("email", email)
-                    .add("address", description)
-                    .add("tags", industries)
-                    .toString();
+                    .add("companyName", companyName)
+                    .add("industry", industry)
+                    .add("jobType", jobType)
+                .add("email", email)
+                .add("description", description)
+                .add("status", status)
+                .toString();
         }
     }
 }

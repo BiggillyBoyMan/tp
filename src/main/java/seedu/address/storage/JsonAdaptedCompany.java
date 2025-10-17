@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.Company.InternshipApplication;
+import seedu.address.model.ApplicationStatus.ApplicationStatus;
 import seedu.address.model.Company.CompanyName;
-import seedu.address.model.Industry.Industry;
-import seedu.address.model.Company.JobType;
 import seedu.address.model.Company.Description;
 import seedu.address.model.Company.Email;
-import seedu.address.model.ApplicationStatus.ApplicationStatus;
+import seedu.address.model.Company.InternshipApplication;
+import seedu.address.model.Company.JobType;
+import seedu.address.model.Industry.Industry;
 
 /**
  * Jackson-friendly version of {@link InternshipApplication}.
@@ -72,7 +72,8 @@ class JsonAdaptedCompany {
 
         // 1. CompanyName (Required)
         if (companyName == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, CompanyName.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    CompanyName.class.getSimpleName()));
         }
         // Assuming CompanyName.isValidName is the correct validation method.
         if (!CompanyName.isValidName(companyName)) {
@@ -82,7 +83,8 @@ class JsonAdaptedCompany {
 
         // 2. Industry (Required)
         if (industry == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Industry.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Industry.class.getSimpleName()));
         }
         if (!Industry.isValidIndustry(industry)) {
             throw new IllegalValueException(Industry.MESSAGE_CONSTRAINTS);
@@ -91,7 +93,8 @@ class JsonAdaptedCompany {
 
         // 3. JobType (Required)
         if (jobType == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, JobType.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    JobType.class.getSimpleName()));
         }
         // Assuming JobType.isValidJobType is the correct validation method.
         if (!JobType.isValidJobType(jobType)) {
@@ -99,9 +102,11 @@ class JsonAdaptedCompany {
         }
         final JobType modelJobType = new JobType(jobType);
 
-        // 4. Description (Required by Model, even if the user input is optional, here we enforce Model non-null contract)
+        // 4. Description (Required by Model, even if the user input is optional,
+        // here we enforce Model non-null contract)
         if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
         }
         // Assuming Description.isValidDescription is the correct validation method.
         if (!Description.isValidDescription(description)) {
@@ -111,7 +116,8 @@ class JsonAdaptedCompany {
 
         // 5. ApplicationStatus (Required)
         if (status == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ApplicationStatus.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ApplicationStatus.class.getSimpleName()));
         }
         if (!ApplicationStatus.isValidStatus(status)) {
             throw new IllegalValueException(ApplicationStatus.MESSAGE_CONSTRAINTS);
@@ -120,7 +126,8 @@ class JsonAdaptedCompany {
 
         // 6. Email (Validation block)
         if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Email.class.getSimpleName()));
         }
         if (!Email.isValidEmail(email)) {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
@@ -128,6 +135,7 @@ class JsonAdaptedCompany {
         final Email modelEmail = new Email(email);
 
         // Return the reconstructed and validated model object
-        return new InternshipApplication(modelCompanyName, modelIndustry, modelJobType, modelDescription, modelStatus, modelEmail);
+        return new InternshipApplication(modelCompanyName, modelIndustry, modelJobType,
+                modelDescription, modelStatus, modelEmail);
     }
 }

@@ -1,33 +1,30 @@
 package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-import java.util.Collections; // Kept for empty list test, though simplified
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ApplicationStatus.ApplicationStatus; // New Model Import
+import seedu.address.model.ApplicationStatus.ApplicationStatus;
 import seedu.address.model.Company.CompanyName;
 import seedu.address.model.Company.Description;
 import seedu.address.model.Company.Email;
-import seedu.address.model.Industry.Industry;
 import seedu.address.model.Company.JobType;
-// Removed unnecessary import: import seedu.address.model.Industry.Industry; (Already in Company.*)
+import seedu.address.model.Industry.Industry;
 
 public class ParserUtilTest {
     // Renamed constants for clarity and alignment with model fields
     private static final String INVALID_COMPANY_NAME = "R@chel";
     private static final String INVALID_JOB_TYPE = "S.E. Intern!"; // Example invalid JobType (symbols)
-    private static final String INVALID_DESCRIPTION = ""; // Example invalid Description (blank might be invalid based on inner logic)
+    private static final String INVALID_DESCRIPTION = "a".repeat(201); // 201 characters, exceeds max length of 200
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_INDUSTRY = "InvalidIndustryName"; // Not in predefined list
     private static final String INVALID_STATUS = "In Progress"; // Not in predefined list
 
-    private static final String VALID_COMPANY_NAME = "Rachel Walker & Co";
+    private static final String VALID_COMPANY_NAME = "Rachel Walker Co";
     private static final String VALID_JOB_TYPE = "Software Engineer Intern";
     private static final String VALID_DESCRIPTION = "123 Main Street Office";
     private static final String VALID_EMAIL = "rachel@example.com";
@@ -129,7 +126,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseDescription_validValueWithWhitespace_returnsTrimmedDescription() throws Exception {
-        // NOTE: The description value often keeps all internal whitespace after trimming, as implemented in Address.java
+        // NOTE: The description value often keeps all internal whitespace after trimming,
+        // as implemented in Address.java
         String descriptionWithWhitespace = WHITESPACE + VALID_DESCRIPTION + WHITESPACE;
         Description expectedDescription = new Description(VALID_DESCRIPTION);
         assertEquals(expectedDescription, ParserUtil.parseDescription(descriptionWithWhitespace));
