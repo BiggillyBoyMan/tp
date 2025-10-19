@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.Company.InternshipApplication;
+import seedu.address.model.company.InternshipApplication;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -40,7 +40,7 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.internshipApplication = internshipApplication;
         id.setText(displayedIndex + ". ");
-        companyName.setText(internshipApplication.getName().CompanyName);
+        companyName.setText(internshipApplication.getName().value);
         jobType.setText(internshipApplication.getJobType().value);
         description.setText(internshipApplication.getDescription().value);
         email.setText(internshipApplication.getEmail().value);

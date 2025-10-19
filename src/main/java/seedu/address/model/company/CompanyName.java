@@ -1,4 +1,4 @@
-package seedu.address.model.Company;
+package seedu.address.model.company;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -18,7 +18,7 @@ public class CompanyName {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final String CompanyName;
+    public final String value;
 
     /**
      * Constructs a {@code Name}.
@@ -28,7 +28,7 @@ public class CompanyName {
     public CompanyName(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        CompanyName = name;
+        this.value = name;
     }
 
     /**
@@ -41,7 +41,7 @@ public class CompanyName {
 
     @Override
     public String toString() {
-        return CompanyName;
+        return value;
     }
 
     @Override
@@ -51,17 +51,17 @@ public class CompanyName {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof CompanyName)) {
+        if (!(other instanceof seedu.address.model.company.CompanyName)) {
             return false;
         }
 
-        CompanyName otherCompanyName = (CompanyName) other;
-        return CompanyName.equals(otherCompanyName.CompanyName);
+        seedu.address.model.company.CompanyName otherCompanyName = (seedu.address.model.company.CompanyName) other;
+        return value.equals(otherCompanyName.value);
     }
 
     @Override
     public int hashCode() {
-        return CompanyName.hashCode();
+        return value.hashCode();
     }
 
 }

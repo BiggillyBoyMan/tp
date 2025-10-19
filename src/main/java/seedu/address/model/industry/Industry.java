@@ -1,4 +1,4 @@
-package seedu.address.model.Industry;
+package seedu.address.model.industry;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;

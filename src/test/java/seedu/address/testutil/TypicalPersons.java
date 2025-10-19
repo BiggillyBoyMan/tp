@@ -18,13 +18,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.Company.InternshipApplication;
+import seedu.address.model.company.InternshipApplication;
 
 /**
  * A utility class containing a list of {@code InternshipApplication} objects to be used in tests.
  */
 public class TypicalPersons {
-
     public static final InternshipApplication ALICE = new PersonBuilder().withName("Alice Pauline")
             .withEmail("alice@example.com").withJobType("SWE Intern")
             .withDescription("Platform team")
@@ -74,6 +73,9 @@ public class TypicalPersons {
         return ab;
     }
 
+    /**
+     * Returns an Array List of typical persons
+     */
     public static List<InternshipApplication> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }

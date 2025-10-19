@@ -1,12 +1,12 @@
-package seedu.address.model.Company;
+package seedu.address.model.company;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.ApplicationStatus.ApplicationStatus;
-import seedu.address.model.Industry.Industry;
+import seedu.address.model.applicationstatus.ApplicationStatus;
+import seedu.address.model.industry.Industry;
 
 /**
  * Represents an Internship Application in the address book (BizBook).

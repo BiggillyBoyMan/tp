@@ -339,11 +339,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 1a. User provides optional fields (description, status).
 
   * 1a1. BizBook accepts and stores the optional information.
-  
+
     Use case resumes at step 2.
 
 * 2a. Required fields are missing.
-  
+
   * 2a1. BizBook shows an error message indicating which fields are missing.
   
     Use case ends.
@@ -396,7 +396,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 4b. The given status is not valid.
   
   * 4b1. BizBook shows an error message with valid status options.
-  
+
     Use case resumes at step 3.
 
 #### Use case: UC03 - Filter applications by status
@@ -413,9 +413,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 2a. The given status is invalid.
-  
+
   * 2a1. BizBook shows an error message with valid status options.
-  
+
     Use case ends.
 
 * 3a. No applications match the given status.

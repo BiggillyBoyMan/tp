@@ -9,32 +9,33 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.Company.InternshipApplication;
+import seedu.address.model.company.InternshipApplication;
 
 /**
- * A utility class for Person.
+ * A utility class for InternshipApplication.
  */
 public class PersonUtil {
 
     /**
-     * Returns an add command string for adding the {@code person}.
+     * Returns an add command string for adding the {@code internshipApplication}.
      */
     public static String getAddCommand(InternshipApplication internshipApplication) {
         return AddCommand.COMMAND_WORD + " " + getPersonDetails(internshipApplication);
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code internshipApplication}'s details.
      */
     public static String getPersonDetails(InternshipApplication internshipApplication) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_COMPANY_NAME).append(internshipApplication.getName().toString()).append(" ");
+        sb.append(PREFIX_COMPANY_NAME).append(internshipApplication.getName().value).append(" ");
+        // Other version: .toString() after .getName()
         sb.append(PREFIX_JOB_TYPE).append(internshipApplication.getJobType().value).append(" ");
         sb.append(PREFIX_EMAIL).append(internshipApplication.getEmail().value).append(" ");
         sb.append(PREFIX_DESCRIPTION).append(internshipApplication.getDescription().value).append(" ");
-        sb.append(PREFIX_INDUSTRY).append(internshipApplication.getIndustry().value).append(" ");
         sb.append(PREFIX_STATUS).append(internshipApplication.getStatus().value).append(" ");
-
+        // Corrected from .industryName to .value
+        sb.append(PREFIX_INDUSTRY).append(internshipApplication.getIndustry().value).append(" ");
         return sb.toString();
     }
 

@@ -1,4 +1,4 @@
-package seedu.address.model.Company;
+package seedu.address.model.company;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -19,12 +19,12 @@ public class JobType {
     /**
      * Constructs a {@code JobType}.
      *
-     * @param JobType A valid Job Type.
+     * @param jobType A valid Job Type.
      */
-    public JobType(String JobType) {
-        requireNonNull(JobType);
-        checkArgument(isValidJobType(JobType), MESSAGE_CONSTRAINTS);
-        value = JobType;
+    public JobType(String jobType) {
+        requireNonNull(jobType);
+        checkArgument(isValidJobType(jobType), MESSAGE_CONSTRAINTS);
+        value = jobType;
     }
 
     /**

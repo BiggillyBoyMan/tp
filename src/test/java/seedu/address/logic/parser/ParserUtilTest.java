@@ -8,12 +8,12 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ApplicationStatus.ApplicationStatus;
-import seedu.address.model.Company.CompanyName;
-import seedu.address.model.Company.Description;
-import seedu.address.model.Company.Email;
-import seedu.address.model.Company.JobType;
-import seedu.address.model.Industry.Industry;
+import seedu.address.model.applicationstatus.ApplicationStatus;
+import seedu.address.model.company.CompanyName;
+import seedu.address.model.company.Description;
+import seedu.address.model.company.Email;
+import seedu.address.model.company.JobType;
+import seedu.address.model.industry.Industry;
 
 public class ParserUtilTest {
     // Renamed constants for clarity and alignment with model fields

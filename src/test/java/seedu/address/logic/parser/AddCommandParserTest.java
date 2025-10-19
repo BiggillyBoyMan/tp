@@ -42,13 +42,13 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.ApplicationStatus.ApplicationStatus;
-import seedu.address.model.Company.CompanyName;
-import seedu.address.model.Company.Description;
-import seedu.address.model.Company.Email;
-import seedu.address.model.Company.InternshipApplication;
-import seedu.address.model.Company.JobType;
-import seedu.address.model.Industry.Industry;
+import seedu.address.model.applicationstatus.ApplicationStatus;
+import seedu.address.model.company.CompanyName;
+import seedu.address.model.company.Description;
+import seedu.address.model.company.Email;
+import seedu.address.model.company.InternshipApplication;
+import seedu.address.model.company.JobType;
+import seedu.address.model.industry.Industry;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandParserTest {

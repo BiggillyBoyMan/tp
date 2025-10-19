@@ -40,12 +40,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.ApplicationStatus.ApplicationStatus;
-import seedu.address.model.Company.CompanyName;
-import seedu.address.model.Company.Description;
-import seedu.address.model.Company.Email;
-import seedu.address.model.Company.JobType;
-import seedu.address.model.Industry.Industry;
+import seedu.address.model.applicationstatus.ApplicationStatus;
+import seedu.address.model.company.CompanyName;
+import seedu.address.model.company.Description;
+import seedu.address.model.company.Email;
+import seedu.address.model.company.JobType;
+import seedu.address.model.industry.Industry;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 public class EditCommandParserTest {

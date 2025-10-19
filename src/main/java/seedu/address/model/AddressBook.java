@@ -6,8 +6,8 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.Company.InternshipApplication;
-import seedu.address.model.Company.UniqueCompanyList;
+import seedu.address.model.company.InternshipApplication;
+import seedu.address.model.company.UniqueCompanyList;
 
 /**
  * Wraps all data at the address-book level

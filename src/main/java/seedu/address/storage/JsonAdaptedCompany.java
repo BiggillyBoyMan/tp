@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.ApplicationStatus.ApplicationStatus;
-import seedu.address.model.Company.CompanyName;
-import seedu.address.model.Company.Description;
-import seedu.address.model.Company.Email;
-import seedu.address.model.Company.InternshipApplication;
-import seedu.address.model.Company.JobType;
-import seedu.address.model.Industry.Industry;
+import seedu.address.model.applicationstatus.ApplicationStatus;
+import seedu.address.model.company.CompanyName;
+import seedu.address.model.company.Description;
+import seedu.address.model.company.Email;
+import seedu.address.model.company.InternshipApplication;
+import seedu.address.model.company.JobType;
+import seedu.address.model.industry.Industry;
 
 /**
  * Jackson-friendly version of {@link InternshipApplication}.
@@ -54,7 +54,7 @@ class JsonAdaptedCompany {
      */
     public JsonAdaptedCompany(InternshipApplication source) {
         // Map model object fields to JSON-friendly String fields
-        companyName = source.getName().CompanyName;
+        companyName = source.getName().value;
         industry = source.getIndustry().value;
         jobType = source.getJobType().value;
         description = source.getDescription().value;

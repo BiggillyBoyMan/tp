@@ -1,4 +1,4 @@
-package seedu.address.model.Company;
+package seedu.address.model.company;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -20,7 +20,7 @@ public class NameContainsKeywordsPredicate implements Predicate<InternshipApplic
     public boolean test(InternshipApplication internshipApplication) {
         return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(
-                        internshipApplication.getName().CompanyName, keyword));
+                        internshipApplication.getName().value, keyword));
     }
 
     @Override

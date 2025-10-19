@@ -1,4 +1,4 @@
-package seedu.address.model.Company;
+package seedu.address.model.company;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,8 +15,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.Company.exceptions.DuplicatePersonException;
-import seedu.address.model.Company.exceptions.PersonNotFoundException;
+import seedu.address.model.company.exceptions.DuplicatePersonException;
+import seedu.address.model.company.exceptions.PersonNotFoundException;
 import seedu.address.testutil.PersonBuilder;
 
 public class UniqueInternshipApplicationListTest {
