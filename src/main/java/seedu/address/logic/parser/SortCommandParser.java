@@ -14,7 +14,8 @@ import seedu.address.model.company.SortComparators;
  */
 public class SortCommandParser implements Parser<SortCommand> {
 
-    public static final String MESSAGE_INVALID_FIELD = "Invalid field for sorting. Must be one of: name, status, deadline";
+    public static final String MESSAGE_INVALID_FIELD =
+            "Invalid field for sorting. Must be one of: name, status, deadline";
 
     /**
      * Parses the given {@code String} of arguments in the context of the SortCommand
@@ -34,21 +35,21 @@ public class SortCommandParser implements Parser<SortCommand> {
         String fieldName; // User-friendly field name for the success message
 
         switch (trimmedArgs) {
-            case "name":
-                comparator = SortComparators.NAME_COMPARATOR;
-                fieldName = "company name";
-                break;
-            case "status":
-                comparator = SortComparators.STATUS_COMPARATOR;
-                fieldName = "application status";
-                break;
-            case "deadline":
-                comparator = SortComparators.DEADLINE_COMPARATOR;
-                fieldName = "deadline";
-                break;
-            default:
-                // This case should not be reached due to the regex check, but included for safety.
-                throw new ParseException(MESSAGE_INVALID_FIELD);
+        case "name":
+            comparator = SortComparators.NAME_COMPARATOR;
+            fieldName = "company name";
+            break;
+        case "status":
+            comparator = SortComparators.STATUS_COMPARATOR;
+            fieldName = "application status";
+            break;
+        case "deadline":
+            comparator = SortComparators.DEADLINE_COMPARATOR;
+            fieldName = "deadline";
+            break;
+        default:
+            // This case should not be reached due to the regex check, but included for safety.
+            throw new ParseException(MESSAGE_INVALID_FIELD);
         }
 
         return new SortCommand(comparator, fieldName);
