@@ -7,6 +7,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.applicationstatus.ApplicationStatus;
 import seedu.address.model.company.CompanyName;
+import seedu.address.model.company.Deadline;
 import seedu.address.model.company.Description;
 import seedu.address.model.company.Email;
 import seedu.address.model.company.JobType;
@@ -128,5 +129,20 @@ public class ParserUtil {
             throw new ParseException(ApplicationStatus.MESSAGE_CONSTRAINTS);
         }
         return new ApplicationStatus(trimmedStatus);
+    }
+
+    /**
+     * Parses a {@code String deadline} into a {@code Deadline}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code deadline} is invalid.
+     */
+    public static Deadline parseDeadline(String deadline) throws ParseException {
+        requireNonNull(deadline);
+        String trimmedDeadline = deadline.trim();
+        if (!Deadline.isValidDeadline(trimmedDeadline)) {
+            throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
+        }
+        return new Deadline(trimmedDeadline);
     }
 }

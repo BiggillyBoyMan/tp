@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
@@ -52,11 +54,11 @@ public class TypicalPersons {
     public static final InternshipApplication AMY = new PersonBuilder().withName(VALID_NAME_AMY)
             .withJobType(VALID_JOB_TYPE_AMY).withEmail(VALID_EMAIL_AMY)
             .withDescription(VALID_DESCRIPTION_AMY).withIndustry(VALID_INDUSTRY_TECH)
-            .withStatus(VALID_STATUS_APPLIED).build();
+            .withStatus(VALID_STATUS_APPLIED).withDeadline(VALID_DEADLINE_AMY).build();
     public static final InternshipApplication BOB = new PersonBuilder().withName(VALID_NAME_BOB)
             .withJobType(VALID_JOB_TYPE_BOB).withEmail(VALID_EMAIL_BOB)
             .withDescription(VALID_DESCRIPTION_BOB).withIndustry(VALID_INDUSTRY_FINANCE)
-            .withStatus(VALID_STATUS_SAVED).build();
+            .withStatus(VALID_STATUS_SAVED).withDeadline(VALID_DEADLINE_BOB).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

@@ -28,7 +28,7 @@ BizBook is a **desktop app for managing job applications, optimized for use via 
 
    * `list` : Lists all internship applications.
 
-   * `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved` : Adds a Google application.
+   * `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31` : Adds a Google application.
 
    * `edit 1 s/Interviewing` : Edits the 1st application's status to "Interviewing".
 
@@ -55,7 +55,7 @@ BizBook is a **desktop app for managing job applications, optimized for use via 
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * Items in square brackets are optional.<br>
-  e.g `edit INDEX [n/COMPANY_NAME] [i/INDUSTRY] [a/JOB_TYPE] [e/EMAIL] [t/DESCRIPTION] [s/STATUS]` can be used with or without the description.
+  e.g `edit INDEX [n/COMPANY_NAME] [i/INDUSTRY] [a/JOB_TYPE] [e/EMAIL] [t/DESCRIPTION] [s/STATUS] [d/DEADLINE]` can be used with or without the description.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
@@ -73,15 +73,16 @@ Format: `help`
 
 Adds a new internship application to BizBook.
 
-Format: `add n/COMPANY_NAME i/INDUSTRY a/JOB_TYPE t/DESCRIPTION e/EMAIL s/STATUS`
+Format: `add n/COMPANY_NAME i/INDUSTRY a/JOB_TYPE t/DESCRIPTION e/EMAIL s/STATUS d/DEADLINE`
 
 Notes:
 - `INDUSTRY` must be one of: Technology, Finance, Consulting, Healthcare, Marketing, Operations, Graphic Design
 - `STATUS` must be one of: Saved, Applied, Interviewing, Offer, Rejected.
+- `DEADLINE` must be in the format YYYY-MM-DD (e.g., 2024-12-31)
 
 Examples:
-* `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved`
-* `add n/DBS Bank i/Finance a/Data Analyst Intern t/Analytics team e/internships@dbs.com s/Applied`
+* `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31`
+* `add n/DBS Bank i/Finance a/Data Analyst Intern t/Analytics team e/internships@dbs.com s/Applied d/2025-01-15`
 
 ### Listing all applications : `list`
 
@@ -93,17 +94,18 @@ Format: `list`
 
 Edits the details of an existing internship application.
 
-Format: `edit INDEX [n/COMPANY_NAME] [i/INDUSTRY] [a/JOB_TYPE] [e/EMAIL] [t/DESCRIPTION] [s/STATUS]`
+Format: `edit INDEX [n/COMPANY_NAME] [i/INDUSTRY] [a/JOB_TYPE] [e/EMAIL] [t/DESCRIPTION] [s/STATUS] [d/DEADLINE]`
 
 Notes:
 * Edits the application at the specified `INDEX` (as shown in the current list). The index is **1-based**.
 * At least one field to edit must be provided.
 * Existing values will be overwritten by the new inputs.
 * Input for `INDUSTRY` and `STATUS` is case-insensitive (e.g., `i/technology` and `s/applied` are accepted).
+* `DEADLINE` must be in the format YYYY-MM-DD (e.g., 2024-12-31)
 
 Examples:
 * `edit 1 n/Google Singapore`
-* `edit 2 s/Interviewing`
+* `edit 2 s/Interviewing d/2025-02-28`
 * `edit 3 a/Quant Intern t/Global Markets desk`
 
 ### Deleting an application : `delete`
@@ -169,9 +171,9 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/COMPANY_NAME i/INDUSTRY a/JOB_TYPE t/DESCRIPTION e/EMAIL s/STATUS` <br> e.g., `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved`
+**Add** | `add n/COMPANY_NAME i/INDUSTRY a/JOB_TYPE t/DESCRIPTION e/EMAIL s/STATUS d/DEADLINE` <br> e.g., `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **List** | `list`
-**Edit** | `edit INDEX [n/COMPANY_NAME] [i/INDUSTRY] [a/JOB_TYPE] [e/EMAIL] [t/DESCRIPTION] [s/STATUS]`<br> e.g.,`edit 2 s/Interviewing`
+**Edit** | `edit INDEX [n/COMPANY_NAME] [i/INDUSTRY] [a/JOB_TYPE] [e/EMAIL] [t/DESCRIPTION] [s/STATUS] [d/DEADLINE]`<br> e.g.,`edit 2 s/Interviewing d/2025-02-28`
 **Help** | `help`

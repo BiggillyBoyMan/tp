@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.model.applicationstatus.ApplicationStatus;
 import seedu.address.model.company.CompanyName;
+import seedu.address.model.company.Deadline;
 import seedu.address.model.company.Description;
 import seedu.address.model.company.Email;
 import seedu.address.model.company.InternshipApplication;
@@ -19,6 +20,7 @@ public class PersonBuilder {
     public static final String DEFAULT_DESCRIPTION = "Backend microservices";
     public static final String DEFAULT_INDUSTRY = "Technology";
     public static final String DEFAULT_STATUS = "Saved";
+    public static final String DEFAULT_DEADLINE = "2024-12-31";
 
     private CompanyName companyName;
     private JobType jobType;
@@ -26,6 +28,7 @@ public class PersonBuilder {
     private Description description;
     private Industry industry;
     private ApplicationStatus status;
+    private Deadline deadline;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -37,6 +40,7 @@ public class PersonBuilder {
         description = new Description(DEFAULT_DESCRIPTION);
         industry = new Industry(DEFAULT_INDUSTRY);
         status = new ApplicationStatus(DEFAULT_STATUS);
+        deadline = new Deadline(DEFAULT_DEADLINE);
     }
 
     /**
@@ -49,6 +53,7 @@ public class PersonBuilder {
         description = applicationToCopy.getDescription();
         industry = applicationToCopy.getIndustry();
         status = applicationToCopy.getStatus();
+        deadline = applicationToCopy.getDeadline();
     }
 
     /**
@@ -99,7 +104,15 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Deadline} of the {@code InternshipApplication} that we are building.
+     */
+    public PersonBuilder withDeadline(String deadline) {
+        this.deadline = new Deadline(deadline);
+        return this;
+    }
+
     public InternshipApplication build() {
-        return new InternshipApplication(companyName, industry, jobType, description, status, email);
+        return new InternshipApplication(companyName, industry, jobType, description, status, email, deadline);
     }
 }

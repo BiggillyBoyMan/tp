@@ -6,13 +6,15 @@
     "industry" : "Technology",
     "jobType" : "SWE Intern",
     "description" : "Platform team",
-    "status" : "Saved"
+    "status" : "Saved",
+    "deadline" : "2024-12-31"
   }, {
     "companyName" : "Alice Pauline",
     "Email" : "different@example.com",
     "industry" : "Finance",
     "jobType" : "Different Job",
     "description" : "Different description",
-    "status" : "Applied"
+    "status" : "Applied",
+    "deadline" : "2024-12-31"
   } ]
 }

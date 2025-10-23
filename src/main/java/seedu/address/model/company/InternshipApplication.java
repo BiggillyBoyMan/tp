@@ -22,6 +22,7 @@ public class InternshipApplication {
     // Data fields
     private final Description description;
     private final Industry industry;
+    private final Deadline deadline;
 
     private final ApplicationStatus status;
 
@@ -29,14 +30,15 @@ public class InternshipApplication {
      * Every field must be present and not null.
      */
     public InternshipApplication(CompanyName companyName, Industry industry, JobType jobType,
-                                 Description description, ApplicationStatus status, Email email) {
-        requireAllNonNull(companyName, industry, jobType, description, status);
+                                 Description description, ApplicationStatus status, Email email, Deadline deadline) {
+        requireAllNonNull(companyName, industry, jobType, description, status, email, deadline);
         this.companyName = companyName;
         this.email = email;
         this.industry = industry; // Correctly assigned as a single object
         this.jobType = jobType;
         this.description = description;
         this.status = status;
+        this.deadline = deadline;
     }
 
 
@@ -66,6 +68,10 @@ public class InternshipApplication {
 
     public ApplicationStatus getStatus() {
         return status;
+    }
+
+    public Deadline getDeadline() {
+        return deadline;
     }
 
 
@@ -98,12 +104,14 @@ public class InternshipApplication {
                 && industry.equals(otherApplication.industry) // Compares single Industry objects
                 && jobType.equals(otherApplication.jobType)
                 && description.equals(otherApplication.description)
-                && status.equals(otherApplication.status);
+                && status.equals(otherApplication.status)
+                && email.equals(otherApplication.email)
+                && deadline.equals(otherApplication.deadline);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(companyName, industry, jobType, description, status);
+        return Objects.hash(companyName, industry, jobType, description, status, email, deadline);
     }
 
     @Override
@@ -114,6 +122,8 @@ public class InternshipApplication {
                 .add("jobType", jobType)
                 .add("description", description)
                 .add("status", status)
+                .add("email", email)
+                .add("deadline", deadline)
                 .toString();
     }
 }

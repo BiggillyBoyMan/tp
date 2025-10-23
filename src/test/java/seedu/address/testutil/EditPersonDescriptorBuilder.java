@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.applicationstatus.ApplicationStatus;
 import seedu.address.model.company.CompanyName;
+import seedu.address.model.company.Deadline;
 import seedu.address.model.company.Description;
 import seedu.address.model.company.Email;
 import seedu.address.model.company.InternshipApplication;
@@ -37,6 +38,7 @@ public class EditPersonDescriptorBuilder {
         // Corrected from setIndustries to setIndustry
         descriptor.setIndustry(internshipApplication.getIndustry());
         descriptor.setStatus(internshipApplication.getStatus());
+        descriptor.setDeadline(internshipApplication.getDeadline());
     }
 
     /**
@@ -85,6 +87,14 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withStatus(String status) {
         descriptor.setStatus(new ApplicationStatus(status));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Deadline} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withDeadline(String deadline) {
+        descriptor.setDeadline(new Deadline(deadline));
         return this;
     }
 

@@ -8,6 +8,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.applicationstatus.ApplicationStatus;
 import seedu.address.model.company.CompanyName;
+import seedu.address.model.company.Deadline;
 import seedu.address.model.company.Description;
 import seedu.address.model.company.Email;
 import seedu.address.model.company.InternshipApplication;
@@ -23,7 +24,7 @@ public class SampleDataUtil {
         return new InternshipApplication[] {
             new InternshipApplication(new CompanyName("XYZ PTE LTD"), new Industry("Finance"),
                     new JobType("SWE Intern"), new Description("Need to be proficient in c++"),
-                    new ApplicationStatus("Saved"), new Email("XYZ@gmail.com"))
+                    new ApplicationStatus("Saved"), new Email("XYZ@gmail.com"), new Deadline("2024-12-31"))
         };
     }
 

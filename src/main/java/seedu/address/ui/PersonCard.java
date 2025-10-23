@@ -31,6 +31,8 @@ public class PersonCard extends UiPart<Region> {
     private Label industries;
     @FXML
     private Label status;
+    @FXML
+    private Label deadline;
     // --- END OF CHANGES ---
 
     /**
@@ -46,5 +48,6 @@ public class PersonCard extends UiPart<Region> {
         email.setText(internshipApplication.getEmail().value);
         industries.setText(internshipApplication.getIndustry().value);
         status.setText(internshipApplication.getStatus().value);
+        deadline.setText(internshipApplication.getDeadline().toString());
     }
 }

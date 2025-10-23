@@ -66,7 +66,8 @@ public class EditInternshipApplicationDescriptorTest {
                 + "jobType=" + editPersonDescriptor.getJobType().orElse(null) + ", "
                 + "email=" + editPersonDescriptor.getEmail().orElse(null) + ", "
                 + "description=" + editPersonDescriptor.getDescription().orElse(null) + ", "
-                + "status=" + editPersonDescriptor.getStatus().orElse(null) + "}";
+                + "status=" + editPersonDescriptor.getStatus().orElse(null) + ", "
+                + "deadline=" + editPersonDescriptor.getDeadline().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());
     }
 }

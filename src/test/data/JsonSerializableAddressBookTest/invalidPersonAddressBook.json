@@ -1,8 +1,11 @@
 {
   "persons": [ {
-    "name": "Hans Muster",
-    "phone": "9482424",
-    "email": "invalid@email!3e",
-    "address": "4th street"
+    "companyName": "Hans Muster",
+    "Email": "invalid@email!3e",
+    "industry": "Technology",
+    "jobType": "Software Engineer",
+    "description": "Backend",
+    "status": "Saved",
+    "deadline": "2024-12-31"
   } ]
 }

@@ -3,6 +3,7 @@ package seedu.address.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.INDUSTRY_DESC_TECH;
@@ -168,7 +169,8 @@ public class LogicManagerTest {
 
         // Triggers the saveAddressBook method by executing an add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + JOB_TYPE_DESC_AMY
-                + EMAIL_DESC_AMY + DESCRIPTION_DESC_AMY + INDUSTRY_DESC_TECH + STATUS_DESC_APPLIED;
+                + EMAIL_DESC_AMY + DESCRIPTION_DESC_AMY + INDUSTRY_DESC_TECH + STATUS_DESC_APPLIED
+                + DEADLINE_DESC_AMY;
         InternshipApplication expectedApplication = new PersonBuilder(AMY).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedApplication);

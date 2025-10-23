@@ -47,8 +47,10 @@ public class Messages {
                 .append(internshipApplication.getDescription())
                 .append("; Industry: ")
                 .append(internshipApplication.getIndustry())
-                .append("; Status")
-                .append(internshipApplication.getStatus());
+                .append("; Status: ")
+                .append(internshipApplication.getStatus())
+                .append("; Deadline: ")
+                .append(internshipApplication.getDeadline());
         return builder.toString();
     }
 }

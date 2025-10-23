@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDUSTRY;
@@ -21,6 +22,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.applicationstatus.ApplicationStatus;
 import seedu.address.model.company.CompanyName;
+import seedu.address.model.company.Deadline;
 import seedu.address.model.company.Description;
 import seedu.address.model.company.Email;
 import seedu.address.model.company.InternshipApplication;
@@ -45,7 +47,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_JOB_TYPE + "JOB_TYPE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
-            + "[" + PREFIX_STATUS + "STATUS]\n"
+            + "[" + PREFIX_STATUS + "STATUS] "
+            + "[" + PREFIX_DEADLINE + "DEADLINE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_JOB_TYPE + "SWE Intern "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -118,9 +121,11 @@ public class EditCommand extends Command {
                 .orElse(applicationToEdit.getDescription());
         ApplicationStatus updatedStatus = editPersonDescriptor.getStatus()
                 .orElse(applicationToEdit.getStatus());
+        Deadline updatedDeadline = editPersonDescriptor.getDeadline()
+                .orElse(applicationToEdit.getDeadline());
 
         return new InternshipApplication(updatedCompanyName, updatedIndustry, updatedJobType,
-                updatedDescription, updatedStatus, updatedEmail);
+                updatedDescription, updatedStatus, updatedEmail, updatedDeadline);
     }
 
     @Override
@@ -158,6 +163,7 @@ public class EditCommand extends Command {
         private Email email;
         private Description description;
         private ApplicationStatus status;
+        private Deadline deadline;
 
         public EditPersonDescriptor() {}
 
@@ -171,13 +177,14 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setDescription(toCopy.description);
             setStatus(toCopy.status);
+            setDeadline(toCopy.deadline);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(companyName, industry, jobType, email, description, status);
+            return CollectionUtil.isAnyNonNull(companyName, industry, jobType, email, description, status, deadline);
         }
 
         public void setName(CompanyName companyName) {
@@ -228,6 +235,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(status);
         }
 
+        public void setDeadline(Deadline deadline) {
+            this.deadline = deadline;
+        }
+
+        public Optional<Deadline> getDeadline() {
+            return Optional.ofNullable(deadline);
+        }
+
         @Override
         public boolean equals(Object other) {
             if (other == this) {
@@ -245,7 +260,8 @@ public class EditCommand extends Command {
                     && Objects.equals(jobType, otherEditPersonDescriptor.jobType)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(description, otherEditPersonDescriptor.description)
-                    && Objects.equals(status, otherEditPersonDescriptor.status);
+                    && Objects.equals(status, otherEditPersonDescriptor.status)
+                    && Objects.equals(deadline, otherEditPersonDescriptor.deadline);
         }
 
         @Override
@@ -257,6 +273,7 @@ public class EditCommand extends Command {
                 .add("email", email)
                 .add("description", description)
                 .add("status", status)
+                .add("deadline", deadline)
                 .toString();
         }
     }
