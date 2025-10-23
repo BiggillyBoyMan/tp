@@ -34,6 +34,8 @@ BizBook is a **desktop app for managing job applications, optimized for use via 
 
    * `delete 3` : Deletes the 3rd application shown in the current list.
 
+   * `find Google` : Finds all applications with the complete word "Google" in the company name.
+
    * `clear` : Deletes all applications.
 
    * `exit` : Exits the app.
@@ -108,6 +110,25 @@ Examples:
 * `edit 2 s/Interviewing d/2025-02-28`
 * `edit 3 a/Quant Intern t/Global Markets desk`
 
+### Finding applications by name : `find`
+
+Finds and lists all applications whose company names contain any of the specified keywords.
+
+Format: `find KEYWORD [MORE_KEYWORDS]...`
+
+Notes:
+* The search is case-insensitive (e.g., `google` will match `Google`)
+* Only **full words** are matched (e.g., `Tech` will match `Tech Corp` but not `TechCorp`)
+* The order of keywords does not matter (e.g., `Bank DBS` will match `DBS Bank`)
+* **Only the company name field is searched** - other fields like industry, job type, description, email, status, and deadline are not searched
+* Applications matching at least one keyword will be returned (e.g., `Google Microsoft` will return applications for both Google and Microsoft)
+
+Examples:
+* `find Google` returns applications for `Google` and `Google Singapore`
+* `find DBS OCBC` returns applications for `DBS Bank`, `OCBC`, and `DBS Group`
+* `find Meta` returns `Meta` but not `Metaverse Inc` (partial word match doesn't work)
+* `find Tech` returns `Tech Solutions` but not `TechCorp` or `FinTech` (must be a complete word)
+
 ### Deleting an application : `delete`
 
 Deletes the specified internship application.
@@ -176,4 +197,6 @@ Action | Format, Examples
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **List** | `list`
 **Edit** | `edit INDEX [n/COMPANY_NAME] [i/INDUSTRY] [a/JOB_TYPE] [e/EMAIL] [t/DESCRIPTION] [s/STATUS] [d/DEADLINE]`<br> e.g.,`edit 2 s/Interviewing d/2025-02-28`
+**Find** | `find KEYWORD [MORE_KEYWORDS]...`<br> e.g., `find Google DBS`
 **Help** | `help`
+**List** | `list`
