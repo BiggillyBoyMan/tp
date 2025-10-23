@@ -28,6 +28,8 @@ BizBook is a **desktop app for managing job applications, optimized for use via 
 
    * `list` : Lists all internship applications.
 
+   * `sort deadline` : Sorts applications by deadline.
+
    * `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31` : Adds a Google application.
 
    * `edit 1 s/Interviewing` : Edits the 1st application's status to "Interviewing".
@@ -91,6 +93,26 @@ Examples:
 Shows a list of all internship applications in BizBook.
 
 Format: `list`
+
+### Sorting applications : `sort`
+
+Sorts all internship applications in the current list by the specified field.
+
+Format: `sort FIELD`
+
+Notes:
+* `FIELD` must be one of: `name`, `status`, or `deadline`
+* The field name is case-insensitive (e.g., `sort NAME` works the same as `sort name`)
+* Sorting persists until you run another sort command with a different field
+* Applications remain sorted even after adding, editing, or deleting entries
+
+Examples:
+* `sort name` - Sorts applications alphabetically by company name
+* `sort status` - Sorts applications by status (alphabetically: Applied, Interviewing, Offer, Rejected, Saved)
+* `sort deadline` - Sorts applications chronologically by deadline (earliest first)
+
+Typical usage:
+* `list` followed by `sort deadline` shows all applications sorted by deadline to help you prioritize upcoming applications.
 
 ### Editing an application : `edit`
 
@@ -195,8 +217,8 @@ Action | Format, Examples
 **Add** | `add n/COMPANY_NAME i/INDUSTRY a/JOB_TYPE t/DESCRIPTION e/EMAIL s/STATUS d/DEADLINE` <br> e.g., `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**List** | `list`
 **Edit** | `edit INDEX [n/COMPANY_NAME] [i/INDUSTRY] [a/JOB_TYPE] [e/EMAIL] [t/DESCRIPTION] [s/STATUS] [d/DEADLINE]`<br> e.g.,`edit 2 s/Interviewing d/2025-02-28`
 **Find** | `find KEYWORD [MORE_KEYWORDS]...`<br> e.g., `find Google DBS`
 **Help** | `help`
 **List** | `list`
+**Sort** | `sort FIELD` <br> e.g., `sort name`, `sort status`, `sort deadline`
