@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.applicationstatus.ApplicationStatus;
 import seedu.address.model.company.CompanyName;
+import seedu.address.model.company.Deadline;
 import seedu.address.model.company.Description;
 import seedu.address.model.company.Email;
 import seedu.address.model.company.InternshipApplication;
@@ -20,13 +21,14 @@ class JsonAdaptedCompany {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Application's %s field is missing!";
 
-    // Mapped fields corresponding to the 5 core model fields
+    // Mapped fields corresponding to the core model fields
     private final String companyName;
     private final String email;
     private final String industry;
     private final String jobType;
     private final String description;
     private final String status;
+    private final String deadline;
 
     /**
      * Constructs a {@code JsonAdaptedInternshipApplication} with the given application details.
@@ -39,13 +41,15 @@ class JsonAdaptedCompany {
             @JsonProperty("industry") String industry,
             @JsonProperty("jobType") String jobType,
             @JsonProperty("description") String description,
-            @JsonProperty("status") String status) {
+            @JsonProperty("status") String status,
+            @JsonProperty("deadline") String deadline) {
         this.companyName = companyName;
         this.email = email;
         this.industry = industry;
         this.jobType = jobType;
         this.description = description;
         this.status = status;
+        this.deadline = deadline;
     }
 
     /**
@@ -60,6 +64,7 @@ class JsonAdaptedCompany {
         description = source.getDescription().value;
         status = source.getStatus().value;
         email = source.getEmail().value;
+        deadline = source.getDeadline().toStorageString();
     }
 
     /**
@@ -134,8 +139,18 @@ class JsonAdaptedCompany {
         }
         final Email modelEmail = new Email(email);
 
+        // 7. Deadline (Required)
+        if (deadline == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Deadline.class.getSimpleName()));
+        }
+        if (!Deadline.isValidDeadline(deadline)) {
+            throw new IllegalValueException(Deadline.MESSAGE_CONSTRAINTS);
+        }
+        final Deadline modelDeadline = new Deadline(deadline);
+
         // Return the reconstructed and validated model object
         return new InternshipApplication(modelCompanyName, modelIndustry, modelJobType,
-                modelDescription, modelStatus, modelEmail);
+                modelDescription, modelStatus, modelEmail, modelDeadline);
     }
 }

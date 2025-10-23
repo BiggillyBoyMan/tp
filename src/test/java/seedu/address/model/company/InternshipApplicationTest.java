@@ -98,7 +98,8 @@ public class InternshipApplicationTest {
     public void toStringMethod() {
         String expected = InternshipApplication.class.getCanonicalName() + "{companyName=" + ALICE.getName()
                 + ", industry=" + ALICE.getIndustry() + ", jobType=" + ALICE.getJobType()
-                + ", description=" + ALICE.getDescription() + ", status=" + ALICE.getStatus() + "}";
+                + ", description=" + ALICE.getDescription() + ", status=" + ALICE.getStatus()
+                + ", email=" + ALICE.getEmail() + ", deadline=" + ALICE.getDeadline() + "}";
         assertEquals(expected, ALICE.toString());
     }
 }

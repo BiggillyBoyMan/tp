@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDUSTRY;
@@ -36,6 +37,7 @@ public class PersonUtil {
         sb.append(PREFIX_STATUS).append(internshipApplication.getStatus().value).append(" ");
         // Corrected from .industryName to .value
         sb.append(PREFIX_INDUSTRY).append(internshipApplication.getIndustry().value).append(" ");
+        sb.append(PREFIX_DEADLINE).append(internshipApplication.getDeadline().toStorageString()).append(" ");
         return sb.toString();
     }
 
@@ -56,6 +58,8 @@ public class PersonUtil {
                 .append(status.value).append(" "));
         descriptor.getIndustry().ifPresent(industry -> sb.append(PREFIX_INDUSTRY)
                 .append(industry.value).append(" "));
+        descriptor.getDeadline().ifPresent(deadline -> sb.append(PREFIX_DEADLINE)
+                .append(deadline.toStorageString()).append(" "));
 
         return sb.toString();
     }

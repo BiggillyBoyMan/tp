@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDUSTRY;
@@ -30,7 +31,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_COMPANY_NAME, PREFIX_INDUSTRY, PREFIX_JOB_TYPE,
-                        PREFIX_EMAIL, PREFIX_DESCRIPTION, PREFIX_STATUS);
+                        PREFIX_EMAIL, PREFIX_DESCRIPTION, PREFIX_STATUS, PREFIX_DEADLINE);
 
         Index index;
 
@@ -41,7 +42,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_COMPANY_NAME, PREFIX_INDUSTRY, PREFIX_JOB_TYPE,
-                PREFIX_EMAIL, PREFIX_DESCRIPTION, PREFIX_STATUS);
+                PREFIX_EMAIL, PREFIX_DESCRIPTION, PREFIX_STATUS, PREFIX_DEADLINE);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
@@ -67,6 +68,9 @@ public class EditCommandParser implements Parser<EditCommand> {
             String statusStr = argMultimap.getValue(PREFIX_STATUS).get();
             String normalizedStatus = normalizeStatus(statusStr);
             editPersonDescriptor.setStatus(ParserUtil.parseStatus(normalizedStatus));
+        }
+        if (argMultimap.getValue(PREFIX_DEADLINE).isPresent()) {
+            editPersonDescriptor.setDeadline(ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE).get()));
         }
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {

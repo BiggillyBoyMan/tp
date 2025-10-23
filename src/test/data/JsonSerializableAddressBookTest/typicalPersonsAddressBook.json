@@ -6,48 +6,55 @@
     "industry" : "Technology",
     "jobType" : "SWE Intern",
     "description" : "Platform team",
-    "status" : "Saved"
+    "status" : "Saved",
+    "deadline" : "2024-12-31"
   }, {
     "companyName" : "Benson Meier",
     "Email" : "johnd@example.com",
     "industry" : "Finance",
     "jobType" : "Data Analyst",
     "description" : "Risk analytics",
-    "status" : "Applied"
+    "status" : "Applied",
+    "deadline" : "2024-12-31"
   }, {
     "companyName" : "Carl Kurz",
     "Email" : "heinz@example.com",
     "industry" : "Technology",
     "jobType" : "Software Engineer",
     "description" : "Backend microservices",
-    "status" : "Saved"
+    "status" : "Saved",
+    "deadline" : "2024-12-31"
   }, {
     "companyName" : "Daniel Meier",
     "Email" : "cornelia@example.com",
     "industry" : "Technology",
     "jobType" : "Software Engineer",
     "description" : "Backend microservices",
-    "status" : "Saved"
+    "status" : "Saved",
+    "deadline" : "2024-12-31"
   }, {
     "companyName" : "Elle Meyer",
     "Email" : "werner@example.com",
     "industry" : "Technology",
     "jobType" : "Software Engineer",
     "description" : "Backend microservices",
-    "status" : "Saved"
+    "status" : "Saved",
+    "deadline" : "2024-12-31"
   }, {
     "companyName" : "Fiona Kunz",
     "Email" : "lydia@example.com",
     "industry" : "Technology",
     "jobType" : "Software Engineer",
     "description" : "Backend microservices",
-    "status" : "Saved"
+    "status" : "Saved",
+    "deadline" : "2024-12-31"
   }, {
     "companyName" : "George Best",
     "Email" : "anna@example.com",
     "industry" : "Technology",
     "jobType" : "Software Engineer",
     "description" : "Backend microservices",
-    "status" : "Saved"
+    "status" : "Saved",
+    "deadline" : "2024-12-31"
   } ]
 }

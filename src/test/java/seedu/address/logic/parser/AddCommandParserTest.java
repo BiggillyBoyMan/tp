@@ -1,12 +1,14 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INDUSTRY_DESC_FINANCE;
 import static seedu.address.logic.commands.CommandTestUtil.INDUSTRY_DESC_TECH;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DEADLINE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_INDUSTRY_DESC;
@@ -29,6 +31,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_JOB_TYPE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_SAVED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDUSTRY;
@@ -44,6 +47,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.applicationstatus.ApplicationStatus;
 import seedu.address.model.company.CompanyName;
+import seedu.address.model.company.Deadline;
 import seedu.address.model.company.Description;
 import seedu.address.model.company.Email;
 import seedu.address.model.company.InternshipApplication;
@@ -60,21 +64,22 @@ public class AddCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + JOB_TYPE_DESC_BOB
-                + EMAIL_DESC_BOB + DESCRIPTION_DESC_BOB + INDUSTRY_DESC_FINANCE + STATUS_DESC_SAVED,
+                + EMAIL_DESC_BOB + DESCRIPTION_DESC_BOB + INDUSTRY_DESC_FINANCE + STATUS_DESC_SAVED
+                + DEADLINE_DESC_BOB,
                 new AddCommand(expectedInternshipApplication));
 
         // multiple names - all but last rejected (duplicate prefix error handled in separate test)
         InternshipApplication expectedInternshipApplicationDifferentIndustry =
                 new PersonBuilder(BOB).withIndustry(VALID_INDUSTRY_TECH).build();
         assertParseSuccess(parser, NAME_DESC_BOB + JOB_TYPE_DESC_BOB + EMAIL_DESC_BOB
-                + DESCRIPTION_DESC_BOB + INDUSTRY_DESC_TECH + STATUS_DESC_SAVED,
+                + DESCRIPTION_DESC_BOB + INDUSTRY_DESC_TECH + STATUS_DESC_SAVED + DEADLINE_DESC_BOB,
                 new AddCommand(expectedInternshipApplicationDifferentIndustry));
     }
 
     @Test
     public void parse_repeatedNonTagValue_failure() {
         String validExpectedPersonString = NAME_DESC_BOB + JOB_TYPE_DESC_BOB + EMAIL_DESC_BOB
-                + DESCRIPTION_DESC_BOB + INDUSTRY_DESC_FINANCE + STATUS_DESC_SAVED;
+                + DESCRIPTION_DESC_BOB + INDUSTRY_DESC_FINANCE + STATUS_DESC_SAVED + DEADLINE_DESC_BOB;
 
         // multiple names
         assertParseFailure(parser, NAME_DESC_AMY + validExpectedPersonString,
@@ -105,7 +110,7 @@ public class AddCommandParserTest {
                 validExpectedPersonString + JOB_TYPE_DESC_AMY + EMAIL_DESC_AMY + NAME_DESC_AMY
                         + DESCRIPTION_DESC_AMY + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_COMPANY_NAME, PREFIX_JOB_TYPE,
-                        PREFIX_EMAIL, PREFIX_DESCRIPTION, PREFIX_INDUSTRY, PREFIX_STATUS));
+                        PREFIX_EMAIL, PREFIX_DESCRIPTION, PREFIX_INDUSTRY, PREFIX_STATUS, PREFIX_DEADLINE));
 
         // invalid value followed by valid value
 
@@ -183,35 +188,40 @@ public class AddCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid name
         assertParseFailure(parser, INVALID_NAME_DESC + JOB_TYPE_DESC_BOB + EMAIL_DESC_BOB + DESCRIPTION_DESC_BOB
-                + INDUSTRY_DESC_FINANCE + STATUS_DESC_SAVED, CompanyName.MESSAGE_CONSTRAINTS);
+                + INDUSTRY_DESC_FINANCE + STATUS_DESC_SAVED + DEADLINE_DESC_BOB, CompanyName.MESSAGE_CONSTRAINTS);
 
         // invalid job type
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_JOB_TYPE_DESC + EMAIL_DESC_BOB + DESCRIPTION_DESC_BOB
-                + INDUSTRY_DESC_FINANCE + STATUS_DESC_SAVED, JobType.MESSAGE_CONSTRAINTS);
+                + INDUSTRY_DESC_FINANCE + STATUS_DESC_SAVED + DEADLINE_DESC_BOB, JobType.MESSAGE_CONSTRAINTS);
 
         // invalid email
         assertParseFailure(parser, NAME_DESC_BOB + JOB_TYPE_DESC_BOB + INVALID_EMAIL_DESC + DESCRIPTION_DESC_BOB
-                + INDUSTRY_DESC_FINANCE + STATUS_DESC_SAVED, Email.MESSAGE_CONSTRAINTS);
+                + INDUSTRY_DESC_FINANCE + STATUS_DESC_SAVED + DEADLINE_DESC_BOB, Email.MESSAGE_CONSTRAINTS);
 
         // invalid description
         assertParseFailure(parser, NAME_DESC_BOB + JOB_TYPE_DESC_BOB + EMAIL_DESC_BOB + INVALID_DESCRIPTION_DESC
-                + INDUSTRY_DESC_FINANCE + STATUS_DESC_SAVED, Description.MESSAGE_CONSTRAINTS);
+                + INDUSTRY_DESC_FINANCE + STATUS_DESC_SAVED + DEADLINE_DESC_BOB, Description.MESSAGE_CONSTRAINTS);
 
         // invalid industry
         assertParseFailure(parser, NAME_DESC_BOB + JOB_TYPE_DESC_BOB + EMAIL_DESC_BOB + DESCRIPTION_DESC_BOB
-                + INVALID_INDUSTRY_DESC + STATUS_DESC_SAVED, Industry.MESSAGE_CONSTRAINTS);
+                + INVALID_INDUSTRY_DESC + STATUS_DESC_SAVED + DEADLINE_DESC_BOB, Industry.MESSAGE_CONSTRAINTS);
 
         // invalid status
         assertParseFailure(parser, NAME_DESC_BOB + JOB_TYPE_DESC_BOB + EMAIL_DESC_BOB + DESCRIPTION_DESC_BOB
-                + INDUSTRY_DESC_FINANCE + INVALID_STATUS_DESC, ApplicationStatus.MESSAGE_CONSTRAINTS);
+                + INDUSTRY_DESC_FINANCE + INVALID_STATUS_DESC + DEADLINE_DESC_BOB,
+                ApplicationStatus.MESSAGE_CONSTRAINTS);
+
+        // invalid deadline
+        assertParseFailure(parser, NAME_DESC_BOB + JOB_TYPE_DESC_BOB + EMAIL_DESC_BOB + DESCRIPTION_DESC_BOB
+                + INDUSTRY_DESC_FINANCE + STATUS_DESC_SAVED + INVALID_DEADLINE_DESC, Deadline.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + JOB_TYPE_DESC_BOB + EMAIL_DESC_BOB + INVALID_DESCRIPTION_DESC
-                + INDUSTRY_DESC_FINANCE + STATUS_DESC_SAVED, CompanyName.MESSAGE_CONSTRAINTS);
+                + INDUSTRY_DESC_FINANCE + STATUS_DESC_SAVED + DEADLINE_DESC_BOB, CompanyName.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + JOB_TYPE_DESC_BOB + EMAIL_DESC_BOB
-                + DESCRIPTION_DESC_BOB + INDUSTRY_DESC_FINANCE + STATUS_DESC_SAVED,
+                + DESCRIPTION_DESC_BOB + INDUSTRY_DESC_FINANCE + STATUS_DESC_SAVED + DEADLINE_DESC_BOB,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }

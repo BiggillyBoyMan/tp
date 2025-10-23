@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDUSTRY;
@@ -40,6 +41,8 @@ public class CommandTestUtil {
     public static final String VALID_INDUSTRY_FINANCE = "Finance";
     public static final String VALID_STATUS_APPLIED = "Applied";
     public static final String VALID_STATUS_SAVED = "Saved";
+    public static final String VALID_DEADLINE_AMY = "2024-12-31";
+    public static final String VALID_DEADLINE_BOB = "2025-01-15";
 
 
     // Command Descriptors for Names
@@ -66,6 +69,10 @@ public class CommandTestUtil {
     public static final String STATUS_DESC_APPLIED = " " + PREFIX_STATUS + VALID_STATUS_APPLIED;
     public static final String STATUS_DESC_SAVED = " " + PREFIX_STATUS + VALID_STATUS_SAVED;
 
+    // Command Descriptors for Deadline
+    public static final String DEADLINE_DESC_AMY = " " + PREFIX_DEADLINE + VALID_DEADLINE_AMY;
+    public static final String DEADLINE_DESC_BOB = " " + PREFIX_DEADLINE + VALID_DEADLINE_BOB;
+
     // Invalid Field Descriptors
     public static final String INVALID_NAME_DESC = " " + PREFIX_COMPANY_NAME + "James&"; //& not allowed
     public static final String INVALID_JOB_TYPE_DESC = " " + PREFIX_JOB_TYPE + "a*"; //* not allowed
@@ -75,6 +82,7 @@ public class CommandTestUtil {
     public static final String INVALID_INDUSTRY_DESC = " " + PREFIX_INDUSTRY
             + "not-a-valid-industry"; //not in list
     public static final String INVALID_STATUS_DESC = " " + PREFIX_STATUS + "pending"; //invalid
+    public static final String INVALID_DEADLINE_DESC = " " + PREFIX_DEADLINE + "2024/12/31"; //wrong format
 
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
