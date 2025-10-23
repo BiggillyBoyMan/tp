@@ -28,11 +28,15 @@ BizBook is a **desktop app for managing job applications, optimized for use via 
 
    * `list` : Lists all internship applications.
 
+   * `sort deadline` : Sorts applications by deadline.
+
    * `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31` : Adds a Google application.
 
    * `edit 1 s/Interviewing` : Edits the 1st application's status to "Interviewing".
 
    * `delete 3` : Deletes the 3rd application shown in the current list.
+
+   * `find Google` : Finds all applications with the complete word "Google" in the company name.
 
    * `clear` : Deletes all applications.
 
@@ -90,6 +94,26 @@ Shows a list of all internship applications in BizBook.
 
 Format: `list`
 
+### Sorting applications : `sort`
+
+Sorts all internship applications in the current list by the specified field.
+
+Format: `sort FIELD`
+
+Notes:
+* `FIELD` must be one of: `name`, `status`, or `deadline`
+* The field name is case-insensitive (e.g., `sort NAME` works the same as `sort name`)
+* Sorting persists until you run another sort command with a different field
+* Applications remain sorted even after adding, editing, or deleting entries
+
+Examples:
+* `sort name` - Sorts applications alphabetically by company name
+* `sort status` - Sorts applications by status (alphabetically: Applied, Interviewing, Offer, Rejected, Saved)
+* `sort deadline` - Sorts applications chronologically by deadline (earliest first)
+
+Typical usage:
+* `list` followed by `sort deadline` shows all applications sorted by deadline to help you prioritize upcoming applications.
+
 ### Editing an application : `edit`
 
 Edits the details of an existing internship application.
@@ -107,6 +131,25 @@ Examples:
 * `edit 1 n/Google Singapore`
 * `edit 2 s/Interviewing d/2025-02-28`
 * `edit 3 a/Quant Intern t/Global Markets desk`
+
+### Finding applications by name : `find`
+
+Finds and lists all applications whose company names contain any of the specified keywords.
+
+Format: `find KEYWORD [MORE_KEYWORDS]...`
+
+Notes:
+* The search is case-insensitive (e.g., `google` will match `Google`)
+* Only **full words** are matched (e.g., `Tech` will match `Tech Corp` but not `TechCorp`)
+* The order of keywords does not matter (e.g., `Bank DBS` will match `DBS Bank`)
+* **Only the company name field is searched** - other fields like industry, job type, description, email, status, and deadline are not searched
+* Applications matching at least one keyword will be returned (e.g., `Google Microsoft` will return applications for both Google and Microsoft)
+
+Examples:
+* `find Google` returns applications for `Google` and `Google Singapore`
+* `find DBS OCBC` returns applications for `DBS Bank`, `OCBC`, and `DBS Group`
+* `find Meta` returns `Meta` but not `Metaverse Inc` (partial word match doesn't work)
+* `find Tech` returns `Tech Solutions` but not `TechCorp` or `FinTech` (must be a complete word)
 
 ### Deleting an application : `delete`
 
@@ -176,4 +219,7 @@ Action | Format, Examples
 **Delete** | `delete INDEX`<br> e.g., `delete 2`
 **List** | `list`
 **Edit** | `edit INDEX [n/COMPANY_NAME] [i/INDUSTRY] [a/JOB_TYPE] [e/EMAIL] [t/DESCRIPTION] [s/STATUS] [d/DEADLINE]`<br> e.g.,`edit 2 s/Interviewing d/2025-02-28`
+**Find** | `find KEYWORD [MORE_KEYWORDS]...`<br> e.g., `find Google DBS`
 **Help** | `help`
+**List** | `list`
+**Sort** | `sort FIELD` <br> e.g., `sort name`, `sort status`, `sort deadline`
