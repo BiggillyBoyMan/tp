@@ -177,7 +177,7 @@ Step 2. The user executes `delete 5` command to delete the 5th internshipApplica
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new internshipApplication. The `add` command also calls `Model#commitAddressBook()`, causing another modified description book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David i/Technology a/SWE Intern t/Backend e/david@example.com s/Saved d/2024-12-31 …​` to add a new internshipApplication. The `add` command also calls `Model#commitAddressBook()`, causing another modified description book state to be saved into the `addressBookStateList`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
@@ -216,7 +216,7 @@ Step 5. The user then decides to execute the command `list`. Commands that do no
 
 ![UndoRedoState4](images/UndoRedoState4.png)
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all description book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all description book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David i/Technology a/SWE Intern t/Backend e/david@example.com s/Saved d/2024-12-31 …​` command. This is the behavior that most modern desktop applications follow.
 
 ![UndoRedoState5](images/UndoRedoState5.png)
 
@@ -288,6 +288,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | student                                   | delete an application from my active list                                                     | remove roles I'm no longer pursuing                                                              |
 | `* * *`  | student                                   | see a unique ID for each application in the list view                                         | easily reference them in update, view and delete commands                                        |
 | `* * *`  | new user                                  | see usage instructions and available commands                                                 | learn how to use BizBook effectively                                                             |
+| `* * *`  | student                                   | find applications by company name                                                             | quickly locate specific companies without scrolling through the entire list                      |
 | `* *`    | student                                   | add a deadline date when creating a new application                                           | don't miss the submission cutoff                                                                 |
 | `* *`    | student                                   | add a URL to the original job posting                                                         | easily refer back to the full description and requirements                                       |
 | `* *`    | student                                   | add multi-line notes to an application                                                        | record details like interviewer names, key discussion points, or follow-up actions               |
@@ -327,7 +328,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to add a new internship application with company name, industry, and job type.
+1. User requests to add a new internship application with all required fields (company name, industry, job type, description, email, status, and deadline).
 2. BizBook validates the input.
 3. BizBook adds the application to the list.
 4. BizBook shows a success message with the application details.
@@ -336,34 +337,40 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 1a. User provides optional fields (description, status).
+* 1a. Required fields are missing.
 
-  * 1a1. BizBook accepts and stores the optional information.
+  * 1a1. BizBook shows an error message indicating which fields are missing.
 
-    Use case resumes at step 2.
-
-* 2a. Required fields are missing.
-
-  * 2a1. BizBook shows an error message indicating which fields are missing.
-  
     Use case ends.
 
-* 2b. Company name format is invalid.
-  
-  * 2b1. BizBook shows an error message about invalid format.
-  
+* 2a. Company name format is invalid.
+
+  * 2a1. BizBook shows an error message about invalid format.
+
     Use case ends.
 
-* 2c. Industry is not from the predefined list.
-  
-  * 2c1. BizBook shows an error message with valid industry options.
-  
+* 2b. Industry is not from the predefined list.
+
+  * 2b1. BizBook shows an error message with valid industry options.
+
     Use case ends.
 
-* 2d. An application for this company already exists.
-  
-  * 2d1. BizBook shows a duplicate company error message.
-  
+* 2c. Status is not from the predefined list.
+
+  * 2c1. BizBook shows an error message with valid status options.
+
+    Use case ends.
+
+* 2d. Deadline format is invalid.
+
+  * 2d1. BizBook shows an error message about the required YYYY-MM-DD format.
+
+    Use case ends.
+
+* 2e. An application for this company already exists.
+
+  * 2e1. BizBook shows a duplicate company error message.
+
     Use case ends.
 
 #### Use case: UC02 - Update application status
@@ -382,19 +389,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 2a. The list is empty.
-  
+
   * 2a1. BizBook shows a message indicating no applications exist.
-  
+
     Use case ends.
 
 * 4a. The given index is invalid.
-  
+
   * 4a1. BizBook shows an error message.
-  
+
     Use case resumes at step 3.
 
 * 4b. The given status is not valid.
-  
+
   * 4b1. BizBook shows an error message with valid status options.
 
     Use case resumes at step 3.
