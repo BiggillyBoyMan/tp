@@ -216,9 +216,9 @@ Action | Format, Examples
 --------|------------------
 **Add** | `add n/COMPANY_NAME i/INDUSTRY a/JOB_TYPE t/DESCRIPTION e/EMAIL s/STATUS d/DEADLINE` <br> e.g., `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31`
 **Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 2`
+**Delete** | `delete INDEX`<br> e.g., `delete 1`
 **List** | `list`
-**Edit** | `edit INDEX [n/COMPANY_NAME] [i/INDUSTRY] [a/JOB_TYPE] [e/EMAIL] [t/DESCRIPTION] [s/STATUS] [d/DEADLINE]`<br> e.g.,`edit 2 s/Interviewing d/2025-02-28`
+**Edit** | `edit INDEX [n/COMPANY_NAME] [i/INDUSTRY] [a/JOB_TYPE] [e/EMAIL] [t/DESCRIPTION] [s/STATUS] [d/DEADLINE]`<br> e.g.,`edit 3 s/Interviewing d/2025-02-28`
 **Find** | `find KEYWORD [MORE_KEYWORDS]...`<br> e.g., `find Google DBS`
 **Help** | `help`
 **List** | `list`
