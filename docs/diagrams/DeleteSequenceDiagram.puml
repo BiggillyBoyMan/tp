@@ -49,9 +49,17 @@ deactivate AddressBookParser
 LogicManager -> DeleteCommand : execute(m)
 activate DeleteCommand
 
-DeleteCommand -> Model : deletePerson(1)
+DeleteCommand -> Model : getFilteredPersonList()
 activate Model
+Model --> DeleteCommand : list
+deactivate Model
 
+DeleteCommand -> Model : deletePerson(application)
+activate Model
+note right
+  Removes the InternshipApplication
+  from BizBook
+end note
 Model --> DeleteCommand
 deactivate Model
 
