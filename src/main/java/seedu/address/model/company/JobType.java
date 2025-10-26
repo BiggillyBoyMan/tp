@@ -28,7 +28,7 @@ public class JobType {
     }
 
     /**
-     * Returns true if a given string is a valid job type.
+     * Returns true if a given string is a valid job role.
      */
     public static boolean isValidJobType(String test) {
         return test.matches(VALIDATION_REGEX);

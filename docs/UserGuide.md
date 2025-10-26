@@ -38,6 +38,8 @@ BizBook is a **desktop app for managing job applications, optimized for use via 
 
    * `find Google` : Finds all applications with the complete word "Google" in the company name.
 
+   * `filter s/Applied` : Filters to show only applications with "Applied" status.
+
    * `clear` : Deletes all applications.
 
    * `exit` : Exits the app.
@@ -59,7 +61,7 @@ BizBook is a **desktop app for managing job applications, optimized for use via 
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * Items in square brackets are optional.<br>
-  e.g `edit INDEX [n/COMPANY_NAME] [i/INDUSTRY] [a/JOB_TYPE] [e/EMAIL] [t/DESCRIPTION] [s/STATUS] [d/DEADLINE]` can be used with or without the description.
+  e.g `edit INDEX [n/COMPANY_NAME] [i/INDUSTRY] [a/JOB_ROLE] [e/EMAIL] [t/DESCRIPTION] [s/STATUS] [d/DEADLINE]` can be used with or without the description.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
@@ -77,12 +79,13 @@ Format: `help`
 
 Adds a new internship application to BizBook.
 
-Format: `add n/COMPANY_NAME i/INDUSTRY a/JOB_TYPE t/DESCRIPTION e/EMAIL s/STATUS d/DEADLINE`
+Format: `add n/COMPANY_NAME i/INDUSTRY a/JOB_ROLE t/DESCRIPTION e/EMAIL s/STATUS d/DEADLINE`
 
 Notes:
 - `INDUSTRY` must be one of: Technology, Finance, Consulting, Healthcare, Marketing, Operations, Graphic Design
 - `STATUS` must be one of: Saved, Applied, Interviewing, Offer, Rejected.
 - `DEADLINE` must be in the format YYYY-MM-DD (e.g., 2024-12-31)
+- You can add multiple applications to the same company as long as they are for different job roles (e.g., Google SWE Intern and Google PM Intern are both allowed)
 
 Examples:
 * `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31`
@@ -118,7 +121,7 @@ Typical usage:
 
 Edits the details of an existing internship application.
 
-Format: `edit INDEX [n/COMPANY_NAME] [i/INDUSTRY] [a/JOB_TYPE] [e/EMAIL] [t/DESCRIPTION] [s/STATUS] [d/DEADLINE]`
+Format: `edit INDEX [n/COMPANY_NAME] [i/INDUSTRY] [a/JOB_ROLE] [e/EMAIL] [t/DESCRIPTION] [s/STATUS] [d/DEADLINE]`
 
 Notes:
 * Edits the application at the specified `INDEX` (as shown in the current list). The index is **1-based**.
@@ -142,7 +145,7 @@ Notes:
 * The search is case-insensitive (e.g., `google` will match `Google`)
 * Only **full words** are matched (e.g., `Tech` will match `Tech Corp` but not `TechCorp`)
 * The order of keywords does not matter (e.g., `Bank DBS` will match `DBS Bank`)
-* **Only the company name field is searched** - other fields like industry, job type, description, email, status, and deadline are not searched
+* **Only the company name field is searched** - other fields like industry, job role, description, email, status, and deadline are not searched
 * Applications matching at least one keyword will be returned (e.g., `Google Microsoft` will return applications for both Google and Microsoft)
 
 Examples:
@@ -150,6 +153,31 @@ Examples:
 * `find DBS OCBC` returns applications for `DBS Bank`, `OCBC`, and `DBS Group`
 * `find Meta` returns `Meta` but not `Metaverse Inc` (partial word match doesn't work)
 * `find Tech` returns `Tech Solutions` but not `TechCorp` or `FinTech` (must be a complete word)
+
+### Filtering applications by status and/or industry : `filter`
+
+Filters and displays applications based on their status and/or industry. The filter does not modify the stored data, only affects what is displayed.
+
+Format: `filter [s/STATUS] [i/INDUSTRY]`
+
+Notes:
+* **At least one filter criterion must be specified** - you can filter by status only, industry only, or both
+* When both filters are specified, only applications matching **both criteria** will be shown (AND logic)
+* The filter is case-insensitive (e.g., `s/applied` and `s/APPLIED` both work)
+* `STATUS` must be one of: Saved, Applied, Interviewing, Offer, Rejected
+* `INDUSTRY` must be one of: Technology, Finance, Consulting, Healthcare, Marketing, Operations, Graphic Design
+* Use `list` to clear all filters and show all applications again
+
+Examples:
+* `filter s/Applied` - Shows only applications with "Applied" status
+* `filter i/Technology` - Shows only applications in the Technology industry
+* `filter s/Interviewing i/Finance` - Shows applications that are both "Interviewing" status AND in Finance industry
+* `filter i/Healthcare s/Offer` - Same as above (order doesn't matter)
+
+Typical usage:
+* `filter s/Applied` followed by `sort deadline` to see all applied positions sorted by their deadlines
+* `filter i/Technology s/Saved` to see all saved Technology positions you haven't applied to yet
+* `list` to return to viewing all applications
 
 ### Deleting an application : `delete`
 
@@ -190,10 +218,6 @@ If your changes to the data file makes its format invalid, the app will discard 
 Furthermore, certain edits can cause the app to behave in unexpected ways (e.g., invalid values). Edit the data file only if you are confident you can update it correctly.
 </div>
 
-### Mark most interested internship roles `[coming in v2.0]`
-
-_Details coming soon ..._
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -214,11 +238,12 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/COMPANY_NAME i/INDUSTRY a/JOB_TYPE t/DESCRIPTION e/EMAIL s/STATUS d/DEADLINE` <br> e.g., `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31`
+**Add** | `add n/COMPANY_NAME i/INDUSTRY a/JOB_ROLE t/DESCRIPTION e/EMAIL s/STATUS d/DEADLINE` <br> e.g., `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 1`
-**List** | `list`
-**Edit** | `edit INDEX [n/COMPANY_NAME] [i/INDUSTRY] [a/JOB_TYPE] [e/EMAIL] [t/DESCRIPTION] [s/STATUS] [d/DEADLINE]`<br> e.g.,`edit 3 s/Interviewing d/2025-02-28`
+**Edit** | `edit INDEX [n/COMPANY_NAME] [i/INDUSTRY] [a/JOB_ROLE] [e/EMAIL] [t/DESCRIPTION] [s/STATUS] [d/DEADLINE]`<br> e.g.,`edit 2 s/Interviewing d/2025-02-28`
+**Exit** | `exit`
+**Filter** | `filter [s/STATUS] [i/INDUSTRY]` <br> e.g., `filter s/Applied`, `filter i/Technology`, `filter s/Interviewing i/Finance`
 **Find** | `find KEYWORD [MORE_KEYWORDS]...`<br> e.g., `find Google DBS`
 **Help** | `help`
 **List** | `list`

@@ -44,7 +44,7 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_COMPANY_NAME + "COMPANY_NAME] "
             + "[" + PREFIX_INDUSTRY + "INDUSTRY] "
-            + "[" + PREFIX_JOB_TYPE + "JOB_TYPE] "
+            + "[" + PREFIX_JOB_TYPE + "JOB_ROLE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_STATUS + "STATUS] "
@@ -55,7 +55,8 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Application: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This application already exists in BizBook.";
+    public static final String MESSAGE_DUPLICATE_PERSON =
+            "The application for this company and job role already exists in the application tracker";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;

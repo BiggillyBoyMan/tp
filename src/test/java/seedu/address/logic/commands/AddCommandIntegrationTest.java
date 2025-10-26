@@ -14,6 +14,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.company.InternshipApplication;
 import seedu.address.testutil.PersonBuilder;
 
+
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
  */
@@ -44,7 +45,7 @@ public class AddCommandIntegrationTest {
     public void execute_duplicateApplication_throwsCommandException() {
         // This takes the first application from our sample data (Google)
         InternshipApplication applicationInList = model.getAddressBook().getPersonList().get(0);
-        // Try to add the same application again; identity is based on name,
+        // Try to add the same application again; identity is based on name and job type,
         // so this should be treated as a duplicate.
         assertCommandFailure(new AddCommand(applicationInList), model,
                 AddCommand.MESSAGE_DUPLICATE_PERSON);

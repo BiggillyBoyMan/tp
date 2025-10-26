@@ -27,14 +27,20 @@ public class ApplicationStatusTest {
         assertFalse(ApplicationStatus.isValidStatus(" ")); // spaces only
         assertFalse(ApplicationStatus.isValidStatus("Pending")); // not in valid list
         assertFalse(ApplicationStatus.isValidStatus("In Progress")); // not in valid list
-        assertFalse(ApplicationStatus.isValidStatus("saved")); // wrong case (case-sensitive)
 
-        // valid statuses
+        // valid statuses (exact case)
         assertTrue(ApplicationStatus.isValidStatus("Saved"));
         assertTrue(ApplicationStatus.isValidStatus("Applied"));
         assertTrue(ApplicationStatus.isValidStatus("Interviewing"));
         assertTrue(ApplicationStatus.isValidStatus("Offer"));
         assertTrue(ApplicationStatus.isValidStatus("Rejected"));
+
+        // valid statuses (case-insensitive)
+        assertTrue(ApplicationStatus.isValidStatus("saved"));
+        assertTrue(ApplicationStatus.isValidStatus("APPLIED"));
+        assertTrue(ApplicationStatus.isValidStatus("InTeRvIeWiNg"));
+        assertTrue(ApplicationStatus.isValidStatus("offer"));
+        assertTrue(ApplicationStatus.isValidStatus("REJECTED"));
     }
 
     @Test
@@ -69,5 +75,25 @@ public class ApplicationStatusTest {
     public void toString_correctStringRepresentation() {
         ApplicationStatus status = new ApplicationStatus("Interviewing");
         assertTrue(status.toString().equals("Interviewing"));
+    }
+
+    @Test
+    public void constructor_caseInsensitiveInput_normalizedToProperCase() {
+        // Test that lowercase input gets normalized
+        ApplicationStatus status1 = new ApplicationStatus("saved");
+        assertTrue(status1.toString().equals("Saved"));
+
+        // Test that uppercase input gets normalized
+        ApplicationStatus status2 = new ApplicationStatus("APPLIED");
+        assertTrue(status2.toString().equals("Applied"));
+
+        // Test that mixed case input gets normalized
+        ApplicationStatus status3 = new ApplicationStatus("InTeRvIeWiNg");
+        assertTrue(status3.toString().equals("Interviewing"));
+
+        // Test that normalized statuses are equal
+        ApplicationStatus status4 = new ApplicationStatus("offer");
+        ApplicationStatus status5 = new ApplicationStatus("Offer");
+        assertTrue(status4.equals(status5));
     }
 }
