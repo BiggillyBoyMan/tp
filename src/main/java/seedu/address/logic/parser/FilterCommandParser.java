@@ -1,11 +1,12 @@
 package seedu.address.logic.parser;
 
-import java.util.Optional;
-
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import seedu.address.logic.commands.FilterCommand;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDUSTRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
+
+import java.util.Optional;
+
+import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.applicationstatus.ApplicationStatus;
 import seedu.address.model.company.ApplicationFilterPredicate;
