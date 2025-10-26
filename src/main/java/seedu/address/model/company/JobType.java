@@ -1,6 +1,7 @@
 package seedu.address.model.company;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -28,7 +29,7 @@ public class JobType {
     }
 
     /**
-     * Returns true if a given string is a valid job type.
+     * Returns true if a given string is a valid job role.
      */
     public static boolean isValidJobType(String test) {
         return test.matches(VALIDATION_REGEX);

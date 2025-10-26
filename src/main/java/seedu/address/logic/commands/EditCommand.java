@@ -1,17 +1,8 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDUSTRY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_JOB_TYPE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-
 import java.util.List;
 import java.util.Objects;
+import static java.util.Objects.requireNonNull;
 import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
@@ -19,7 +10,15 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDUSTRY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_JOB_TYPE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import seedu.address.model.Model;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import seedu.address.model.applicationstatus.ApplicationStatus;
 import seedu.address.model.company.CompanyName;
 import seedu.address.model.company.Deadline;
@@ -44,7 +43,7 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_COMPANY_NAME + "COMPANY_NAME] "
             + "[" + PREFIX_INDUSTRY + "INDUSTRY] "
-            + "[" + PREFIX_JOB_TYPE + "JOB_TYPE] "
+            + "[" + PREFIX_JOB_TYPE + "JOB_ROLE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_STATUS + "STATUS] "
@@ -55,7 +54,8 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Application: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This application already exists in BizBook.";
+    public static final String MESSAGE_DUPLICATE_PERSON =
+            "The application for this company and job role already exists in the application tracker";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;

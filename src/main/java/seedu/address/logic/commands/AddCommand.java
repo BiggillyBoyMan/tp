@@ -1,6 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
+import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.logic.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
@@ -8,10 +12,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDUSTRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOB_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-
-import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.logic.Messages;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.company.InternshipApplication;
 
@@ -26,7 +26,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
             + "Parameters: "
             + PREFIX_COMPANY_NAME + "COMPANY NAME "
-            + PREFIX_JOB_TYPE + "JOB TYPE "
+            + PREFIX_JOB_TYPE + "JOB ROLE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_INDUSTRY + "INDUSTRY "
@@ -37,12 +37,13 @@ public class AddCommand extends Command {
             + PREFIX_JOB_TYPE + "SOFTWARE ENGINEER "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_DESCRIPTION + "Do SWE with experience needed for Java, Node.JS "
-            + PREFIX_INDUSTRY + "Tech "
+            + PREFIX_INDUSTRY + "Technology "
             + PREFIX_STATUS + "Saved "
             + PREFIX_DEADLINE + "2024-12-31";
 
     public static final String MESSAGE_SUCCESS = "New Company added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This Company already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PERSON =
+            "The application for this company and job role already exists in the application tracker";
 
     private final InternshipApplication toAdd;
 
