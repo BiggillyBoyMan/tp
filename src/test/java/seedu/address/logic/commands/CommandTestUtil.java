@@ -74,7 +74,7 @@ public class CommandTestUtil {
     public static final String DEADLINE_DESC_BOB = " " + PREFIX_DEADLINE + VALID_DEADLINE_BOB;
 
     // Invalid Field Descriptors
-    public static final String INVALID_NAME_DESC = " " + PREFIX_COMPANY_NAME + "James&"; //& not allowed
+    public static final String INVALID_NAME_DESC = " " + PREFIX_COMPANY_NAME + "James@"; //@ not allowed
     public static final String INVALID_JOB_TYPE_DESC = " " + PREFIX_JOB_TYPE + "a*"; //* not allowed
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; //missing '@'
     public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION

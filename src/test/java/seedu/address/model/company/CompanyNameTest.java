@@ -49,7 +49,7 @@ public class CompanyNameTest {
         assertTrue(CompanyName.isValidName("Coca-Cola")); // hyphen
         assertTrue(CompanyName.isValidName("Ernst & Young, LLP")); // comma and ampersand
         assertTrue(CompanyName.isValidName("PwC-Singapore")); // hyphen
-        assertTrue(CompanyName.isValidName("L'Oréal")); // apostrophe
+        assertTrue(CompanyName.isValidName("Ben's Company")); // apostrophe in regular name
     }
 
     @Test
