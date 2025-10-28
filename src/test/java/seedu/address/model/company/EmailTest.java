@@ -63,7 +63,7 @@ public class EmailTest {
         assertTrue(Email.isValidEmail("user@gmail.com")); // common email provider
         assertTrue(Email.isValidEmail("john.doe@yahoo.com")); // period in local part
         assertTrue(Email.isValidEmail("contact_me@hotmail.com")); // underscore in local part
-        
+
         // valid email - corporate/company emails
         assertTrue(Email.isValidEmail("careers@google.com")); // company recruitment email
         assertTrue(Email.isValidEmail("hr@company.com")); // HR email
@@ -71,12 +71,12 @@ public class EmailTest {
         assertTrue(Email.isValidEmail("support@tech-company.com")); // hyphen in domain
         assertTrue(Email.isValidEmail("internships@big-corp.co.uk")); // multi-level TLD
         assertTrue(Email.isValidEmail("jobs@company.com.sg")); // Singapore company
-        
+
         // valid email - university/education emails
         assertTrue(Email.isValidEmail("e1234567@u.nus.edu")); // NUS email format
         assertTrue(Email.isValidEmail("student@university.edu")); // standard university email
         assertTrue(Email.isValidEmail("admissions@college.edu.sg")); // education with country TLD
-        
+
         // valid email - edge cases
         assertTrue(Email.isValidEmail("a1+be.d@example1.com")); // mixture of alphanumeric and special characters
         assertTrue(Email.isValidEmail("peter_jack@very-very-very-long-example.com")); // long domain name
