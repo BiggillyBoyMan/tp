@@ -17,13 +17,13 @@ import seedu.address.model.company.InternshipApplication;
 
 
 /**
- * Adds a person to the address book.
+ * Adds an internship application to BizBook.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an internship application to BizBook. "
             + "Parameters: "
             + PREFIX_COMPANY_NAME + "COMPANY NAME "
             + PREFIX_JOB_TYPE + "JOB ROLE "

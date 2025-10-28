@@ -9,7 +9,7 @@ import seedu.address.model.company.NameContainsKeywordsPredicate;
 
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Finds and lists all internship applications in BizBook whose company name contains any of the argument keywords.
  * Keyword matching is case insensitive and allows partial matches.
  */
 public class FindCommand extends Command {

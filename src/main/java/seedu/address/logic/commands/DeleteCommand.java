@@ -13,7 +13,7 @@ import seedu.address.model.company.InternshipApplication;
 
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes an internship application identified using its displayed index from BizBook.
  */
 public class DeleteCommand extends Command {
 

@@ -32,6 +32,8 @@ public class EmailTest {
         assertFalse(Email.isValidEmail("@example.com")); // missing local part
         assertFalse(Email.isValidEmail("peterjackexample.com")); // missing '@' symbol
         assertFalse(Email.isValidEmail("peterjack@")); // missing domain name
+        assertFalse(Email.isValidEmail("peterjack@gmail")); // missing TLD (no period + TLD)
+        assertFalse(Email.isValidEmail("a@b")); // missing period and TLD
 
         // invalid parts
         assertFalse(Email.isValidEmail("peterjack@-")); // invalid domain name
@@ -51,27 +53,44 @@ public class EmailTest {
         assertFalse(Email.isValidEmail("peterjack@-example.com")); // domain name starts with a hyphen
         assertFalse(Email.isValidEmail("peterjack@example.com-")); // domain name ends with a hyphen
         assertFalse(Email.isValidEmail("peterjack@example.c")); // top level domain has less than two chars
+        assertFalse(Email.isValidEmail("user@localhost")); // no TLD (missing period)
 
-        // valid email
+        // valid email - personal emails
         assertTrue(Email.isValidEmail("PeterJack_1190@example.com")); // underscore in local part
         assertTrue(Email.isValidEmail("PeterJack.1190@example.com")); // period in local part
         assertTrue(Email.isValidEmail("PeterJack+1190@example.com")); // '+' symbol in local part
         assertTrue(Email.isValidEmail("PeterJack-1190@example.com")); // hyphen in local part
-        assertTrue(Email.isValidEmail("a@bc")); // minimal
-        assertTrue(Email.isValidEmail("test@localhost")); // alphabets only
-        assertTrue(Email.isValidEmail("123@145")); // numeric local part and domain name
+        assertTrue(Email.isValidEmail("user@gmail.com")); // common email provider
+        assertTrue(Email.isValidEmail("john.doe@yahoo.com")); // period in local part
+        assertTrue(Email.isValidEmail("contact_me@hotmail.com")); // underscore in local part
+        
+        // valid email - corporate/company emails
+        assertTrue(Email.isValidEmail("careers@google.com")); // company recruitment email
+        assertTrue(Email.isValidEmail("hr@company.com")); // HR email
+        assertTrue(Email.isValidEmail("info@startup.io")); // info email with .io TLD
+        assertTrue(Email.isValidEmail("support@tech-company.com")); // hyphen in domain
+        assertTrue(Email.isValidEmail("internships@big-corp.co.uk")); // multi-level TLD
+        assertTrue(Email.isValidEmail("jobs@company.com.sg")); // Singapore company
+        
+        // valid email - university/education emails
+        assertTrue(Email.isValidEmail("e1234567@u.nus.edu")); // NUS email format
+        assertTrue(Email.isValidEmail("student@university.edu")); // standard university email
+        assertTrue(Email.isValidEmail("admissions@college.edu.sg")); // education with country TLD
+        
+        // valid email - edge cases
         assertTrue(Email.isValidEmail("a1+be.d@example1.com")); // mixture of alphanumeric and special characters
         assertTrue(Email.isValidEmail("peter_jack@very-very-very-long-example.com")); // long domain name
         assertTrue(Email.isValidEmail("if.you.dream.it_you.can.do.it@example.com")); // long local part
-        assertTrue(Email.isValidEmail("e1234567@u.nus.edu")); // more than one period in domain
+        assertTrue(Email.isValidEmail("123@example.com")); // numeric local part
+        assertTrue(Email.isValidEmail("a@b.co")); // minimal with proper TLD
     }
 
     @Test
     public void equals() {
-        Email email = new Email("valid@email");
+        Email email = new Email("valid@email.com");
 
         // same values -> returns true
-        assertTrue(email.equals(new Email("valid@email")));
+        assertTrue(email.equals(new Email("valid@email.com")));
 
         // same object -> returns true
         assertTrue(email.equals(email));
@@ -83,6 +102,6 @@ public class EmailTest {
         assertFalse(email.equals(5.0f));
 
         // different values -> returns false
-        assertFalse(email.equals(new Email("other.valid@email")));
+        assertFalse(email.equals(new Email("other.valid@email.com")));
     }
 }

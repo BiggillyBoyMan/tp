@@ -9,7 +9,7 @@ import seedu.address.model.applicationstatus.ApplicationStatus;
 import seedu.address.model.industry.Industry;
 
 /**
- * Represents an Internship Application in the address book (BizBook).
+ * Represents an Internship Application in BizBook.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class InternshipApplication {
