@@ -20,7 +20,7 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the Company identified by the index number used in the displayed person list.\n"
+            + ": Deletes the application identified by the index number used in the displayed application list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

@@ -32,7 +32,7 @@ import seedu.address.model.industry.Industry;
 
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing internship application in BizBook.
  */
 public class EditCommand extends Command {
 
@@ -56,7 +56,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Application: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON =
-            "The application for this company and job role already exists in the application tracker";
+            "This application already exists in BizBook";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
