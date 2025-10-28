@@ -82,6 +82,7 @@ Adds a new internship application to BizBook.
 Format: `add n/COMPANY_NAME i/INDUSTRY a/JOB_ROLE t/DESCRIPTION e/EMAIL s/STATUS d/DEADLINE`
 
 Notes:
+- `COMPANY_NAME` can contain alphanumeric characters, spaces, and these special characters: `& . - ' ,` (e.g., AT&T, McDonald's, Apple Inc., Coca-Cola)
 - `INDUSTRY` must be one of: Technology, Finance, Consulting, Healthcare, Marketing, Operations, Graphic Design
 - `STATUS` must be one of: Saved, Applied, Interviewing, Offer, Rejected.
 - `DEADLINE` must be in the format YYYY-MM-DD (e.g., 2024-12-31)
@@ -90,6 +91,8 @@ Notes:
 Examples:
 * `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31`
 * `add n/DBS Bank i/Finance a/Data Analyst Intern t/Analytics team e/internships@dbs.com s/Applied d/2025-01-15`
+* `add n/AT&T i/Technology a/Network Intern t/5G deployment e/careers@att.com s/Saved d/2024-12-20` (company name with `&`)
+* `add n/McDonald's i/Operations a/Management Trainee t/Store operations e/hr@mcdonalds.com s/Applied d/2025-01-10` (company name with `'`)
 
 ### Listing all applications : `list`
 
@@ -111,11 +114,12 @@ Notes:
 
 Examples:
 * `sort name` - Sorts applications alphabetically by company name
-* `sort status` - Sorts applications by status (alphabetically: Applied, Interviewing, Offer, Rejected, Saved)
+* `sort status` - Sorts applications by status in logical workflow order (Saved → Applied → Interviewing → Offer → Rejected)
 * `sort deadline` - Sorts applications chronologically by deadline (earliest first)
 
 Typical usage:
 * `list` followed by `sort deadline` shows all applications sorted by deadline to help you prioritize upcoming applications.
+* `sort status` helps you see your application pipeline in logical progression order.
 
 ### Editing an application : `edit`
 
@@ -127,6 +131,7 @@ Notes:
 * Edits the application at the specified `INDEX` (as shown in the current list). The index is **1-based**.
 * At least one field to edit must be provided.
 * Existing values will be overwritten by the new inputs.
+* `COMPANY_NAME` can contain alphanumeric characters, spaces, and these special characters: `& . - ' ,`
 * Input for `INDUSTRY` and `STATUS` is case-insensitive (e.g., `i/technology` and `s/applied` are accepted).
 * `DEADLINE` must be in the format YYYY-MM-DD (e.g., 2024-12-31)
 
@@ -143,16 +148,16 @@ Format: `find KEYWORD [MORE_KEYWORDS]...`
 
 Notes:
 * The search is case-insensitive (e.g., `google` will match `Google`)
-* Only **full words** are matched (e.g., `Tech` will match `Tech Corp` but not `TechCorp`)
+* **Partial matches are allowed** (e.g., `Tech` will match `TechCorp`, `FinTech`, and `Tech Solutions`)
 * The order of keywords does not matter (e.g., `Bank DBS` will match `DBS Bank`)
-* **Only the company name field is searched** - other fields like industry, job role, description, email, status, and deadline are not searched
+* **Only the company name field is searched** - other fields like industry, job type, description, email, status, and deadline are not searched
 * Applications matching at least one keyword will be returned (e.g., `Google Microsoft` will return applications for both Google and Microsoft)
 
 Examples:
-* `find Google` returns applications for `Google` and `Google Singapore`
+* `find Google` returns applications for `Google`, `Google Singapore`, and `GoogleTech`
 * `find DBS OCBC` returns applications for `DBS Bank`, `OCBC`, and `DBS Group`
-* `find Meta` returns `Meta` but not `Metaverse Inc` (partial word match doesn't work)
-* `find Tech` returns `Tech Solutions` but not `TechCorp` or `FinTech` (must be a complete word)
+* `find Tech` returns `TechCorp`, `FinTech`, `Tech Solutions`, and any company with "Tech" in the name
+* `find Meta` returns `Meta`, `Metaverse Inc`, and `MetaData Corp` (partial matches work)
 
 ### Filtering applications by status and/or industry : `filter`
 

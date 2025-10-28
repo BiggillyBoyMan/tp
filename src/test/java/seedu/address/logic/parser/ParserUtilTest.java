@@ -17,7 +17,7 @@ import seedu.address.model.industry.Industry;
 
 public class ParserUtilTest {
     // Renamed constants for clarity and alignment with model fields
-    private static final String INVALID_COMPANY_NAME = "R@chel";
+    private static final String INVALID_COMPANY_NAME = "R@chel"; // @ is not allowed
     private static final String INVALID_JOB_TYPE = "S.E. Intern!"; // Example invalid JobType (symbols)
     private static final String INVALID_DESCRIPTION = "a".repeat(201); // 201 characters, exceeds max length of 200
     private static final String INVALID_EMAIL = "example.com";
@@ -25,6 +25,7 @@ public class ParserUtilTest {
     private static final String INVALID_STATUS = "In Progress"; // Not in predefined list
 
     private static final String VALID_COMPANY_NAME = "Rachel Walker Co";
+    private static final String VALID_COMPANY_NAME_WITH_SPECIAL_CHARS = "AT&T Inc."; // Now valid with special chars
     private static final String VALID_JOB_TYPE = "Software Engineer Intern";
     private static final String VALID_DESCRIPTION = "123 Main Street Office";
     private static final String VALID_EMAIL = "rachel@example.com";
