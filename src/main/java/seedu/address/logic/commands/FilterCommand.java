@@ -8,7 +8,7 @@ import seedu.address.model.Model;
 import seedu.address.model.company.ApplicationFilterPredicate;
 
 /**
- * Filters and lists all internship applications in the address book whose status and/or industry
+ * Filters and lists all internship applications in BizBook whose status and/or industry
  * match the specified criteria. The filter does not modify the stored data, only affects the displayed list.
  */
 public class FilterCommand extends Command {

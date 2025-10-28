@@ -41,14 +41,14 @@ public class AddCommand extends Command {
             + PREFIX_STATUS + "Saved "
             + PREFIX_DEADLINE + "2024-12-31";
 
-    public static final String MESSAGE_SUCCESS = "New Company added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New application added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON =
-            "The application for this company and job role already exists in the application tracker";
+            "This application already exists in BizBook";
 
     private final InternshipApplication toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code InternshipApplication}
      */
     public AddCommand(InternshipApplication internshipApplication) {
         requireNonNull(internshipApplication);
