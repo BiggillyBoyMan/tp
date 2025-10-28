@@ -9,7 +9,7 @@ import java.util.Map;
  */
 public class SortComparators {
 
-    /** 
+    /**
      * Defines the logical workflow order for application statuses.
      * Order: Saved (1) → Applied (2) → Interviewing (3) → Offer (4) / Rejected (5)
      */
@@ -26,7 +26,7 @@ public class SortComparators {
     public static final Comparator<InternshipApplication> NAME_COMPARATOR = Comparator
             .comparing(app -> app.getName().value, String.CASE_INSENSITIVE_ORDER);
 
-    /** 
+    /**
      * Sorts applications by application status in logical workflow order.
      * Order: Saved → Applied → Interviewing → Offer → Rejected
      */

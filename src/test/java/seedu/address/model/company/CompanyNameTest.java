@@ -38,7 +38,7 @@ public class CompanyNameTest {
         assertTrue(CompanyName.isValidName("peter the 2nd")); // alphanumeric characters
         assertTrue(CompanyName.isValidName("Capital Tan")); // with capital letters
         assertTrue(CompanyName.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
-        
+
         // valid names with allowed special characters
         assertTrue(CompanyName.isValidName("AT&T")); // ampersand
         assertTrue(CompanyName.isValidName("Procter & Gamble")); // ampersand with spaces
