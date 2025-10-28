@@ -82,6 +82,7 @@ Adds a new internship application to BizBook.
 Format: `add n/COMPANY_NAME i/INDUSTRY a/JOB_ROLE t/DESCRIPTION e/EMAIL s/STATUS d/DEADLINE`
 
 Notes:
+- `COMPANY_NAME` can contain alphanumeric characters, spaces, and these special characters: `& . - ' ,` (e.g., AT&T, McDonald's, Apple Inc., Coca-Cola)
 - `INDUSTRY` must be one of: Technology, Finance, Consulting, Healthcare, Marketing, Operations, Graphic Design
 - `STATUS` must be one of: Saved, Applied, Interviewing, Offer, Rejected.
 - `DEADLINE` must be in the format YYYY-MM-DD (e.g., 2024-12-31)
@@ -90,6 +91,8 @@ Notes:
 Examples:
 * `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31`
 * `add n/DBS Bank i/Finance a/Data Analyst Intern t/Analytics team e/internships@dbs.com s/Applied d/2025-01-15`
+* `add n/AT&T i/Technology a/Network Intern t/5G deployment e/careers@att.com s/Saved d/2024-12-20` (company name with `&`)
+* `add n/McDonald's i/Operations a/Management Trainee t/Store operations e/hr@mcdonalds.com s/Applied d/2025-01-10` (company name with `'`)
 
 ### Listing all applications : `list`
 
@@ -128,6 +131,7 @@ Notes:
 * Edits the application at the specified `INDEX` (as shown in the current list). The index is **1-based**.
 * At least one field to edit must be provided.
 * Existing values will be overwritten by the new inputs.
+* `COMPANY_NAME` can contain alphanumeric characters, spaces, and these special characters: `& . - ' ,`
 * Input for `INDUSTRY` and `STATUS` is case-insensitive (e.g., `i/technology` and `s/applied` are accepted).
 * `DEADLINE` must be in the format YYYY-MM-DD (e.g., 2024-12-31)
 
