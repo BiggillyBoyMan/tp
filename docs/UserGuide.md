@@ -111,11 +111,12 @@ Notes:
 
 Examples:
 * `sort name` - Sorts applications alphabetically by company name
-* `sort status` - Sorts applications by status (alphabetically: Applied, Interviewing, Offer, Rejected, Saved)
+* `sort status` - Sorts applications by status in logical workflow order (Saved → Applied → Interviewing → Offer → Rejected)
 * `sort deadline` - Sorts applications chronologically by deadline (earliest first)
 
 Typical usage:
 * `list` followed by `sort deadline` shows all applications sorted by deadline to help you prioritize upcoming applications.
+* `sort status` helps you see your application pipeline in logical progression order.
 
 ### Editing an application : `edit`
 
