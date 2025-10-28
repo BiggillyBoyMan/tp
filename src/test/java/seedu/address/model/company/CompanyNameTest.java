@@ -28,7 +28,9 @@ public class CompanyNameTest {
         assertFalse(CompanyName.isValidName("")); // empty string
         assertFalse(CompanyName.isValidName(" ")); // spaces only
         assertFalse(CompanyName.isValidName("^")); // only non-alphanumeric characters
-        assertFalse(CompanyName.isValidName("peter*")); // contains non-alphanumeric characters
+        assertFalse(CompanyName.isValidName("peter*")); // contains invalid special characters
+        assertFalse(CompanyName.isValidName("peter@jack")); // @ is not allowed
+        assertFalse(CompanyName.isValidName("Company#1")); // # is not allowed
 
         // valid name
         assertTrue(CompanyName.isValidName("peter jack")); // alphabets only
@@ -36,6 +38,18 @@ public class CompanyNameTest {
         assertTrue(CompanyName.isValidName("peter the 2nd")); // alphanumeric characters
         assertTrue(CompanyName.isValidName("Capital Tan")); // with capital letters
         assertTrue(CompanyName.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
+        
+        // valid names with allowed special characters
+        assertTrue(CompanyName.isValidName("AT&T")); // ampersand
+        assertTrue(CompanyName.isValidName("Procter & Gamble")); // ampersand with spaces
+        assertTrue(CompanyName.isValidName("McDonald's")); // apostrophe
+        assertTrue(CompanyName.isValidName("H&M")); // ampersand
+        assertTrue(CompanyName.isValidName("Johnson & Johnson")); // ampersand with spaces
+        assertTrue(CompanyName.isValidName("Apple Inc.")); // period
+        assertTrue(CompanyName.isValidName("Coca-Cola")); // hyphen
+        assertTrue(CompanyName.isValidName("Ernst & Young, LLP")); // comma and ampersand
+        assertTrue(CompanyName.isValidName("PwC-Singapore")); // hyphen
+        assertTrue(CompanyName.isValidName("L'Oréal")); // apostrophe
     }
 
     @Test
