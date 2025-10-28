@@ -30,7 +30,7 @@ public class Email {
             + "(-" + ALPHANUMERIC_NO_UNDERSCORE + ")*";
     // At least two chars for TLD
     private static final String DOMAIN_LAST_PART_REGEX = "(" + DOMAIN_PART_REGEX + "){2,}$";
-    // Requires at least one period before TLD (e.g., gmail.com, company.edu, not just "gmail")
+    // Requires at least one period before TLD (e.g., gmail.com, company.edu, NOT just "gmail")
     private static final String DOMAIN_REGEX = DOMAIN_PART_REGEX + "\\." + "(" + DOMAIN_PART_REGEX + "\\.)*"
             + DOMAIN_LAST_PART_REGEX;
     public static final String VALIDATION_REGEX = LOCAL_PART_REGEX + "@" + DOMAIN_REGEX;
