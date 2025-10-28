@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents an Internship Application's Job Type (Title) in the address book.
+ * Represents an Internship Application's Job Type (Title) in BizBook.
  * Guarantees: immutable; value is valid as declared in {@link #isValidJobType(String)}
  */
 public class JobType {
