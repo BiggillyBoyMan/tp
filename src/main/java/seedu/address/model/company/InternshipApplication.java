@@ -9,7 +9,7 @@ import seedu.address.model.applicationstatus.ApplicationStatus;
 import seedu.address.model.industry.Industry;
 
 /**
- * Represents an Internship Application in the address book (BizBook).
+ * Represents an Internship Application in BizBook.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class InternshipApplication {
@@ -77,8 +77,9 @@ public class InternshipApplication {
 
 
     /**
-     * Returns true if both persons have the same name.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both applications have the same company name and job type.
+     * This defines a weaker notion of equality between two applications.
+     * This allows multiple applications to the same company for different roles.
      */
     public boolean isSameApplication(InternshipApplication otherInternshipApplication) {
         if (otherInternshipApplication == this) {
@@ -86,7 +87,8 @@ public class InternshipApplication {
         }
 
         return otherInternshipApplication != null
-                && otherInternshipApplication.getName().equals(getName());
+                && otherInternshipApplication.getName().equals(getName())
+                && otherInternshipApplication.getJobType().equals(getJobType());
     }
     @Override
     public boolean equals(Object other) {

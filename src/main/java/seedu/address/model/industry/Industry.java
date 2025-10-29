@@ -11,7 +11,8 @@ public class Industry {
 
     // NOTE: The message constraints below have been updated to match the values defined in VALID_INDUSTRIES.
     public static final String MESSAGE_CONSTRAINTS = "Invalid Industry. Please use one of: Technology, "
-            + "Finance, Consulting, Healthcare, Marketing, Operations, Graphic Design.";
+            + "Finance, Consulting, Healthcare, Marketing, Operations, Graphic Design.\n"
+            + "Example: i/Technology";
 
     // The predefined list of valid industries, used for validation.
     public static final String[] VALID_INDUSTRIES = {
@@ -23,12 +24,12 @@ public class Industry {
     /**
      * Constructs an {@code Industry}.
      *
-     * @param industryName A valid industry name from the predefined list.
+     * @param industryName A valid industry name from the predefined list (case-insensitive).
      */
     public Industry(String industryName) {
         requireNonNull(industryName);
         checkArgument(isValidIndustry(industryName), MESSAGE_CONSTRAINTS);
-        this.value = industryName;
+        this.value = normalizeIndustry(industryName);
     }
 
     /**
@@ -49,6 +50,23 @@ public class Industry {
             }
         }
         return false;
+    }
+
+    /**
+     * Normalizes the industry string to the proper capitalization.
+     * Assumes the input is a valid industry (should be checked with isValidIndustry first).
+     */
+    private static String normalizeIndustry(String test) {
+        String trimmedTest = test.trim();
+        String upperCaseTest = trimmedTest.toUpperCase();
+
+        for (String validIndustry : VALID_INDUSTRIES) {
+            if (validIndustry.toUpperCase().equals(upperCaseTest)) {
+                return validIndustry;
+            }
+        }
+        // This should never happen if isValidIndustry is called first
+        return trimmedTest;
     }
 
     @Override

@@ -10,7 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class ApplicationStatus {
 
     public static final String MESSAGE_CONSTRAINTS = "Invalid status. Please use one of: "
-            + "Saved, Applied, Interviewing, Offer, Rejected.";
+            + "Saved, Applied, Interviewing, Offer, Rejected.\n"
+            + "Example: s/Applied";
 
     // The predefined list of valid application statuses.
     public static final String[] VALID_STATUSES = {
@@ -23,24 +24,38 @@ public class ApplicationStatus {
     /**
      * Constructs an {@code ApplicationStatus}.
      *
-     * @param statusName A valid application status name.
+     * @param statusName A valid application status name (case-insensitive).
      */
     public ApplicationStatus(String statusName) {
         requireNonNull(statusName);
         checkArgument(isValidStatus(statusName), MESSAGE_CONSTRAINTS);
-        this.value = statusName;
+        this.value = normalizeStatus(statusName);
     }
 
     /**
-     * Returns true if a given string is one of the valid application statuses.
+     * Returns true if a given string is one of the valid application statuses (case-insensitive).
      */
     public static boolean isValidStatus(String test) {
         for (String validStatus : VALID_STATUSES) {
-            if (validStatus.equals(test)) {
+            if (validStatus.equalsIgnoreCase(test)) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Normalizes the status string to the proper capitalization.
+     * Assumes the input is a valid status (should be checked with isValidStatus first).
+     */
+    private static String normalizeStatus(String test) {
+        for (String validStatus : VALID_STATUSES) {
+            if (validStatus.equalsIgnoreCase(test)) {
+                return validStatus;
+            }
+        }
+        // This should never happen if isValidStatus is called first
+        return test;
     }
 
     @Override

@@ -1,5 +1,5 @@
 {
-  "_comment": "AddressBook with duplicate person (same company name)",
+  "_comment": "AddressBook with duplicate person (same company name and job type)",
   "persons": [ {
     "companyName" : "Alice Pauline",
     "Email" : "alice@example.com",
@@ -12,7 +12,7 @@
     "companyName" : "Alice Pauline",
     "Email" : "different@example.com",
     "industry" : "Finance",
-    "jobType" : "Different Job",
+    "jobType" : "SWE Intern",
     "description" : "Different description",
     "status" : "Applied",
     "deadline" : "2024-12-31"

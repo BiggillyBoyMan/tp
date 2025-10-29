@@ -32,7 +32,7 @@ import seedu.address.model.industry.Industry;
 
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing internship application in BizBook.
  */
 public class EditCommand extends Command {
 
@@ -44,7 +44,7 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_COMPANY_NAME + "COMPANY_NAME] "
             + "[" + PREFIX_INDUSTRY + "INDUSTRY] "
-            + "[" + PREFIX_JOB_TYPE + "JOB_TYPE] "
+            + "[" + PREFIX_JOB_TYPE + "JOB_ROLE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_STATUS + "STATUS] "
@@ -55,14 +55,15 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Application: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This application already exists in BizBook.";
+    public static final String MESSAGE_DUPLICATE_PERSON =
+            "This application already exists in BizBook";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param index of the application in the filtered application list to edit
+     * @param editPersonDescriptor details to edit the application with
      */
     public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
         requireNonNull(index);

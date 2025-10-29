@@ -13,14 +13,14 @@ import seedu.address.model.company.InternshipApplication;
 
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes an internship application identified using its displayed index from BizBook.
  */
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the Company identified by the index number used in the displayed person list.\n"
+            + ": Deletes the application identified by the index number used in the displayed application list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

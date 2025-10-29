@@ -41,7 +41,7 @@ public class CompanyNameContainsKeywordsPredicateTest {
 
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
-        // One keyword
+        // One keyword - exact match
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
@@ -56,6 +56,17 @@ public class CompanyNameContainsKeywordsPredicateTest {
         // Mixed-case keywords
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+
+        // Partial match - keyword is substring of name
+        predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Tech"));
+        assertTrue(predicate.test(new PersonBuilder().withName("TechCorp").build()));
+        assertTrue(predicate.test(new PersonBuilder().withName("FinTech").build()));
+        assertTrue(predicate.test(new PersonBuilder().withName("Tech Solutions").build()));
+
+        // Partial match with mixed case
+        predicate = new NameContainsKeywordsPredicate(Collections.singletonList("tech"));
+        assertTrue(predicate.test(new PersonBuilder().withName("TechCorp").build()));
+        assertTrue(predicate.test(new PersonBuilder().withName("FINTECH").build()));
     }
 
     @Test

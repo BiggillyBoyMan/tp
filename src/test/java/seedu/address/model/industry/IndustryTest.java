@@ -85,4 +85,28 @@ public class IndustryTest {
         // null tag name
         assertThrows(NullPointerException.class, () -> Industry.isValidIndustry(null));
     }
+
+    @Test
+    public void constructor_caseInsensitiveInput_normalizedToProperCase() {
+        // Test that lowercase input gets normalized
+        Industry industry1 = new Industry("technology");
+        assertTrue(industry1.toString().equals("Technology"));
+
+        // Test that uppercase input gets normalized
+        Industry industry2 = new Industry("FINANCE");
+        assertTrue(industry2.toString().equals("Finance"));
+
+        // Test that mixed case input gets normalized
+        Industry industry3 = new Industry("CoNsUlTiNg");
+        assertTrue(industry3.toString().equals("Consulting"));
+
+        // Test that input with whitespace gets normalized
+        Industry industry4 = new Industry("  Healthcare  ");
+        assertTrue(industry4.toString().equals("Healthcare"));
+
+        // Test that normalized industries are equal
+        Industry industry5 = new Industry("marketing");
+        Industry industry6 = new Industry("Marketing");
+        assertTrue(industry5.equals(industry6));
+    }
 }

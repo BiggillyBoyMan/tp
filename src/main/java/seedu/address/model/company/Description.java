@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents an Internship Application's optional description in the address book.
+ * Represents an Internship Application's optional description in BizBook.
  * Guarantees: immutable; satisfies the length constraint as declared in {@link #isValidDescription(String)}
  */
 public class Description {

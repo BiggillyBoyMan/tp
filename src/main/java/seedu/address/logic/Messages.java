@@ -14,10 +14,9 @@ public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
-    // Temporary alias to support refactored tests that reference "application" naming
+    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The application index provided is invalid";
     public static final String MESSAGE_INVALID_APPLICATION_DISPLAYED_INDEX = MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-    public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
+    public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d application(s) listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
 
@@ -34,7 +33,7 @@ public class Messages {
     }
 
     /**
-     * Formats the {@code person} for display to the user.
+     * Formats the {@code InternshipApplication} for display to the user.
      */
     public static String format(InternshipApplication internshipApplication) {
         final StringBuilder builder = new StringBuilder();
