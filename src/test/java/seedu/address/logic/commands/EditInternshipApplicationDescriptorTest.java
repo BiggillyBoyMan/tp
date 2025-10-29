@@ -5,15 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AWS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AWS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INDUSTRY_FINANCE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_JOB_TYPE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_JOB_TYPE_DA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AWS;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand.EditCompanyDescriptor;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 public class EditInternshipApplicationDescriptorTest {
@@ -21,7 +21,7 @@ public class EditInternshipApplicationDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditPersonDescriptor descriptorWithSameValues = new EditPersonDescriptor(DESC_AMY);
+        EditCompanyDescriptor descriptorWithSameValues = new EditCompanyDescriptor(DESC_AMY);
         assertTrue(DESC_AMY.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -37,19 +37,19 @@ public class EditInternshipApplicationDescriptorTest {
         assertFalse(DESC_AMY.equals(DESC_BOB));
 
         // different name -> returns false
-        EditPersonDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
+        EditCompanyDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withName(VALID_NAME_AWS).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different job type -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withJobType(VALID_JOB_TYPE_BOB).build();
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withJobType(VALID_JOB_TYPE_DA).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different email -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withEmail(VALID_EMAIL_BOB).build();
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withEmail(VALID_EMAIL_AWS).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different description -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withDescription(VALID_DESCRIPTION_BOB).build();
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withDescription(VALID_DESCRIPTION_AWS).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different industry -> returns false
@@ -59,8 +59,8 @@ public class EditInternshipApplicationDescriptorTest {
 
     @Test
     public void toStringMethod() {
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
-        String expected = EditPersonDescriptor.class.getCanonicalName() + "{"
+        EditCompanyDescriptor editPersonDescriptor = new EditCompanyDescriptor();
+        String expected = EditCompanyDescriptor.class.getCanonicalName() + "{"
                 + "companyName=" + editPersonDescriptor.getName().orElse(null) + ", "
                 + "industry=" + editPersonDescriptor.getIndustry().orElse(null) + ", "
                 + "jobType=" + editPersonDescriptor.getJobType().orElse(null) + ", "

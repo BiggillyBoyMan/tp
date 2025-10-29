@@ -17,12 +17,12 @@ import static seedu.address.logic.commands.CommandTestUtil.JOB_TYPE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.JOB_TYPE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.STATUS_DESC_APPLIED;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_GOOGLE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_GOOGLE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INDUSTRY_TECH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_JOB_TYPE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_JOB_TYPE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_JOB_TYPE_SWE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_JOB_TYPE_DA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_GOOGLE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_APPLIED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -30,8 +30,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INDUSTRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOB_TYPE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_COMPANY;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_COMPANY;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 
 import org.junit.jupiter.api.Test;
@@ -39,7 +39,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.applicationstatus.ApplicationStatus;
 import seedu.address.model.company.CompanyName;
 import seedu.address.model.company.Description;
@@ -60,7 +59,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, VALID_NAME_GOOGLE, MESSAGE_INVALID_FORMAT);
 
         // no field specified
         assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
@@ -101,18 +100,18 @@ public class EditCommandParserTest {
         // However, parsing empty industry with other industries results in duplicate prefix error
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_DESCRIPTION_AMY
-                + VALID_JOB_TYPE_AMY, CompanyName.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_DESCRIPTION_GOOGLE
+                + VALID_JOB_TYPE_SWE, CompanyName.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_PERSON;
+        Index targetIndex = INDEX_SECOND_COMPANY;
         String userInput = targetIndex.getOneBased() + JOB_TYPE_DESC_BOB + INDUSTRY_DESC_TECH
                 + EMAIL_DESC_AMY + DESCRIPTION_DESC_AMY + NAME_DESC_AMY + STATUS_DESC_APPLIED;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withJobType(VALID_JOB_TYPE_BOB).withEmail(VALID_EMAIL_AMY).withDescription(VALID_DESCRIPTION_AMY)
+        EditCommand.EditCompanyDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_GOOGLE)
+                .withJobType(VALID_JOB_TYPE_DA).withEmail(VALID_EMAIL_GOOGLE).withDescription(VALID_DESCRIPTION_GOOGLE)
                 .withIndustry(VALID_INDUSTRY_TECH).withStatus(VALID_STATUS_APPLIED).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -121,11 +120,11 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_COMPANY;
         String userInput = targetIndex.getOneBased() + JOB_TYPE_DESC_BOB + EMAIL_DESC_AMY;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withJobType(VALID_JOB_TYPE_BOB)
-                .withEmail(VALID_EMAIL_AMY).build();
+        EditCommand.EditCompanyDescriptor descriptor = new EditPersonDescriptorBuilder().withJobType(VALID_JOB_TYPE_DA)
+                .withEmail(VALID_EMAIL_GOOGLE).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -136,25 +135,25 @@ public class EditCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
+        EditCommand.EditCompanyDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_GOOGLE).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // job type
         userInput = targetIndex.getOneBased() + JOB_TYPE_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withJobType(VALID_JOB_TYPE_AMY).build();
+        descriptor = new EditPersonDescriptorBuilder().withJobType(VALID_JOB_TYPE_SWE).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // email
         userInput = targetIndex.getOneBased() + EMAIL_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withEmail(VALID_EMAIL_AMY).build();
+        descriptor = new EditPersonDescriptorBuilder().withEmail(VALID_EMAIL_GOOGLE).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // description
         userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withDescription(VALID_DESCRIPTION_AMY).build();
+        descriptor = new EditPersonDescriptorBuilder().withDescription(VALID_DESCRIPTION_GOOGLE).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -177,7 +176,7 @@ public class EditCommandParserTest {
         // AddCommandParserTest#parse_repeatedNonTagValue_failure()
 
         // valid followed by invalid
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_COMPANY;
         String userInput = targetIndex.getOneBased() + INVALID_JOB_TYPE_DESC + JOB_TYPE_DESC_BOB;
 
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_JOB_TYPE));
@@ -210,7 +209,7 @@ public class EditCommandParserTest {
     // public void parse_resetIndustry_success() {
     //     Index targetIndex = INDEX_THIRD_PERSON;
     //     String userInput = targetIndex.getOneBased() + INDUSTRY_EMPTY;
-    //     EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withIndustry("").build();
+    //     EditCompanyDescriptor descriptor = new EditPersonDescriptorBuilder().withIndustry("").build();
     //     EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
     //     assertParseSuccess(parser, userInput, expectedCommand);
     // }

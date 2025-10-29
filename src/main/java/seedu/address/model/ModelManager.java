@@ -94,25 +94,25 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(InternshipApplication internshipApplication) {
+    public boolean hasCompany(InternshipApplication internshipApplication) {
         requireNonNull(internshipApplication);
         return addressBook.hasPerson(internshipApplication);
     }
 
     @Override
-    public void deletePerson(InternshipApplication target) {
+    public void deleteCompany(InternshipApplication target) {
         addressBook.removePerson(target);
     }
 
     @Override
-    public void addPerson(InternshipApplication internshipApplication) {
+    public void addCompany(InternshipApplication internshipApplication) {
         addressBook.addPerson(internshipApplication);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredCompanyList(PREDICATE_SHOW_ALL_COMPANY);
         filteredInternshipApplications.setComparator(SortComparators.NAME_COMPARATOR);
     }
 
     @Override
-    public void setPerson(InternshipApplication target, InternshipApplication editedInternshipApplication) {
+    public void setCompany(InternshipApplication target, InternshipApplication editedInternshipApplication) {
         requireAllNonNull(target, editedInternshipApplication);
 
         addressBook.setPerson(target, editedInternshipApplication);
@@ -125,19 +125,19 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<InternshipApplication> getFilteredPersonList() {
+    public ObservableList<InternshipApplication> getFilteredCompanyList() {
         return filteredInternshipApplications;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<InternshipApplication> predicate) {
+    public void updateFilteredCompanyList(Predicate<InternshipApplication> predicate) {
         requireNonNull(predicate);
         // Apply the predicate to the underlying FilteredList
         internalFilteredList.setPredicate(predicate);
     }
 
     @Override
-    public void sortFilteredPersonList(Comparator<InternshipApplication> comparator) {
+    public void sortFilteredCompanyList(Comparator<InternshipApplication> comparator) {
         requireNonNull(comparator);
         // Apply the comparator to the SortedList
         filteredInternshipApplications.setComparator(comparator);
