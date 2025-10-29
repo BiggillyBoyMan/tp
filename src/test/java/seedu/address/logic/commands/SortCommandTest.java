@@ -137,7 +137,7 @@ public class SortCommandTest {
      * ensuring that sorting operates correctly on the list provided by the filter.
      */
     @Test
-    public void execute_sortByName_listIsFiltered_showsSortedFilteredList() {
+    public void execute_sortByNameFiltered_showsSortedList() {
         // 1. Arrange: Filter both models to show only one person
         showApplicationAtIndex(model, INDEX_FIRST_PERSON);
         showApplicationAtIndex(expectedModel, INDEX_FIRST_PERSON);
