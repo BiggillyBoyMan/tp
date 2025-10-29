@@ -30,7 +30,8 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_newApplication_success() {
         // We use the CompanyBuilder (as requested) to build a new, valid application
-        InternshipApplication validApplication = new CompanyBuilder().withName("Netflix").withJobType("Backend Engineer")
+        InternshipApplication validApplication = new CompanyBuilder().withName("Netflix")
+                .withJobType("Backend Engineer")
                 .withIndustry("Technology").withStatus("Saved").build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());

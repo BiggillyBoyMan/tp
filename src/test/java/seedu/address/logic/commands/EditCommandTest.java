@@ -23,8 +23,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.company.InternshipApplication;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.CompanyBuilder;
+import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
@@ -129,7 +129,8 @@ public class EditCommandTest {
     @Test
     public void execute_invalidApplicationIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCompanyList().size() + 1);
-        EditCommand.EditCompanyDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AWS).build();
+        EditCommand.EditCompanyDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AWS)
+                .build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_APPLICATION_DISPLAYED_INDEX);
