@@ -3,7 +3,7 @@ package seedu.address.model.company;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AWS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INDUSTRY_FINANCE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.company.exceptions.DuplicatePersonException;
 import seedu.address.model.company.exceptions.PersonNotFoundException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.CompanyBuilder;
 
 public class UniqueInternshipApplicationListTest {
 
@@ -42,7 +42,7 @@ public class UniqueInternshipApplicationListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueCompanyList.add(ALICE);
-        InternshipApplication editedAlice = new PersonBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB)
+        InternshipApplication editedAlice = new CompanyBuilder(ALICE).withDescription(VALID_DESCRIPTION_AWS)
                 .withIndustry(VALID_INDUSTRY_FINANCE).build();
         assertTrue(uniqueCompanyList.contains(editedAlice));
     }
@@ -85,7 +85,7 @@ public class UniqueInternshipApplicationListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniqueCompanyList.add(ALICE);
-        InternshipApplication editedAlice = new PersonBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB)
+        InternshipApplication editedAlice = new CompanyBuilder(ALICE).withDescription(VALID_DESCRIPTION_AWS)
                 .withIndustry(VALID_INDUSTRY_FINANCE).build();
         uniqueCompanyList.setPerson(ALICE, editedAlice);
         UniqueCompanyList expectedUniqueCompanyList = new UniqueCompanyList();

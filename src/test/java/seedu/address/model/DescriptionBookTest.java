@@ -3,11 +3,11 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AWS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INDUSTRY_FINANCE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalBizBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -20,7 +20,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.company.InternshipApplication;
 import seedu.address.model.company.exceptions.DuplicatePersonException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.CompanyBuilder;
 
 public class DescriptionBookTest {
 
@@ -38,7 +38,7 @@ public class DescriptionBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
+        AddressBook newData = getTypicalBizBook();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }
@@ -46,7 +46,7 @@ public class DescriptionBookTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields (same name)
-        InternshipApplication editedAlice = new PersonBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB)
+        InternshipApplication editedAlice = new CompanyBuilder(ALICE).withDescription(VALID_DESCRIPTION_AWS)
                 .withIndustry(VALID_INDUSTRY_FINANCE).build();
         List<InternshipApplication> newInternshipApplications = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newInternshipApplications);
@@ -73,7 +73,7 @@ public class DescriptionBookTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
-        InternshipApplication editedAlice = new PersonBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB)
+        InternshipApplication editedAlice = new CompanyBuilder(ALICE).withDescription(VALID_DESCRIPTION_AWS)
                 .withIndustry(VALID_INDUSTRY_FINANCE).build();
         assertTrue(addressBook.hasPerson(editedAlice));
     }

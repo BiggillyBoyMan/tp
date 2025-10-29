@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showApplicationAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_COMPANY;
+import static seedu.address.testutil.TypicalPersons.getTypicalBizBook;
 
 import java.util.Comparator;
 
@@ -40,7 +40,7 @@ public class SortCommandTest {
     @BeforeEach
     public void setUp() {
         // Initialize real models with typical data
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalBizBook(), new UserPrefs());
         expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         // Initialize real comparators
@@ -104,7 +104,7 @@ public class SortCommandTest {
         String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "name");
         SortCommand command = new SortCommand(nameComparator, "name");
         // 2. Arrange expected model: Manually sort it in the same way
-        expectedModel.sortFilteredPersonList(nameComparator);
+        expectedModel.sortFilteredCompanyList(nameComparator);
         // 3. Act & Assert: Run command on 'model' and compare its state to 'expectedModel'
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
@@ -116,7 +116,7 @@ public class SortCommandTest {
     public void execute_sortByStatus_success() {
         String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "status");
         SortCommand command = new SortCommand(statusComparator, "status");
-        expectedModel.sortFilteredPersonList(statusComparator);
+        expectedModel.sortFilteredCompanyList(statusComparator);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
@@ -127,7 +127,7 @@ public class SortCommandTest {
     public void execute_sortByDeadline_success() {
         String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "deadline");
         SortCommand command = new SortCommand(deadlineComparator, "deadline");
-        expectedModel.sortFilteredPersonList(deadlineComparator);
+        expectedModel.sortFilteredCompanyList(deadlineComparator);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
@@ -139,13 +139,13 @@ public class SortCommandTest {
     @Test
     public void execute_sortByNameFiltered_showsSortedList() {
         // 1. Arrange: Filter both models to show only one person
-        showApplicationAtIndex(model, INDEX_FIRST_PERSON);
-        showApplicationAtIndex(expectedModel, INDEX_FIRST_PERSON);
+        showApplicationAtIndex(model, INDEX_FIRST_COMPANY);
+        showApplicationAtIndex(expectedModel, INDEX_FIRST_COMPANY);
         // 2. Arrange command and expected message
         String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "name");
         SortCommand command = new SortCommand(nameComparator, "name");
         // 3. Arrange expected model: sort its (filtered) list
-        expectedModel.sortFilteredPersonList(nameComparator);
+        expectedModel.sortFilteredCompanyList(nameComparator);
         // 4. Act & Assert: Sorting a filtered list should still work
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }

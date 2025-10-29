@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalBizBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.company.InternshipApplication;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.CompanyBuilder;
 
 
 /**
@@ -24,17 +24,18 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalBizBook(), new UserPrefs());
     }
 
     @Test
     public void execute_newApplication_success() {
-        // We use the PersonBuilder (as requested) to build a new, valid application
-        InternshipApplication validApplication = new PersonBuilder().withName("Netflix").withJobType("Backend Engineer")
+        // We use the CompanyBuilder (as requested) to build a new, valid application
+        InternshipApplication validApplication = new CompanyBuilder().withName("Netflix")
+                .withJobType("Backend Engineer")
                 .withIndustry("Technology").withStatus("Saved").build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validApplication);
+        expectedModel.addCompany(validApplication);
 
         assertCommandSuccess(new AddCommand(validApplication), model,
                 String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validApplication)),
@@ -48,7 +49,7 @@ public class AddCommandIntegrationTest {
         // Try to add the same application again; identity is based on name and job type,
         // so this should be treated as a duplicate.
         assertCommandFailure(new AddCommand(applicationInList), model,
-                AddCommand.MESSAGE_DUPLICATE_PERSON);
+                AddCommand.MESSAGE_DUPLICATE_Company);
     }
 
 }

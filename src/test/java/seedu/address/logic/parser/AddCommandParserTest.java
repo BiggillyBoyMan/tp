@@ -23,12 +23,12 @@ import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.STATUS_DESC_APPLIED;
 import static seedu.address.logic.commands.CommandTestUtil.STATUS_DESC_SAVED;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AWS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AWS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INDUSTRY_FINANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INDUSTRY_TECH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_JOB_TYPE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_JOB_TYPE_DA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AWS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_SAVED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
@@ -53,14 +53,14 @@ import seedu.address.model.company.Email;
 import seedu.address.model.company.InternshipApplication;
 import seedu.address.model.company.JobType;
 import seedu.address.model.industry.Industry;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.CompanyBuilder;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        InternshipApplication expectedInternshipApplication = new PersonBuilder(BOB).build();
+        InternshipApplication expectedInternshipApplication = new CompanyBuilder(BOB).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + JOB_TYPE_DESC_BOB
@@ -70,7 +70,7 @@ public class AddCommandParserTest {
 
         // multiple names - all but last rejected (duplicate prefix error handled in separate test)
         InternshipApplication expectedInternshipApplicationDifferentIndustry =
-                new PersonBuilder(BOB).withIndustry(VALID_INDUSTRY_TECH).build();
+                new CompanyBuilder(BOB).withIndustry(VALID_INDUSTRY_TECH).build();
         assertParseSuccess(parser, NAME_DESC_BOB + JOB_TYPE_DESC_BOB + EMAIL_DESC_BOB
                 + DESCRIPTION_DESC_BOB + INDUSTRY_DESC_TECH + STATUS_DESC_SAVED + DEADLINE_DESC_BOB,
                 new AddCommand(expectedInternshipApplicationDifferentIndustry));
@@ -156,19 +156,19 @@ public class AddCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + JOB_TYPE_DESC_BOB + EMAIL_DESC_BOB + DESCRIPTION_DESC_BOB
+        assertParseFailure(parser, VALID_NAME_AWS + JOB_TYPE_DESC_BOB + EMAIL_DESC_BOB + DESCRIPTION_DESC_BOB
                 + INDUSTRY_DESC_FINANCE + STATUS_DESC_SAVED, expectedMessage);
 
         // missing job type prefix
-        assertParseFailure(parser, NAME_DESC_BOB + VALID_JOB_TYPE_BOB + EMAIL_DESC_BOB + DESCRIPTION_DESC_BOB
+        assertParseFailure(parser, NAME_DESC_BOB + VALID_JOB_TYPE_DA + EMAIL_DESC_BOB + DESCRIPTION_DESC_BOB
                 + INDUSTRY_DESC_FINANCE + STATUS_DESC_SAVED, expectedMessage);
 
         // missing email prefix
-        assertParseFailure(parser, NAME_DESC_BOB + JOB_TYPE_DESC_BOB + VALID_EMAIL_BOB + DESCRIPTION_DESC_BOB
+        assertParseFailure(parser, NAME_DESC_BOB + JOB_TYPE_DESC_BOB + VALID_EMAIL_AWS + DESCRIPTION_DESC_BOB
                 + INDUSTRY_DESC_FINANCE + STATUS_DESC_SAVED, expectedMessage);
 
         // missing description prefix
-        assertParseFailure(parser, NAME_DESC_BOB + JOB_TYPE_DESC_BOB + EMAIL_DESC_BOB + VALID_DESCRIPTION_BOB
+        assertParseFailure(parser, NAME_DESC_BOB + JOB_TYPE_DESC_BOB + EMAIL_DESC_BOB + VALID_DESCRIPTION_AWS
                 + INDUSTRY_DESC_FINANCE + STATUS_DESC_SAVED, expectedMessage);
 
         // missing industry prefix
@@ -180,7 +180,7 @@ public class AddCommandParserTest {
                 + INDUSTRY_DESC_FINANCE + VALID_STATUS_SAVED, expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_JOB_TYPE_BOB + VALID_EMAIL_BOB + VALID_DESCRIPTION_BOB
+        assertParseFailure(parser, VALID_NAME_AWS + VALID_JOB_TYPE_DA + VALID_EMAIL_AWS + VALID_DESCRIPTION_AWS
                 + VALID_INDUSTRY_FINANCE + VALID_STATUS_SAVED, expectedMessage);
     }
 

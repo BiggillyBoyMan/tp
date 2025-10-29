@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditCommand.EditCompanyDescriptor;
 import seedu.address.model.applicationstatus.ApplicationStatus;
 import seedu.address.model.company.CompanyName;
 import seedu.address.model.company.Deadline;
@@ -11,25 +12,25 @@ import seedu.address.model.company.JobType;
 import seedu.address.model.industry.Industry;
 
 /**
- * A utility class to help with building EditPersonDescriptor objects.
+ * A utility class to help with building EditCompanyDescriptor objects.
  */
 public class EditPersonDescriptorBuilder {
 
-    private EditPersonDescriptor descriptor;
+    private EditCommand.EditCompanyDescriptor descriptor;
 
     public EditPersonDescriptorBuilder() {
-        descriptor = new EditPersonDescriptor();
+        descriptor = new EditCommand.EditCompanyDescriptor();
     }
 
-    public EditPersonDescriptorBuilder(EditPersonDescriptor descriptor) {
-        this.descriptor = new EditPersonDescriptor(descriptor);
+    public EditPersonDescriptorBuilder(EditCommand.EditCompanyDescriptor descriptor) {
+        this.descriptor = new EditCompanyDescriptor(descriptor);
     }
 
     /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code internshipApplication}'s details
+     * Returns an {@code EditCompanyDescriptor} with fields containing {@code internshipApplication}'s details
      */
     public EditPersonDescriptorBuilder(InternshipApplication internshipApplication) {
-        descriptor = new EditPersonDescriptor();
+        descriptor = new EditCompanyDescriptor();
         descriptor.setName(internshipApplication.getName());
         // Corrected from setPhone to setJobType
         descriptor.setJobType(internshipApplication.getJobType());
@@ -42,7 +43,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code CompanyName} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code CompanyName} of the {@code EditCompanyDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withName(String name) {
         descriptor.setName(new CompanyName(name));
@@ -50,7 +51,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code JobType} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code JobType} of the {@code EditCompanyDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withJobType(String jobType) {
         descriptor.setJobType(new JobType(jobType));
@@ -58,7 +59,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Email} of the {@code EditCompanyDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withEmail(String email) {
         descriptor.setEmail(new Email(email));
@@ -66,7 +67,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Description} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Description} of the {@code EditCompanyDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withDescription(String description) {
         descriptor.setDescription(new Description(description));
@@ -74,7 +75,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Industry} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Industry} of the {@code EditCompanyDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withIndustry(String industry) {
         // Corrected from setIndustries to setIndustry
@@ -83,7 +84,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code ApplicationStatus} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code ApplicationStatus} of the {@code EditCompanyDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withStatus(String status) {
         descriptor.setStatus(new ApplicationStatus(status));
@@ -91,14 +92,14 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Deadline} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Deadline} of the {@code EditCompanyDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withDeadline(String deadline) {
         descriptor.setDeadline(new Deadline(deadline));
         return this;
     }
 
-    public EditPersonDescriptor build() {
+    public EditCompanyDescriptor build() {
         return descriptor;
     }
 }
