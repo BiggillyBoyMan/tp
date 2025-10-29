@@ -21,13 +21,11 @@ import seedu.address.model.company.InternshipApplication;
 /**
  * Contains integration tests (interaction with the Model) and unit tests for SortCommand.
  * In integration tests, we use a real ModelManager to verify the actual state
- * of the model after the command execution.
  */
 public class SortCommandTest {
 
     // Model used for testing
     private Model model;
-    
     // Model expected to be the result after a command
     private Model expectedModel;
 
@@ -46,11 +44,11 @@ public class SortCommandTest {
         expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         // Initialize real comparators
-        nameComparator = (app1, app2) -> 
+        nameComparator = (app1, app2) ->
                 app1.getName().value.compareToIgnoreCase(app2.getName().value);
-        statusComparator = (app1, app2) -> 
+        statusComparator = (app1, app2) ->
                 app1.getStatus().toString().compareToIgnoreCase(app2.getStatus().toString());
-        deadlineComparator = (app1, app2) -> 
+        deadlineComparator = (app1, app2) ->
                 app1.getDeadline().value.compareTo(app2.getDeadline().value);
     }
 
@@ -105,7 +103,7 @@ public class SortCommandTest {
         // 1. Arrange: Define the expected success message and the command
         String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "name");
         SortCommand command = new SortCommand(nameComparator, "name");
-        
+       
         // 2. Arrange expected model: Manually sort it in the same way
         expectedModel.sortFilteredPersonList(nameComparator);
 
@@ -149,11 +147,11 @@ public class SortCommandTest {
         // 1. Arrange: Filter both models to show only one person
         showApplicationAtIndex(model, INDEX_FIRST_PERSON);
         showApplicationAtIndex(expectedModel, INDEX_FIRST_PERSON);
-        
+       
         // 2. Arrange command and expected message
         String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "name");
         SortCommand command = new SortCommand(nameComparator, "name");
-        
+       
         // 3. Arrange expected model: sort its (filtered) list
         expectedModel.sortFilteredPersonList(nameComparator);
 
