@@ -20,7 +20,6 @@ public class CompanyName {
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} &.,'\\-]*";
 
     public final String value;
-
     /**
      * Constructs a {@code Name}.
      *

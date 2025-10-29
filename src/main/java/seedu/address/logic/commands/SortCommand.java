@@ -32,6 +32,8 @@ public class SortCommand extends Command {
      * @param fieldName The name of the field being sorted (for user feedback).
      */
     public SortCommand(Comparator<InternshipApplication> comparator, String fieldName) {
+        assert comparator != null : "Comparator must not be null";
+        assert fieldName != null && !fieldName.isEmpty() : "Field name must not be null or empty";
         this.comparator = comparator;
         this.fieldName = fieldName;
     }
@@ -39,6 +41,8 @@ public class SortCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        assert comparator != null : "Comparator must be set before execution";
+        assert fieldName != null && !fieldName.isEmpty() : "Field name must be valid during execution";
         model.sortFilteredPersonList(comparator); // Call the new model method
         return new CommandResult(String.format(MESSAGE_SUCCESS, fieldName));
     }
