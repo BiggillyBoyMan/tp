@@ -22,13 +22,18 @@ BizBook is a **desktop app for managing job applications, optimized for use via 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar BizBook.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
-
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * `list` : Lists all internship applications.
 
    * `sort deadline` : Sorts applications by deadline.
+
+   * `archive 2` : Archives the 2nd application in the list, hiding it from the main view.
+
+   * `note 1 n/"Interview with Google scheduled for 2024-11-10"` : Adds a note to the 1st application.
+
+   * `export` : Exports all applications to a CSV file for backup or analysis.
 
    * `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31` : Adds a Google application.
 

@@ -34,7 +34,9 @@ create SortCommand
 SortCommandParser -> SortCommand
 activate SortCommand
 
-SortCommand --> SortCommandParser :
+SortCommand --> SortCommandParser : returns SortCommand
+' Added note for clarity
+note right: SortCommand instance created and returned
 deactivate SortCommand
 
 SortCommandParser --> AddressBookParser : s
