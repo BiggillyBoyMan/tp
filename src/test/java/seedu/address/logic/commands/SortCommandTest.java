@@ -103,10 +103,8 @@ public class SortCommandTest {
         // 1. Arrange: Define the expected success message and the command
         String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "name");
         SortCommand command = new SortCommand(nameComparator, "name");
-       
         // 2. Arrange expected model: Manually sort it in the same way
         expectedModel.sortFilteredPersonList(nameComparator);
-
         // 3. Act & Assert: Run command on 'model' and compare its state to 'expectedModel'
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
@@ -118,9 +116,7 @@ public class SortCommandTest {
     public void execute_sortByStatus_success() {
         String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "status");
         SortCommand command = new SortCommand(statusComparator, "status");
-
         expectedModel.sortFilteredPersonList(statusComparator);
-
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
@@ -131,9 +127,7 @@ public class SortCommandTest {
     public void execute_sortByDeadline_success() {
         String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "deadline");
         SortCommand command = new SortCommand(deadlineComparator, "deadline");
-
         expectedModel.sortFilteredPersonList(deadlineComparator);
-
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
@@ -147,14 +141,11 @@ public class SortCommandTest {
         // 1. Arrange: Filter both models to show only one person
         showApplicationAtIndex(model, INDEX_FIRST_PERSON);
         showApplicationAtIndex(expectedModel, INDEX_FIRST_PERSON);
-       
         // 2. Arrange command and expected message
         String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "name");
         SortCommand command = new SortCommand(nameComparator, "name");
-       
         // 3. Arrange expected model: sort its (filtered) list
         expectedModel.sortFilteredPersonList(nameComparator);
-
         // 4. Act & Assert: Sorting a filtered list should still work
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
