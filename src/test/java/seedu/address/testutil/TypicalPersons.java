@@ -1,17 +1,17 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_GOOGLE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_AWS;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_GOOGLE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_GOOGLE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AWS;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_GOOGLE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_GOOGLE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AWS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_GOOGLE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INDUSTRY_FINANCE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INDUSTRY_TECH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_JOB_TYPE_SWE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_JOB_TYPE_DA;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_GOOGLE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_JOB_TYPE_SWE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AWS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_GOOGLE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_APPLIED;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_SAVED;
 

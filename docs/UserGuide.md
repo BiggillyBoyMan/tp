@@ -91,7 +91,7 @@ Examples:
 * `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31`
 * `add n/DBS Bank i/Finance a/Data Analyst Intern t/Analytics team e/internships@dbs.com s/Applied d/2025-01-15`
 * `add n/AT&T i/Technology a/Network Intern t/5G deployment e/careers@att.com s/Saved d/2024-12-20` (company name with `&`)
-* `add n/McDonald's i/Operations a/Management Trainee t/Store operations e/hr@mcdonalds.com s/Applied d/2025-01-10` (company name with `'`)
+* `add n/McDonald i/Operations a/Management Trainee t/Store operations e/hr@mcdonalds.com s/Applied d/2025-01-10` (company name with `'`)
 
 ### Listing all applications : `list`
 
