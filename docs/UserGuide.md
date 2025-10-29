@@ -29,12 +29,6 @@ BizBook is a **desktop app for managing job applications, optimized for use via 
 
    * `sort deadline` : Sorts applications by deadline.
 
-   * `archive 2` : Archives the 2nd application in the list, hiding it from the main view.
-
-   * `note 1 n/"Interview with Google scheduled for 2024-11-10"` : Adds a note to the 1st application.
-
-   * `export` : Exports all applications to a CSV file for backup or analysis.
-
    * `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31` : Adds a Google application.
 
    * `edit 1 s/Interviewing` : Edits the 1st application's status to "Interviewing".
