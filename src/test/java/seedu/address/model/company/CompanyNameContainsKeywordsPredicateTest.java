@@ -10,7 +10,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.CompanyBuilder;
 
 public class CompanyNameContainsKeywordsPredicateTest {
 
@@ -43,45 +43,45 @@ public class CompanyNameContainsKeywordsPredicateTest {
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword - exact match
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+        assertTrue(predicate.test(new CompanyBuilder().withName("Alice Bob").build()));
 
         // Multiple keywords
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+        assertTrue(predicate.test(new CompanyBuilder().withName("Alice Bob").build()));
 
         // Only one matching keyword
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Carol").build()));
+        assertTrue(predicate.test(new CompanyBuilder().withName("Alice Carol").build()));
 
         // Mixed-case keywords
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+        assertTrue(predicate.test(new CompanyBuilder().withName("Alice Bob").build()));
 
         // Partial match - keyword is substring of name
         predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Tech"));
-        assertTrue(predicate.test(new PersonBuilder().withName("TechCorp").build()));
-        assertTrue(predicate.test(new PersonBuilder().withName("FinTech").build()));
-        assertTrue(predicate.test(new PersonBuilder().withName("Tech Solutions").build()));
+        assertTrue(predicate.test(new CompanyBuilder().withName("TechCorp").build()));
+        assertTrue(predicate.test(new CompanyBuilder().withName("FinTech").build()));
+        assertTrue(predicate.test(new CompanyBuilder().withName("Tech Solutions").build()));
 
         // Partial match with mixed case
         predicate = new NameContainsKeywordsPredicate(Collections.singletonList("tech"));
-        assertTrue(predicate.test(new PersonBuilder().withName("TechCorp").build()));
-        assertTrue(predicate.test(new PersonBuilder().withName("FINTECH").build()));
+        assertTrue(predicate.test(new CompanyBuilder().withName("TechCorp").build()));
+        assertTrue(predicate.test(new CompanyBuilder().withName("FINTECH").build()));
     }
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice").build()));
+        assertFalse(predicate.test(new CompanyBuilder().withName("Alice").build()));
 
         // Non-matching keyword
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+        assertFalse(predicate.test(new CompanyBuilder().withName("Alice Bob").build()));
 
         // Keywords match job type, email and description, but does not match name
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Engineer", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice").withJobType("Software Engineer")
+        assertFalse(predicate.test(new CompanyBuilder().withName("Alice").withJobType("Software Engineer")
                 .withEmail("alice@email.com").withDescription("Main Street Office").build()));
     }
 
