@@ -12,7 +12,7 @@ import seedu.address.model.industry.Industry;
 /**
  * A utility class to help with building InternshipApplication objects.
  */
-public class PersonBuilder {
+public class CompanyBuilder {
 
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_JOB_TYPE = "Software Engineer";
@@ -31,9 +31,9 @@ public class PersonBuilder {
     private Deadline deadline;
 
     /**
-     * Creates a {@code PersonBuilder} with the default details.
+     * Creates a {@code CompanyBuilder} with the default details.
      */
-    public PersonBuilder() {
+    public CompanyBuilder() {
         companyName = new CompanyName(DEFAULT_NAME);
         jobType = new JobType(DEFAULT_JOB_TYPE);
         email = new Email(DEFAULT_EMAIL);
@@ -44,9 +44,9 @@ public class PersonBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code applicationToCopy}.
+     * Initializes the CompanyBuilder with the data of {@code applicationToCopy}.
      */
-    public PersonBuilder(InternshipApplication applicationToCopy) {
+    public CompanyBuilder(InternshipApplication applicationToCopy) {
         companyName = applicationToCopy.getName();
         jobType = applicationToCopy.getJobType();
         email = applicationToCopy.getEmail();
@@ -59,7 +59,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code CompanyName} of the {@code InternshipApplication} that we are building.
      */
-    public PersonBuilder withName(String name) {
+    public CompanyBuilder withName(String name) {
         this.companyName = new CompanyName(name);
         return this;
     }
@@ -67,7 +67,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code JobType} of the {@code InternshipApplication} that we are building.
      */
-    public PersonBuilder withJobType(String jobType) {
+    public CompanyBuilder withJobType(String jobType) {
         this.jobType = new JobType(jobType);
         return this;
     }
@@ -75,7 +75,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Email} of the {@code InternshipApplication} that we are building.
      */
-    public PersonBuilder withEmail(String email) {
+    public CompanyBuilder withEmail(String email) {
         this.email = new Email(email);
         return this;
     }
@@ -83,7 +83,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Description} of the {@code InternshipApplication} that we are building.
      */
-    public PersonBuilder withDescription(String description) {
+    public CompanyBuilder withDescription(String description) {
         this.description = new Description(description);
         return this;
     }
@@ -91,7 +91,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Industry} of the {@code InternshipApplication} that we are building.
      */
-    public PersonBuilder withIndustry(String industry) {
+    public CompanyBuilder withIndustry(String industry) {
         this.industry = new Industry(industry);
         return this;
     }
@@ -99,7 +99,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code ApplicationStatus} of the {@code InternshipApplication} that we are building.
      */
-    public PersonBuilder withStatus(String status) {
+    public CompanyBuilder withStatus(String status) {
         this.status = new ApplicationStatus(status);
         return this;
     }
@@ -107,7 +107,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Deadline} of the {@code InternshipApplication} that we are building.
      */
-    public PersonBuilder withDeadline(String deadline) {
+    public CompanyBuilder withDeadline(String deadline) {
         this.deadline = new Deadline(deadline);
         return this;
     }

@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.CompanyBuilder;
 
 public class ApplicationFilterPredicateTest {
 
@@ -42,7 +42,7 @@ public class ApplicationFilterPredicateTest {
         // Filter by status only - Applied
         ApplicationFilterPredicate predicate =
                 new ApplicationFilterPredicate(Optional.of("Applied"), Optional.empty());
-        assertTrue(predicate.test(new PersonBuilder().withStatus("Applied").build()));
+        assertTrue(predicate.test(new CompanyBuilder().withStatus("Applied").build()));
     }
 
     @Test
@@ -50,7 +50,7 @@ public class ApplicationFilterPredicateTest {
         // Filter by status - looking for Applied but application is Saved
         ApplicationFilterPredicate predicate =
                 new ApplicationFilterPredicate(Optional.of("Applied"), Optional.empty());
-        assertFalse(predicate.test(new PersonBuilder().withStatus("Saved").build()));
+        assertFalse(predicate.test(new CompanyBuilder().withStatus("Saved").build()));
     }
 
     @Test
@@ -58,7 +58,7 @@ public class ApplicationFilterPredicateTest {
         // Filter by industry only - Technology
         ApplicationFilterPredicate predicate =
                 new ApplicationFilterPredicate(Optional.empty(), Optional.of("Technology"));
-        assertTrue(predicate.test(new PersonBuilder().withIndustry("Technology").build()));
+        assertTrue(predicate.test(new CompanyBuilder().withIndustry("Technology").build()));
     }
 
     @Test
@@ -66,7 +66,7 @@ public class ApplicationFilterPredicateTest {
         // Filter by industry - looking for Technology but application is Finance
         ApplicationFilterPredicate predicate =
                 new ApplicationFilterPredicate(Optional.empty(), Optional.of("Technology"));
-        assertFalse(predicate.test(new PersonBuilder().withIndustry("Finance").build()));
+        assertFalse(predicate.test(new CompanyBuilder().withIndustry("Finance").build()));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class ApplicationFilterPredicateTest {
         // Filter by both status and industry - both match
         ApplicationFilterPredicate predicate =
                 new ApplicationFilterPredicate(Optional.of("Applied"), Optional.of("Technology"));
-        assertTrue(predicate.test(new PersonBuilder().withStatus("Applied").withIndustry("Technology").build()));
+        assertTrue(predicate.test(new CompanyBuilder().withStatus("Applied").withIndustry("Technology").build()));
     }
 
     @Test
@@ -82,7 +82,7 @@ public class ApplicationFilterPredicateTest {
         // Filter by both - status matches but industry doesn't
         ApplicationFilterPredicate predicate =
                 new ApplicationFilterPredicate(Optional.of("Applied"), Optional.of("Technology"));
-        assertFalse(predicate.test(new PersonBuilder().withStatus("Applied").withIndustry("Finance").build()));
+        assertFalse(predicate.test(new CompanyBuilder().withStatus("Applied").withIndustry("Finance").build()));
     }
 
     @Test
@@ -90,7 +90,7 @@ public class ApplicationFilterPredicateTest {
         // Filter by both - industry matches but status doesn't
         ApplicationFilterPredicate predicate =
                 new ApplicationFilterPredicate(Optional.of("Applied"), Optional.of("Technology"));
-        assertFalse(predicate.test(new PersonBuilder().withStatus("Saved").withIndustry("Technology").build()));
+        assertFalse(predicate.test(new CompanyBuilder().withStatus("Saved").withIndustry("Technology").build()));
     }
 
     @Test
@@ -98,12 +98,12 @@ public class ApplicationFilterPredicateTest {
         // Test case-insensitive matching for status
         ApplicationFilterPredicate statusPredicate =
                 new ApplicationFilterPredicate(Optional.of("applied"), Optional.empty());
-        assertTrue(statusPredicate.test(new PersonBuilder().withStatus("Applied").build()));
+        assertTrue(statusPredicate.test(new CompanyBuilder().withStatus("Applied").build()));
 
         // Test case-insensitive matching for industry
         ApplicationFilterPredicate industryPredicate =
                 new ApplicationFilterPredicate(Optional.empty(), Optional.of("technology"));
-        assertTrue(industryPredicate.test(new PersonBuilder().withIndustry("Technology").build()));
+        assertTrue(industryPredicate.test(new CompanyBuilder().withIndustry("Technology").build()));
     }
 
     @Test
@@ -111,7 +111,7 @@ public class ApplicationFilterPredicateTest {
         // When no filters are specified (edge case), should match everything
         ApplicationFilterPredicate predicate =
                 new ApplicationFilterPredicate(Optional.empty(), Optional.empty());
-        assertTrue(predicate.test(new PersonBuilder().build()));
+        assertTrue(predicate.test(new CompanyBuilder().build()));
     }
 
     @Test

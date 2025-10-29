@@ -43,7 +43,7 @@ public class SortCommand extends Command {
         requireNonNull(model);
         assert comparator != null : "Comparator must be set before execution";
         assert fieldName != null && !fieldName.isEmpty() : "Field name must be valid during execution";
-        model.sortFilteredPersonList(comparator); // Call the new model method
+        model.sortFilteredCompanyList(comparator); // Call the new model method
         return new CommandResult(String.format(MESSAGE_SUCCESS, fieldName));
     }
 

@@ -3,24 +3,24 @@ package seedu.address.model.company;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AWS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AWS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INDUSTRY_FINANCE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_JOB_TYPE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_JOB_TYPE_DA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AWS;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.CompanyBuilder;
 
 public class InternshipApplicationTest {
 
     // Industry is no longer a list, so this test is removed
     // @Test
     // public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-    //     InternshipApplication internshipApplication = new PersonBuilder().build();
+    //     InternshipApplication internshipApplication = new CompanyBuilder().build();
     //     assertThrows(UnsupportedOperationException.class, () -> internshipApplication.getIndustry().remove(0));
     // }
 
@@ -33,33 +33,33 @@ public class InternshipApplicationTest {
         assertFalse(ALICE.isSameApplication(null));
 
         // same name and job type, all other attributes different -> returns true
-        InternshipApplication editedAlice = new PersonBuilder(ALICE)
-                .withEmail(VALID_EMAIL_BOB).withDescription(VALID_DESCRIPTION_BOB)
+        InternshipApplication editedAlice = new CompanyBuilder(ALICE)
+                .withEmail(VALID_EMAIL_AWS).withDescription(VALID_DESCRIPTION_AWS)
                 .withIndustry(VALID_INDUSTRY_FINANCE).build();
         assertTrue(ALICE.isSameApplication(editedAlice));
 
         // same name, different job type -> returns false (allows multiple roles at same company)
-        editedAlice = new PersonBuilder(ALICE).withJobType(VALID_JOB_TYPE_BOB).build();
+        editedAlice = new CompanyBuilder(ALICE).withJobType(VALID_JOB_TYPE_DA).build();
         assertFalse(ALICE.isSameApplication(editedAlice));
 
         // different name, same job type -> returns false
-        editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        editedAlice = new CompanyBuilder(ALICE).withName(VALID_NAME_AWS).build();
         assertFalse(ALICE.isSameApplication(editedAlice));
 
         // name differs in case, all other attributes same -> returns false
-        InternshipApplication editedBob = new PersonBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
+        InternshipApplication editedBob = new CompanyBuilder(BOB).withName(VALID_NAME_AWS.toLowerCase()).build();
         assertFalse(BOB.isSameApplication(editedBob));
 
         // name has trailing spaces, all other attributes same -> returns false
-        String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
-        editedBob = new PersonBuilder(BOB).withName(nameWithTrailingSpaces).build();
+        String nameWithTrailingSpaces = VALID_NAME_AWS + " ";
+        editedBob = new CompanyBuilder(BOB).withName(nameWithTrailingSpaces).build();
         assertFalse(BOB.isSameApplication(editedBob));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        InternshipApplication aliceCopy = new PersonBuilder(ALICE).build();
+        InternshipApplication aliceCopy = new CompanyBuilder(ALICE).build();
         assertTrue(ALICE.equals(aliceCopy));
 
         // same object -> returns true
@@ -75,26 +75,26 @@ public class InternshipApplicationTest {
         assertFalse(ALICE.equals(BOB));
 
         // different name -> returns false
-        InternshipApplication editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        InternshipApplication editedAlice = new CompanyBuilder(ALICE).withName(VALID_NAME_AWS).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different job type -> returns false
-        editedAlice = new PersonBuilder(ALICE).withJobType(VALID_JOB_TYPE_BOB).build();
+        editedAlice = new CompanyBuilder(ALICE).withJobType(VALID_JOB_TYPE_DA).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // Note: Email is not part of equals() comparison, so different emails are considered equal
         // This is intentional as email doesn't define application identity
 
         // different description -> returns false
-        editedAlice = new PersonBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).build();
+        editedAlice = new CompanyBuilder(ALICE).withDescription(VALID_DESCRIPTION_AWS).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different industry -> returns false
-        editedAlice = new PersonBuilder(ALICE).withIndustry(VALID_INDUSTRY_FINANCE).build();
+        editedAlice = new CompanyBuilder(ALICE).withIndustry(VALID_INDUSTRY_FINANCE).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different status -> returns false
-        editedAlice = new PersonBuilder(ALICE).withStatus("Rejected").build();
+        editedAlice = new CompanyBuilder(ALICE).withStatus("Rejected").build();
         assertFalse(ALICE.equals(editedAlice));
     }
 

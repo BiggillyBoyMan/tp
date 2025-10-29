@@ -42,7 +42,7 @@ public class AddCommand extends Command {
             + PREFIX_DEADLINE + "2024-12-31";
 
     public static final String MESSAGE_SUCCESS = "New application added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON =
+    public static final String MESSAGE_DUPLICATE_Company =
             "This application already exists in BizBook";
 
     private final InternshipApplication toAdd;
@@ -59,11 +59,11 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (model.hasCompany(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_Company);
         }
 
-        model.addPerson(toAdd);
+        model.addCompany(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 

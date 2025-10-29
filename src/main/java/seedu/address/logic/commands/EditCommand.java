@@ -8,7 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDUSTRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOB_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_COMPANY;
 
 import java.util.List;
 import java.util.Objects;
@@ -53,76 +53,76 @@ public class EditCommand extends Command {
             + PREFIX_JOB_TYPE + "SWE Intern "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Application: %1$s";
+    public static final String MESSAGE_EDIT_COMPANY_SUCCESS = "Edited Application: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON =
+    public static final String MESSAGE_DUPLICATE_COMPANY =
             "This application already exists in BizBook";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditCompanyDescriptor editCompanyDescriptor;
 
     /**
      * @param index of the application in the filtered application list to edit
      * @param editPersonDescriptor details to edit the application with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditCompanyDescriptor editPersonDescriptor) {
         requireNonNull(index);
         requireNonNull(editPersonDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editCompanyDescriptor = new EditCompanyDescriptor(editPersonDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<InternshipApplication> lastShownList = model.getFilteredPersonList();
+        List<InternshipApplication> lastShownList = model.getFilteredCompanyList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_COMPANY_DISPLAYED_INDEX);
         }
 
-        if (!editPersonDescriptor.isAnyFieldEdited()) {
+        if (!editCompanyDescriptor.isAnyFieldEdited()) {
             throw new CommandException(MESSAGE_NOT_EDITED);
         }
 
         InternshipApplication internshipApplicationToEdit = lastShownList.get(index.getZeroBased());
         InternshipApplication editedInternshipApplication = createEditedApplication(
-                internshipApplicationToEdit, editPersonDescriptor);
+                internshipApplicationToEdit, editCompanyDescriptor);
 
         if (!internshipApplicationToEdit.isSameApplication(editedInternshipApplication)
-                && model.hasPerson(editedInternshipApplication)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+                && model.hasCompany(editedInternshipApplication)) {
+            throw new CommandException(MESSAGE_DUPLICATE_COMPANY);
         }
 
-        model.setPerson(internshipApplicationToEdit, editedInternshipApplication);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS,
+        model.setCompany(internshipApplicationToEdit, editedInternshipApplication);
+        model.updateFilteredCompanyList(PREDICATE_SHOW_ALL_COMPANY);
+        return new CommandResult(String.format(MESSAGE_EDIT_COMPANY_SUCCESS,
                 Messages.format(editedInternshipApplication)));
     }
 
     /**
      * Creates and returns a {@code InternshipApplication} with the details of {@code applicationToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * edited with {@code editCompanyDescriptor}.
      */
     private static InternshipApplication createEditedApplication(
             InternshipApplication applicationToEdit,
-            EditPersonDescriptor editPersonDescriptor) {
+            EditCompanyDescriptor editCompanyDescriptor) {
         assert applicationToEdit != null;
 
-        CompanyName updatedCompanyName = editPersonDescriptor.getName()
+        CompanyName updatedCompanyName = editCompanyDescriptor.getName()
                 .orElse(applicationToEdit.getName());
-        Industry updatedIndustry = editPersonDescriptor.getIndustry()
+        Industry updatedIndustry = editCompanyDescriptor.getIndustry()
                 .orElse(applicationToEdit.getIndustry());
-        JobType updatedJobType = editPersonDescriptor.getJobType()
+        JobType updatedJobType = editCompanyDescriptor.getJobType()
                 .orElse(applicationToEdit.getJobType());
-        Email updatedEmail = editPersonDescriptor.getEmail()
+        Email updatedEmail = editCompanyDescriptor.getEmail()
                 .orElse(applicationToEdit.getEmail());
-        Description updatedDescription = editPersonDescriptor.getDescription()
+        Description updatedDescription = editCompanyDescriptor.getDescription()
                 .orElse(applicationToEdit.getDescription());
-        ApplicationStatus updatedStatus = editPersonDescriptor.getStatus()
+        ApplicationStatus updatedStatus = editCompanyDescriptor.getStatus()
                 .orElse(applicationToEdit.getStatus());
-        Deadline updatedDeadline = editPersonDescriptor.getDeadline()
+        Deadline updatedDeadline = editCompanyDescriptor.getDeadline()
                 .orElse(applicationToEdit.getDeadline());
 
         return new InternshipApplication(updatedCompanyName, updatedIndustry, updatedJobType,
@@ -142,14 +142,14 @@ public class EditCommand extends Command {
 
         EditCommand otherEditCommand = (EditCommand) other;
         return index.equals(otherEditCommand.index)
-                && editPersonDescriptor.equals(otherEditCommand.editPersonDescriptor);
+                && editCompanyDescriptor.equals(otherEditCommand.editCompanyDescriptor);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("index", index)
-                .add("editPersonDescriptor", editPersonDescriptor)
+                .add("editPersonDescriptor", editCompanyDescriptor)
                 .toString();
     }
 
@@ -157,7 +157,7 @@ public class EditCommand extends Command {
      * Stores the details to edit the application with. Each non-empty field value will replace the
      * corresponding field value of the application.
      */
-    public static class EditPersonDescriptor {
+    public static class EditCompanyDescriptor {
         private CompanyName companyName;
         private Industry industry;
         private JobType jobType;
@@ -166,12 +166,12 @@ public class EditCommand extends Command {
         private ApplicationStatus status;
         private Deadline deadline;
 
-        public EditPersonDescriptor() {}
+        public EditCompanyDescriptor() {}
 
         /**
          * Copy constructor.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditCompanyDescriptor(EditCompanyDescriptor toCopy) {
             setName(toCopy.companyName);
             setIndustry(toCopy.industry);
             setJobType(toCopy.jobType);
@@ -251,18 +251,18 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditCompanyDescriptor)) {
                 return false;
             }
 
-            EditPersonDescriptor otherEditPersonDescriptor = (EditPersonDescriptor) other;
-            return Objects.equals(companyName, otherEditPersonDescriptor.companyName)
-                    && Objects.equals(industry, otherEditPersonDescriptor.industry)
-                    && Objects.equals(jobType, otherEditPersonDescriptor.jobType)
-                    && Objects.equals(email, otherEditPersonDescriptor.email)
-                    && Objects.equals(description, otherEditPersonDescriptor.description)
-                    && Objects.equals(status, otherEditPersonDescriptor.status)
-                    && Objects.equals(deadline, otherEditPersonDescriptor.deadline);
+            EditCompanyDescriptor otherEditCompanyDescriptor = (EditCompanyDescriptor) other;
+            return Objects.equals(companyName, otherEditCompanyDescriptor.companyName)
+                    && Objects.equals(industry, otherEditCompanyDescriptor.industry)
+                    && Objects.equals(jobType, otherEditCompanyDescriptor.jobType)
+                    && Objects.equals(email, otherEditCompanyDescriptor.email)
+                    && Objects.equals(description, otherEditCompanyDescriptor.description)
+                    && Objects.equals(status, otherEditCompanyDescriptor.status)
+                    && Objects.equals(deadline, otherEditCompanyDescriptor.deadline);
         }
 
         @Override

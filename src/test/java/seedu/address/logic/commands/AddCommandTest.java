@@ -24,7 +24,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.company.InternshipApplication;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.CompanyBuilder;
 
 public class AddCommandTest {
 
@@ -36,7 +36,7 @@ public class AddCommandTest {
     @Test
     public void execute_applicationAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingApplicationAdded modelStub = new ModelStubAcceptingApplicationAdded();
-        InternshipApplication validApplication = new PersonBuilder().build();
+        InternshipApplication validApplication = new CompanyBuilder().build();
 
         CommandResult commandResult = new AddCommand(validApplication).execute(modelStub);
 
@@ -47,17 +47,17 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicateApplication_throwsCommandException() {
-        InternshipApplication validApplication = new PersonBuilder().build();
+        InternshipApplication validApplication = new CompanyBuilder().build();
         AddCommand addCommand = new AddCommand(validApplication);
         ModelStub modelStub = new ModelStubWithApplication(validApplication);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_Company, () -> addCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        InternshipApplication google = new PersonBuilder().withName("Google").build();
-        InternshipApplication meta = new PersonBuilder().withName("Meta").build();
+        InternshipApplication google = new CompanyBuilder().withName("Google").build();
+        InternshipApplication meta = new CompanyBuilder().withName("Meta").build();
         AddCommand addGoogleCommand = new AddCommand(google);
         AddCommand addMetaCommand = new AddCommand(meta);
 
@@ -120,7 +120,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(InternshipApplication internshipApplication) {
+        public void addCompany(InternshipApplication internshipApplication) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -135,32 +135,32 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(InternshipApplication internshipApplication) {
+        public boolean hasCompany(InternshipApplication internshipApplication) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(InternshipApplication target) {
+        public void deleteCompany(InternshipApplication target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(InternshipApplication target, InternshipApplication editedInternshipApplication) {
+        public void setCompany(InternshipApplication target, InternshipApplication editedInternshipApplication) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<InternshipApplication> getFilteredPersonList() {
+        public ObservableList<InternshipApplication> getFilteredCompanyList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<InternshipApplication> predicate) {
+        public void updateFilteredCompanyList(Predicate<InternshipApplication> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void sortFilteredPersonList(Comparator<InternshipApplication> comparator) {
+        public void sortFilteredCompanyList(Comparator<InternshipApplication> comparator) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -177,7 +177,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(InternshipApplication application) {
+        public boolean hasCompany(InternshipApplication application) {
             requireNonNull(application);
             return this.application.isSameApplication(application);
         }
@@ -190,13 +190,13 @@ public class AddCommandTest {
         final ArrayList<InternshipApplication> applicationsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(InternshipApplication application) {
+        public boolean hasCompany(InternshipApplication application) {
             requireNonNull(application);
             return applicationsAdded.stream().anyMatch(application::isSameApplication);
         }
 
         @Override
-        public void addPerson(InternshipApplication application) {
+        public void addCompany(InternshipApplication application) {
             requireNonNull(application);
             applicationsAdded.add(application);
         }

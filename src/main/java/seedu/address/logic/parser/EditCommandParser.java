@@ -12,7 +12,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand.EditCompanyDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.applicationstatus.ApplicationStatus;
 import seedu.address.model.industry.Industry;
@@ -44,7 +44,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_COMPANY_NAME, PREFIX_INDUSTRY, PREFIX_JOB_TYPE,
                 PREFIX_EMAIL, PREFIX_DESCRIPTION, PREFIX_STATUS, PREFIX_DEADLINE);
 
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+        EditCompanyDescriptor editPersonDescriptor = new EditCommand.EditCompanyDescriptor();
 
         if (argMultimap.getValue(PREFIX_COMPANY_NAME).isPresent()) {
             editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_COMPANY_NAME).get()));
