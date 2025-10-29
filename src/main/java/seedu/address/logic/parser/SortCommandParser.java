@@ -15,7 +15,7 @@ import seedu.address.model.company.SortComparators;
 public class SortCommandParser implements Parser<SortCommand> {
 
     public static final String MESSAGE_INVALID_FIELD =
-            "Invalid field for sorting. Must be one of: name, status, deadline";
+            "Invalid field for sorting. Must be one of: name, status, deadline, industry";
 
     /**
      * Parses the given {@code String} of arguments in the context of the SortCommand
@@ -26,7 +26,7 @@ public class SortCommandParser implements Parser<SortCommand> {
         String trimmedArgs = args.trim().toLowerCase();
 
         // Basic validation: ensure a field is specified and it's one of the valid ones.
-        if (trimmedArgs.isEmpty() || !trimmedArgs.matches("name|status|deadline")) {
+        if (trimmedArgs.isEmpty() || !trimmedArgs.matches("name|status|deadline|industry")) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
@@ -46,6 +46,10 @@ public class SortCommandParser implements Parser<SortCommand> {
         case "deadline":
             comparator = SortComparators.DEADLINE_COMPARATOR;
             fieldName = "deadline";
+            break;
+        case "industry":
+            comparator = SortComparators.INDUSTRY_COMPARATOR;
+            fieldName = "industry";
             break;
         default:
             // This case should not be reached due to the regex check, but included for safety.
