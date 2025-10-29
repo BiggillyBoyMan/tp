@@ -150,15 +150,15 @@ public class BoundaryValueTests {
     }
 
     /**
-     * Tests that the minimum valid email (e.g., a@bc) is accepted.
+     * Tests that the minimum valid email with proper TLD (e.g., a@b.co) is accepted.
      */
     @Test
     public void email_minimumValid_accepted() {
-        // Minimum valid email: a@bc (4 characters)
-        assertTrue(Email.isValidEmail("a@bc"));
+        // Minimum valid email with TLD: a@b.co (6 characters)
+        assertTrue(Email.isValidEmail("a@b.co"));
 
-        Email email = new Email("a@bc");
-        assertTrue(email.value.equals("a@bc"));
+        Email email = new Email("a@b.co");
+        assertTrue(email.value.equals("a@b.co"));
     }
 
     /**

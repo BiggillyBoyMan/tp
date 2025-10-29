@@ -4,14 +4,17 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.company.InternshipApplication;
+import seedu.address.model.company.SortComparators;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -21,7 +24,8 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<InternshipApplication> filteredInternshipApplications;
+    private final FilteredList<InternshipApplication> internalFilteredList;
+    private final SortedList<InternshipApplication> filteredInternshipApplications;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -33,7 +37,9 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredInternshipApplications = new FilteredList<>(this.addressBook.getPersonList());
+        this.internalFilteredList = new FilteredList<>(this.addressBook.getPersonList());
+        // Wrap the FilteredList with a SortedList, default sort by name
+        this.filteredInternshipApplications = new SortedList<>(internalFilteredList, SortComparators.NAME_COMPARATOR);
     }
 
     public ModelManager() {
@@ -102,6 +108,7 @@ public class ModelManager implements Model {
     public void addPerson(InternshipApplication internshipApplication) {
         addressBook.addPerson(internshipApplication);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        filteredInternshipApplications.setComparator(SortComparators.NAME_COMPARATOR);
     }
 
     @Override
@@ -125,7 +132,15 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredPersonList(Predicate<InternshipApplication> predicate) {
         requireNonNull(predicate);
-        filteredInternshipApplications.setPredicate(predicate);
+        // Apply the predicate to the underlying FilteredList
+        internalFilteredList.setPredicate(predicate);
+    }
+
+    @Override
+    public void sortFilteredPersonList(Comparator<InternshipApplication> comparator) {
+        requireNonNull(comparator);
+        // Apply the comparator to the SortedList
+        filteredInternshipApplications.setComparator(comparator);
     }
 
     @Override
@@ -142,7 +157,8 @@ public class ModelManager implements Model {
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredInternshipApplications.equals(otherModelManager.filteredInternshipApplications);
+                // Compare the underlying FilteredList predicate and the SortedList comparator
+                && internalFilteredList.equals(otherModelManager.internalFilteredList);
     }
 
 }

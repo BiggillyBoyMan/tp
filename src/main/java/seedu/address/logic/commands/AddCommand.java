@@ -17,16 +17,16 @@ import seedu.address.model.company.InternshipApplication;
 
 
 /**
- * Adds a person to the address book.
+ * Adds an internship application to BizBook.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an internship application to BizBook. "
             + "Parameters: "
             + PREFIX_COMPANY_NAME + "COMPANY NAME "
-            + PREFIX_JOB_TYPE + "JOB TYPE "
+            + PREFIX_JOB_TYPE + "JOB ROLE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_INDUSTRY + "INDUSTRY "
@@ -37,17 +37,18 @@ public class AddCommand extends Command {
             + PREFIX_JOB_TYPE + "SOFTWARE ENGINEER "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_DESCRIPTION + "Do SWE with experience needed for Java, Node.JS "
-            + PREFIX_INDUSTRY + "Tech "
+            + PREFIX_INDUSTRY + "Technology "
             + PREFIX_STATUS + "Saved "
             + PREFIX_DEADLINE + "2024-12-31";
 
-    public static final String MESSAGE_SUCCESS = "New Company added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This Company already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New application added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON =
+            "This application already exists in BizBook";
 
     private final InternshipApplication toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code InternshipApplication}
      */
     public AddCommand(InternshipApplication internshipApplication) {
         requireNonNull(internshipApplication);

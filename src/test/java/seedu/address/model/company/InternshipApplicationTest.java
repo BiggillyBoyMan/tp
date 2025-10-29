@@ -32,13 +32,17 @@ public class InternshipApplicationTest {
         // null -> returns false
         assertFalse(ALICE.isSameApplication(null));
 
-        // same name, all other attributes different -> returns true
-        InternshipApplication editedAlice = new PersonBuilder(ALICE).withJobType(VALID_JOB_TYPE_BOB)
+        // same name and job type, all other attributes different -> returns true
+        InternshipApplication editedAlice = new PersonBuilder(ALICE)
                 .withEmail(VALID_EMAIL_BOB).withDescription(VALID_DESCRIPTION_BOB)
                 .withIndustry(VALID_INDUSTRY_FINANCE).build();
         assertTrue(ALICE.isSameApplication(editedAlice));
 
-        // different name, all other attributes same -> returns false
+        // same name, different job type -> returns false (allows multiple roles at same company)
+        editedAlice = new PersonBuilder(ALICE).withJobType(VALID_JOB_TYPE_BOB).build();
+        assertFalse(ALICE.isSameApplication(editedAlice));
+
+        // different name, same job type -> returns false
         editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSameApplication(editedAlice));
 

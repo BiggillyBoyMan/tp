@@ -8,6 +8,7 @@ import seedu.address.commons.util.ToStringBuilder;
 
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Uses substring matching, so partial matches are allowed (e.g., "Tech" matches "TechCorp" and "FinTech").
  */
 public class NameContainsKeywordsPredicate implements Predicate<InternshipApplication> {
     private final List<String> keywords;
@@ -19,7 +20,7 @@ public class NameContainsKeywordsPredicate implements Predicate<InternshipApplic
     @Override
     public boolean test(InternshipApplication internshipApplication) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(
+                .anyMatch(keyword -> StringUtil.containsSubstringIgnoreCase(
                         internshipApplication.getName().value, keyword));
     }
 
