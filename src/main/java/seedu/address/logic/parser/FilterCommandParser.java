@@ -13,14 +13,18 @@ import seedu.address.model.company.ApplicationFilterPredicate;
 import seedu.address.model.industry.Industry;
 
 /**
- * Parses input arguments and creates a new FilterCommand object.
+ * Parses user input and creates a new {@link FilterCommand} object for execution.
+ * Ensures at least one valid filter is present and normalizes input as needed.
  */
 public class FilterCommandParser implements Parser<FilterCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FilterCommand
-     * and returns a FilterCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
+     * Parses the given {@code String} of arguments in the context of the {@link FilterCommand}
+     * and returns a {@link FilterCommand} object for execution.
+     *
+     * @param args User input arguments string.
+     * @return FilterCommand object for execution.
+     * @throws ParseException if the user input does not conform to the expected format.
      */
     public FilterCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_STATUS, PREFIX_INDUSTRY);
@@ -68,6 +72,9 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
     /**
      * Normalizes the industry string to match the predefined capitalization.
+     *
+     * @param industryInput The input industry string from the user.
+     * @return The normalized industry string if matched, otherwise the original input.
      */
     private String normalizeIndustry(String industryInput) {
         for (String validIndustry : Industry.VALID_INDUSTRIES) {
@@ -80,6 +87,9 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
     /**
      * Normalizes the status string to match the predefined capitalization.
+     *
+     * @param statusInput The input status string from the user.
+     * @return The normalized status string if matched, otherwise the original input.
      */
     private String normalizeStatus(String statusInput) {
         for (String validStatus : ApplicationStatus.VALID_STATUSES) {

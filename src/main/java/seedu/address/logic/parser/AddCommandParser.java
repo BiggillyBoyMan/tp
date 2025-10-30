@@ -23,7 +23,8 @@ import seedu.address.model.company.JobType;
 import seedu.address.model.industry.Industry;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses user input and creates a new {@link AddCommand} object for execution.
+ * Ensures that all required fields are present and valid.
  */
 public class AddCommandParser implements Parser<AddCommand> {
 
@@ -66,8 +67,12 @@ public class AddCommandParser implements Parser<AddCommand> {
     }
 
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
+     * Returns true if all specified prefixes are present (i.e., their values are non-empty Optionals)
+     * in the provided {@code ArgumentMultimap}.
+     *
+     * @param argumentMultimap The map containing argument prefixes and their values.
+     * @param prefixes The prefixes to check for presence.
+     * @return true if all prefixes are present, false otherwise.
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());

@@ -10,7 +10,8 @@ import seedu.address.model.company.InternshipApplication;
 import seedu.address.model.company.SortComparators;
 
 /**
- * Parses input arguments and creates a new SortCommand object.
+ * Parses user input and creates a new {@link SortCommand} object for execution.
+ * Ensures the field to sort by is valid and supported.
  */
 public class SortCommandParser implements Parser<SortCommand> {
 
@@ -18,9 +19,12 @@ public class SortCommandParser implements Parser<SortCommand> {
             "Invalid field for sorting. Must be one of: name, status, deadline, industry";
 
     /**
-     * Parses the given {@code String} of arguments in the context of the SortCommand
-     * and returns a SortCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
+     * Parses the given {@code String} of arguments in the context of the {@link SortCommand}
+     * and returns a {@link SortCommand} object for execution.
+     *
+     * @param args User input arguments string.
+     * @return SortCommand object for execution.
+     * @throws ParseException if the user input does not conform to the expected format.
      */
     public SortCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim().toLowerCase();
