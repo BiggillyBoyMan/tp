@@ -34,7 +34,7 @@ public class AddCommandIntegrationTest {
                 .withJobType("Backend Engineer")
                 .withIndustry("Technology").withStatus("Saved").build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getBizBook(), new UserPrefs());
         expectedModel.addCompany(validApplication);
 
         assertCommandSuccess(new AddCommand(validApplication), model,
@@ -45,7 +45,7 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_duplicateApplication_throwsCommandException() {
         // This takes the first application from our sample data (Google)
-        InternshipApplication applicationInList = model.getAddressBook().getPersonList().get(0);
+        InternshipApplication applicationInList = model.getBizBook().getPersonList().get(0);
         // Try to add the same application again; identity is based on name and job type,
         // so this should be treated as a duplicate.
         assertCommandFailure(new AddCommand(applicationInList), model,

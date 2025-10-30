@@ -8,8 +8,9 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.company.exceptions.DuplicatePersonException;
-import seedu.address.model.company.exceptions.PersonNotFoundException;
+import seedu.address.model.company.exceptions.CompanyNotFoundException;
+import seedu.address.model.company.exceptions.DuplicateCompanyException;
+
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -43,7 +44,7 @@ public class UniqueCompanyList implements Iterable<InternshipApplication> {
     public void add(InternshipApplication toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateCompanyException();
         }
         internalList.add(toAdd);
     }
@@ -53,16 +54,16 @@ public class UniqueCompanyList implements Iterable<InternshipApplication> {
      * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
-    public void setPerson(InternshipApplication target, InternshipApplication editedInternshipApplication) {
+    public void setCompany(InternshipApplication target, InternshipApplication editedInternshipApplication) {
         requireAllNonNull(target, editedInternshipApplication);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new CompanyNotFoundException();
         }
 
         if (!target.isSameApplication(editedInternshipApplication) && contains(editedInternshipApplication)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateCompanyException();
         }
 
         internalList.set(index, editedInternshipApplication);
@@ -75,11 +76,11 @@ public class UniqueCompanyList implements Iterable<InternshipApplication> {
     public void remove(InternshipApplication toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new CompanyNotFoundException();
         }
     }
 
-    public void setPersons(UniqueCompanyList replacement) {
+    public void setCompanys(UniqueCompanyList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -88,10 +89,10 @@ public class UniqueCompanyList implements Iterable<InternshipApplication> {
      * Replaces the contents of this list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<InternshipApplication> internshipApplications) {
+    public void setCompanys(List<InternshipApplication> internshipApplications) {
         requireAllNonNull(internshipApplications);
         if (!personsAreUnique(internshipApplications)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateCompanyException();
         }
 
         internalList.setAll(internshipApplications);

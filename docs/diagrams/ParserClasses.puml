@@ -14,7 +14,7 @@ Class SortCommand
 
 package "Parser classes"{
 Class "<<interface>>\nParser" as Parser
-Class AddressBookParser
+Class BizBookParser
 Class AddCommandParser
 Class EditCommandParser
 Class DeleteCommandParser
@@ -29,14 +29,14 @@ Class Prefix
 }
 
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> AddressBookParser
+HiddenOutside ..> BizBookParser
 
-AddressBookParser .down.> AddCommandParser: <<create>>
-AddressBookParser .down.> EditCommandParser: <<create>>
-AddressBookParser .down.> DeleteCommandParser: <<create>>
-AddressBookParser .down.> FindCommandParser: <<create>>
-AddressBookParser .down.> FilterCommandParser: <<create>>
-AddressBookParser .down.> SortCommandParser: <<create>>
+BizBookParser .down.> AddCommandParser: <<create>>
+BizBookParser .down.> EditCommandParser: <<create>>
+BizBookParser .down.> DeleteCommandParser: <<create>>
+BizBookParser .down.> FindCommandParser: <<create>>
+BizBookParser .down.> FilterCommandParser: <<create>>
+BizBookParser .down.> SortCommandParser: <<create>>
 
 AddCommandParser ..> AddCommand : <<create>>
 EditCommandParser ..> EditCommand : <<create>>
@@ -45,7 +45,7 @@ FindCommandParser ..> FindCommand : <<create>>
 FilterCommandParser ..> FilterCommand : <<create>>
 SortCommandParser ..> SortCommand : <<create>>
 
-AddressBookParser ..> Command : <<use>>
+BizBookParser ..> Command : <<use>>
 
 AddCommandParser .up.|> Parser
 EditCommandParser .up.|> Parser

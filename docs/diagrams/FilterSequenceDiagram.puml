@@ -4,7 +4,7 @@ skinparam ArrowFontStyle plain
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":BizBookParser" as BizBookParser LOGIC_COLOR
 participant ":FilterCommandParser" as FilterCommandParser LOGIC_COLOR
 participant "f:FilterCommand" as FilterCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
@@ -17,17 +17,17 @@ end box
 [-> LogicManager : execute("filter i/Technology")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("filter i/Technology")
-activate AddressBookParser
+LogicManager -> BizBookParser : parseCommand("filter i/Technology")
+activate BizBookParser
 
 create FilterCommandParser
-AddressBookParser -> FilterCommandParser
+BizBookParser -> FilterCommandParser
 activate FilterCommandParser
 
-FilterCommandParser --> AddressBookParser
+FilterCommandParser --> BizBookParser
 deactivate FilterCommandParser
 
-AddressBookParser -> FilterCommandParser : parse("i/Technology")
+BizBookParser -> FilterCommandParser : parse("i/Technology")
 activate FilterCommandParser
 
 create FilterCommand
@@ -37,13 +37,13 @@ activate FilterCommand
 FilterCommand --> FilterCommandParser : returns FilterCommand
 deactivate FilterCommand
 
-FilterCommandParser --> AddressBookParser : f
+FilterCommandParser --> BizBookParser : f
 deactivate FilterCommandParser
-FilterCommandParser -[hidden]-> AddressBookParser
+FilterCommandParser -[hidden]-> BizBookParser
 destroy FilterCommandParser
 
-AddressBookParser --> LogicManager : f
-deactivate AddressBookParser
+BizBookParser --> LogicManager : f
+deactivate BizBookParser
 
 LogicManager -> FilterCommand : execute(m)
 activate FilterCommand
