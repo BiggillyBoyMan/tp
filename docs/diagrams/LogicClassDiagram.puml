@@ -8,7 +8,16 @@ package Logic as LogicPackage {
 
 package "Parser Classes" as ParserClasses{
 }
-Class XYZCommand
+Class AddCommand
+Class EditCommand
+Class DeleteCommand
+Class FindCommand
+Class FilterCommand
+Class ListCommand
+Class SortCommand
+Class ClearCommand
+Class HelpCommand
+Class ExitCommand
 Class CommandResult
 Class "{abstract}\nCommand" as Command
 
@@ -29,9 +38,28 @@ HiddenOutside ..> Logic
 
 LogicManager .right.|> Logic
 LogicManager -right->"1" ParserClasses
-ParserClasses ..> XYZCommand : <<create>>
+ParserClasses ..> AddCommand : <<create>>
+ParserClasses ..> EditCommand : <<create>>
+ParserClasses ..> DeleteCommand : <<create>>
+ParserClasses ..> FindCommand : <<create>>
+ParserClasses ..> FilterCommand : <<create>>
+ParserClasses ..> ListCommand : <<create>>
+ParserClasses ..> SortCommand : <<create>>
+ParserClasses ..> ClearCommand : <<create>>
+ParserClasses ..> HelpCommand : <<create>>
+ParserClasses ..> ExitCommand : <<create>>
 
-XYZCommand -up-|> Command
+AddCommand -up-|> Command
+EditCommand -up-|> Command
+DeleteCommand -up-|> Command
+FindCommand -up-|> Command
+FilterCommand -up-|> Command
+ListCommand -up-|> Command
+SortCommand -up-|> Command
+ClearCommand -up-|> Command
+HelpCommand -up-|> Command
+ExitCommand -up-|> Command
+
 LogicManager .left.> Command : <<call>>
 
 LogicManager --> Model
@@ -39,7 +67,6 @@ LogicManager --> Storage
 Storage --[hidden] Model
 Command .[hidden]up.> Storage
 Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
 
 Logic ..> CommandResult
 LogicManager .down.> CommandResult

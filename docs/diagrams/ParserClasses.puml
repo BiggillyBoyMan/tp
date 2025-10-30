@@ -5,12 +5,22 @@ skinparam arrowColor LOGIC_COLOR_T4
 skinparam classBackgroundColor LOGIC_COLOR
 
 Class "{abstract}\nCommand" as Command
-Class XYZCommand
+Class AddCommand
+Class EditCommand
+Class DeleteCommand
+Class FindCommand
+Class FilterCommand
+Class SortCommand
 
 package "Parser classes"{
 Class "<<interface>>\nParser" as Parser
 Class AddressBookParser
-Class XYZCommandParser
+Class AddCommandParser
+Class EditCommandParser
+Class DeleteCommandParser
+Class FindCommandParser
+Class FilterCommandParser
+Class SortCommandParser
 Class CliSyntax
 Class ParserUtil
 Class ArgumentMultimap
@@ -21,18 +31,48 @@ Class Prefix
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> AddressBookParser
 
-AddressBookParser .down.> XYZCommandParser: <<create>>
+AddressBookParser .down.> AddCommandParser: <<create>>
+AddressBookParser .down.> EditCommandParser: <<create>>
+AddressBookParser .down.> DeleteCommandParser: <<create>>
+AddressBookParser .down.> FindCommandParser: <<create>>
+AddressBookParser .down.> FilterCommandParser: <<create>>
+AddressBookParser .down.> SortCommandParser: <<create>>
 
-XYZCommandParser ..> XYZCommand : <<create>>
+AddCommandParser ..> AddCommand : <<create>>
+EditCommandParser ..> EditCommand : <<create>>
+DeleteCommandParser ..> DeleteCommand : <<create>>
+FindCommandParser ..> FindCommand : <<create>>
+FilterCommandParser ..> FilterCommand : <<create>>
+SortCommandParser ..> SortCommand : <<create>>
+
 AddressBookParser ..> Command : <<use>>
-XYZCommandParser .up.|> Parser
-XYZCommandParser ..> ArgumentMultimap
-XYZCommandParser ..> ArgumentTokenizer
+
+AddCommandParser .up.|> Parser
+EditCommandParser .up.|> Parser
+DeleteCommandParser .up.|> Parser
+FindCommandParser .up.|> Parser
+FilterCommandParser .up.|> Parser
+SortCommandParser .up.|> Parser
+
+AddCommandParser ..> ArgumentMultimap
+AddCommandParser ..> ArgumentTokenizer
+AddCommandParser ..> CliSyntax
+AddCommandParser ..> ParserUtil
+
+EditCommandParser ..> ArgumentMultimap
+EditCommandParser ..> ArgumentTokenizer
+EditCommandParser ..> CliSyntax
+EditCommandParser ..> ParserUtil
+
 ArgumentTokenizer .left.> ArgumentMultimap
-XYZCommandParser ..> CliSyntax
 CliSyntax ..> Prefix
-XYZCommandParser ..> ParserUtil
 ParserUtil .down.> Prefix
 ArgumentTokenizer .down.> Prefix
-XYZCommand -up-|> Command
+
+AddCommand -up-|> Command
+EditCommand -up-|> Command
+DeleteCommand -up-|> Command
+FindCommand -up-|> Command
+FilterCommand -up-|> Command
+SortCommand -up-|> Command
 @enduml
