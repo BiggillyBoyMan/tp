@@ -31,30 +31,10 @@ BizBook is a **desktop app for managing job applications, optimized for use via 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar BizBook.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
-   Some example commands you can try:
-
-   * `list` : Lists all internship applications.
-
-   * `sort deadline` : Sorts applications by deadline.
-
-   * `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31` : Adds a Google application.
-
-   * `edit 1 s/Interviewing` : Edits the 1st application's status to "Interviewing".
-
-   * `delete 3` : Deletes the 3rd application shown in the current list.
-
-   * `find Google` : Finds all applications with the complete word "Google" in the company name.
-
-   * `filter s/Applied` : Filters to show only applications with "Applied" status.
-
-   * `clear` : Deletes all applications.
-
-   * `exit` : Exits the app.
 
 1. Let's try typing these in order and see the result!
 
-    **Step 1: Add your applications**
+    **Step 1: Add your applications** -
     First, let's clear the sample data and add 3 new applications.
     * `clear`
     * `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31`
@@ -63,7 +43,7 @@ BizBook is a **desktop app for managing job applications, optimized for use via 
     
     *Result:* Your list now shows 3 applications, in the order you added them.
 
-    **Step 2: Prioritize and update**
+    **Step 2: Prioritize and update** -
     You want to apply for the one with the *earliest* deadline first.
     * `sort deadline`
     
@@ -72,7 +52,7 @@ BizBook is a **desktop app for managing job applications, optimized for use via 
     
     *Result:* The ByteDance card at Index 1 updates its status to `Applied`.
 
-    **Step 3: Filter and delete**
+    **Step 3: Filter and delete** -
     Now you only want to see your "To-Do" list (status `Saved`).
     * `filter s/Saved`
     
@@ -85,11 +65,15 @@ BizBook is a **desktop app for managing job applications, optimized for use via 
     
     *Result:* The item at **Index 2** of the *current list* (DBS Bank) is permanently deleted.
 
-    **Step 4: Reset and final check**
+    **Step 4: Reset and final check** -
     Finally, clear the filter to see *all* your remaining applications.
     * `list`
     
     *Result:* The filter is cleared. You now see your remaining applications: **ByteDance** (Status: `Applied`) and **Google** (Status: `Saved`). `DBS Bank` is gone.
+
+    **Step 5: Exit** -
+    Now that you have finished adding all your applications, you can now exit BizBook!
+    * `exit`
     
 1. Refer to the [Features](#features) below for details of each command.
 
