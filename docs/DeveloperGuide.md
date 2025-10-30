@@ -108,7 +108,7 @@ How the `Logic` component works:
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
-<img src="images/ParserClasses.png" width="600"/>
+![Parser Classes Diagram](images/ParserClasses.png)
 
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command companyName e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
@@ -117,7 +117,7 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/description/model/Model.java)
 
-<img src="images/ModelClassDiagram.png" width="450" />
+![Model Class Diagram](images/ModelClassDiagram.png)
 
 
 The `Model` component,
@@ -129,7 +129,7 @@ The `Model` component,
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in BizBook, which `Application` references. This allows BizBook to only require one `Tag` object per unique tag, instead of each `Application` needing their own `Tag` objects.<br>
 
-<img src="images/BetterModelClassDiagram.png" width="450" />
+![Better Model Class Diagram](images/BetterModelClassDiagram.png)
 
 </div>
 
