@@ -41,7 +41,7 @@ public class SortCommandTest {
     public void setUp() {
         // Initialize real models with typical data
         model = new ModelManager(getTypicalBizBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getBizBook(), new UserPrefs());
 
         // Initialize real comparators
         nameComparator = (app1, app2) ->

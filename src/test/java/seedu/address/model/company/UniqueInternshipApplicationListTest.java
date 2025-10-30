@@ -15,8 +15,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.company.exceptions.DuplicatePersonException;
-import seedu.address.model.company.exceptions.PersonNotFoundException;
+import seedu.address.model.company.exceptions.DuplicateCompanyException;
+import seedu.address.model.company.exceptions.CompanyNotFoundException;
 import seedu.address.testutil.CompanyBuilder;
 
 public class UniqueInternshipApplicationListTest {
@@ -55,28 +55,28 @@ public class UniqueInternshipApplicationListTest {
     @Test
     public void add_duplicatePerson_throwsDuplicatePersonException() {
         uniqueCompanyList.add(ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniqueCompanyList.add(ALICE));
+        assertThrows(DuplicateCompanyException.class, () -> uniqueCompanyList.add(ALICE));
     }
 
     @Test
     public void setPerson_nullTargetPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueCompanyList.setPerson(null, ALICE));
+        assertThrows(NullPointerException.class, () -> uniqueCompanyList.setCompany(null, ALICE));
     }
 
     @Test
     public void setPerson_nullEditedPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueCompanyList.setPerson(ALICE, null));
+        assertThrows(NullPointerException.class, () -> uniqueCompanyList.setCompany(ALICE, null));
     }
 
     @Test
     public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> uniqueCompanyList.setPerson(ALICE, ALICE));
+        assertThrows(CompanyNotFoundException.class, () -> uniqueCompanyList.setCompany(ALICE, ALICE));
     }
 
     @Test
     public void setPerson_editedPersonIsSamePerson_success() {
         uniqueCompanyList.add(ALICE);
-        uniqueCompanyList.setPerson(ALICE, ALICE);
+        uniqueCompanyList.setCompany(ALICE, ALICE);
         UniqueCompanyList expectedUniqueCompanyList = new UniqueCompanyList();
         expectedUniqueCompanyList.add(ALICE);
         assertEquals(expectedUniqueCompanyList, uniqueCompanyList);
@@ -87,7 +87,7 @@ public class UniqueInternshipApplicationListTest {
         uniqueCompanyList.add(ALICE);
         InternshipApplication editedAlice = new CompanyBuilder(ALICE).withDescription(VALID_DESCRIPTION_AWS)
                 .withIndustry(VALID_INDUSTRY_FINANCE).build();
-        uniqueCompanyList.setPerson(ALICE, editedAlice);
+        uniqueCompanyList.setCompany(ALICE, editedAlice);
         UniqueCompanyList expectedUniqueCompanyList = new UniqueCompanyList();
         expectedUniqueCompanyList.add(editedAlice);
         assertEquals(expectedUniqueCompanyList, uniqueCompanyList);
@@ -96,7 +96,7 @@ public class UniqueInternshipApplicationListTest {
     @Test
     public void setPerson_editedPersonHasDifferentIdentity_success() {
         uniqueCompanyList.add(ALICE);
-        uniqueCompanyList.setPerson(ALICE, BOB);
+        uniqueCompanyList.setCompany(ALICE, BOB);
         UniqueCompanyList expectedUniqueCompanyList = new UniqueCompanyList();
         expectedUniqueCompanyList.add(BOB);
         assertEquals(expectedUniqueCompanyList, uniqueCompanyList);
@@ -106,7 +106,7 @@ public class UniqueInternshipApplicationListTest {
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
         uniqueCompanyList.add(ALICE);
         uniqueCompanyList.add(BOB);
-        assertThrows(DuplicatePersonException.class, () -> uniqueCompanyList.setPerson(ALICE, BOB));
+        assertThrows(DuplicateCompanyException.class, () -> uniqueCompanyList.setCompany(ALICE, BOB));
     }
 
     @Test
@@ -116,7 +116,7 @@ public class UniqueInternshipApplicationListTest {
 
     @Test
     public void remove_personDoesNotExist_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> uniqueCompanyList.remove(ALICE));
+        assertThrows(CompanyNotFoundException.class, () -> uniqueCompanyList.remove(ALICE));
     }
 
     @Test
@@ -160,7 +160,7 @@ public class UniqueInternshipApplicationListTest {
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<InternshipApplication> listWithDuplicateInternshipApplications = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniqueCompanyList.setPersons(
+        assertThrows(DuplicateCompanyException.class, () -> uniqueCompanyList.setPersons(
                 listWithDuplicateInternshipApplications));
     }
 

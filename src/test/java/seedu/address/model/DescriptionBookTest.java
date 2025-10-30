@@ -19,16 +19,16 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.company.InternshipApplication;
-import seedu.address.model.company.exceptions.DuplicatePersonException;
+import seedu.address.model.company.exceptions.DuplicateCompanyException;
 import seedu.address.testutil.CompanyBuilder;
 
 public class DescriptionBookTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final BizBook addressBook = new BizBook();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), addressBook.getCompanyList());
     }
 
     @Test
@@ -38,7 +38,7 @@ public class DescriptionBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalBizBook();
+        BizBook newData = getTypicalBizBook();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }
@@ -49,59 +49,59 @@ public class DescriptionBookTest {
         InternshipApplication editedAlice = new CompanyBuilder(ALICE).withDescription(VALID_DESCRIPTION_AWS)
                 .withIndustry(VALID_INDUSTRY_FINANCE).build();
         List<InternshipApplication> newInternshipApplications = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newInternshipApplications);
+        BizBookStub newData = new BizBookStub(newInternshipApplications);
 
-        assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateCompanyException.class, () -> addressBook.resetData(newData));
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasPerson(null));
+        assertThrows(NullPointerException.class, () -> addressBook.hasCompany(null));
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+        assertFalse(addressBook.hasCompany(ALICE));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+        addressBook.addCompany(ALICE);
+        assertTrue(addressBook.hasCompany(ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
+        addressBook.addCompany(ALICE);
         InternshipApplication editedAlice = new CompanyBuilder(ALICE).withDescription(VALID_DESCRIPTION_AWS)
                 .withIndustry(VALID_INDUSTRY_FINANCE).build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(addressBook.hasCompany(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getCompanyList().remove(0));
     }
 
     @Test
     public void toStringMethod() {
-        String expected = AddressBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList() + "}";
+        String expected = BizBook.class.getCanonicalName() + "{persons=" + addressBook.getCompanyList() + "}";
         assertEquals(expected, addressBook.toString());
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyBizBook whose persons list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class BizBookStub implements ReadOnlyBizBook {
         private final ObservableList<InternshipApplication> internshipApplications =
                 FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<InternshipApplication> internshipApplications) {
+        BizBookStub(Collection<InternshipApplication> internshipApplications) {
             this.internshipApplications.setAll(internshipApplications);
         }
 
         @Override
-        public ObservableList<InternshipApplication> getPersonList() {
+        public ObservableList<InternshipApplication> getCompanyList() {
             return internshipApplications;
         }
     }

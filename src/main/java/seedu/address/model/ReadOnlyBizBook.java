@@ -6,12 +6,12 @@ import seedu.address.model.company.InternshipApplication;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyBizBook {
 
     /**
      * Returns an unmodifiable view of the persons list.
      * This list will not contain any duplicate persons.
      */
-    ObservableList<InternshipApplication> getPersonList();
+    ObservableList<InternshipApplication> getCompanyList();
 
 }

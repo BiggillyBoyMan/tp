@@ -22,7 +22,7 @@ import seedu.address.model.company.SortComparators;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final BizBook BizBook;
     private final UserPrefs userPrefs;
     private final FilteredList<InternshipApplication> internalFilteredList;
     private final SortedList<InternshipApplication> filteredInternshipApplications;
@@ -30,20 +30,20 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        requireAllNonNull(addressBook, userPrefs);
+    public ModelManager(ReadOnlyBizBook BizBook, ReadOnlyUserPrefs userPrefs) {
+        requireAllNonNull(BizBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + BizBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.BizBook = new BizBook(BizBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.internalFilteredList = new FilteredList<>(this.addressBook.getPersonList());
+        this.internalFilteredList = new FilteredList<>(this.BizBook.getCompanyList());
         // Wrap the FilteredList with a SortedList, default sort by name
         this.filteredInternshipApplications = new SortedList<>(internalFilteredList, SortComparators.NAME_COMPARATOR);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new BizBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -71,42 +71,42 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getBizBookFilePath() {
+        return userPrefs.getBizBookFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
+    public void setBizBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+        userPrefs.setBizBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== BizBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setBizBook(ReadOnlyBizBook addressBook) {
+        this.BizBook.resetData(addressBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyBizBook getBizBook() {
+        return BizBook;
     }
 
     @Override
     public boolean hasCompany(InternshipApplication internshipApplication) {
         requireNonNull(internshipApplication);
-        return addressBook.hasPerson(internshipApplication);
+        return BizBook.hasCompany(internshipApplication);
     }
 
     @Override
     public void deleteCompany(InternshipApplication target) {
-        addressBook.removePerson(target);
+        BizBook.removeCompany(target);
     }
 
     @Override
     public void addCompany(InternshipApplication internshipApplication) {
-        addressBook.addPerson(internshipApplication);
+        BizBook.addCompany(internshipApplication);
         updateFilteredCompanyList(PREDICATE_SHOW_ALL_COMPANY);
         filteredInternshipApplications.setComparator(SortComparators.NAME_COMPARATOR);
     }
@@ -115,7 +115,7 @@ public class ModelManager implements Model {
     public void setCompany(InternshipApplication target, InternshipApplication editedInternshipApplication) {
         requireAllNonNull(target, editedInternshipApplication);
 
-        addressBook.setPerson(target, editedInternshipApplication);
+        BizBook.setCompany(target, editedInternshipApplication);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -155,7 +155,7 @@ public class ModelManager implements Model {
         }
 
         ModelManager otherModelManager = (ModelManager) other;
-        return addressBook.equals(otherModelManager.addressBook)
+        return BizBook.equals(otherModelManager.BizBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
                 // Compare the underlying FilteredList predicate and the SortedList comparator
                 && internalFilteredList.equals(otherModelManager.internalFilteredList);
