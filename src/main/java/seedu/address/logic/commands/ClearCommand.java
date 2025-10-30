@@ -6,13 +6,12 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 
 /**
- * Clears BizBook.
+ * Clears all internship applications from BizBook.
  */
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "BizBook has been cleared!";
-
 
     @Override
     public CommandResult execute(Model model) {

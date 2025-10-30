@@ -43,6 +43,45 @@ BizBook is a **desktop app for managing job applications, optimized for use via 
 
    * `exit` : Exits the app.
 
+1. Let's try typing these in order and see the result!
+
+    **Step 1: Add your applications**
+    First, let's clear the sample data and add 3 new applications.
+    * `clear`
+    * `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31`
+    * `add n/DBS Bank i/Finance a/Data Analyst Intern t/Analytics team e/internships@dbs.com s/Saved d/2025-01-15`
+    * `add n/ByteDance i/Technology a/PM Intern t/TikTok team e/hr@bytedance.com s/Saved d/2024-12-20`
+    
+    *Result:* Your list now shows 3 applications, in the order you added them.
+
+    **Step 2: Prioritize and update**
+    You want to apply for the one with the *earliest* deadline first.
+    * `sort deadline`
+    
+    *Result:* The list immediately re-orders. **ByteDance** is now at **Index 1**. Let's say you applied for it.
+    * `edit 1 s/Applied`
+    
+    *Result:* The ByteDance card at Index 1 updates its status to `Applied`.
+
+    **Step 3: Filter and delete**
+    Now you only want to see your "To-Do" list (status `Saved`).
+    * `filter s/Saved`
+    
+    *Result:* The list is filtered, hiding "ByteDance". The status bar now says "2 applications listed".
+    1.  **Google**
+    2.  **DBS Bank**
+
+    Looking at this filtered list, you decide you're not interested in DBS Bank (Index 2).
+    * `delete 2`
+    
+    *Result:* The item at **Index 2** of the *current list* (DBS Bank) is permanently deleted.
+
+    **Step 4: Reset and final check**
+    Finally, clear the filter to see *all* your remaining applications.
+    * `list`
+    
+    *Result:* The filter is cleared. You now see your remaining applications: **ByteDance** (Status: `Applied`) and **Google** (Status: `Saved`). `DBS Bank` is gone.
+    
 1. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -101,6 +140,8 @@ Format: `list`
 
 ### Sorting applications : `sort`
 
+> **Note:** After sorting, the list you see is the one affected by subsequent commands like `delete` or `edit`. For example, `delete 1` will delete the first application in the sorted list currently displayed.
+
 Sorts all internship applications in the current list by the specified field.
 
 Format: `sort FIELD`
@@ -140,6 +181,8 @@ Examples:
 * `edit 3 a/Quant Intern t/Global Markets desk`
 
 ### Finding applications by name : `find`
+
+> **Note:** The results shown after a `find` command form a list that can be used with commands like `delete` or `edit`. For example, `delete 1` will delete the first application in the current search results.
 
 Finds and lists all applications whose company names contain any of the specified keywords.
 
@@ -190,7 +233,7 @@ Deletes the specified internship application.
 Format: `delete INDEX`
 
 * Deletes the application at the specified `INDEX`.
-* The index refers to the number shown in the current list.
+* The index refers to the number shown in the current list being displayed. This includes lists shown after using commands such as `find`, `filter`, or `sort`. For example, after using `find Google`, `delete 1` deletes the first item in the search results you currently see, not the original unfiltered list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:

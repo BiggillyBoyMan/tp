@@ -42,27 +42,27 @@ public class AddCommand extends Command {
             + PREFIX_DEADLINE + "2024-12-31";
 
     public static final String MESSAGE_SUCCESS = "New application added: %1$s";
-    public static final String MESSAGE_DUPLICATE_Company =
+    public static final String MESSAGE_DUPLICATE_COMPANY =
             "This application already exists in BizBook";
 
     private final InternshipApplication toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code InternshipApplication}
+     * Creates an AddCommand to add the specified {@code InternshipApplication}.
+     *
+     * @param internshipApplication The application to add. Must not be null.
      */
     public AddCommand(InternshipApplication internshipApplication) {
         requireNonNull(internshipApplication);
-        toAdd = internshipApplication;
+        this.toAdd = internshipApplication;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         if (model.hasCompany(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_Company);
+            throw new CommandException(MESSAGE_DUPLICATE_COMPANY);
         }
-
         model.addCompany(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }

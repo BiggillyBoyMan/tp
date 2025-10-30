@@ -30,7 +30,10 @@ public class AddCommandParser implements Parser<AddCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
+     *
+     * @param args User input arguments string.
+     * @return AddCommand object for execution.
+     * @throws ParseException if the user input does not conform to the expected format.
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_COMPANY_NAME,
@@ -44,6 +47,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_COMPANY_NAME, PREFIX_DESCRIPTION,
                 PREFIX_EMAIL, PREFIX_INDUSTRY, PREFIX_JOB_TYPE, PREFIX_STATUS, PREFIX_DEADLINE);
+
         CompanyName companyName = ParserUtil.parseName(argMultimap.getValue(PREFIX_COMPANY_NAME).get());
         JobType jobType = ParserUtil.parseJobType(argMultimap.getValue(PREFIX_JOB_TYPE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
@@ -58,7 +62,6 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         InternshipApplication internshipApplication = new InternshipApplication(
                 companyName, industry, jobType, description, status, email, deadline);
-
         return new AddCommand(internshipApplication);
     }
 

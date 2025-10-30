@@ -34,4 +34,7 @@ public class SortComparators {
     /** Sorts applications by deadline (chronological). */
     public static final Comparator<InternshipApplication> DEADLINE_COMPARATOR = Comparator
             .comparing(app -> app.getDeadline().value); // LocalDate is naturally comparable
+
+    public static final Comparator<InternshipApplication> INDUSTRY_COMPARATOR = Comparator
+            .comparing(app -> app.getIndustry().toString(), String.CASE_INSENSITIVE_ORDER);
 }
