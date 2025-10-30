@@ -89,7 +89,7 @@ The `UI` component,
 
 Here's a (partial) class diagram of the `Logic` component:
 
-<img src="images/LogicClassDiagram.png" width="550"/>
+<img src="images/LogicClassDiagram.png" width="800" height="600"/>
 
 The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
 
@@ -647,6 +647,52 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 4a1. BizBook shows an error message.
 
     Use case resumes at step 3.
+
+#### Use case: UC08 - Clear all applications
+
+**MSS**
+
+1. User requests to clear all applications from BizBook.
+2. BizBook removes all applications.
+3. BizBook shows a success message confirming all data has been cleared.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. BizBook is already empty.
+
+  * 1a1. BizBook still shows the success message (no harm in clearing an empty list).
+
+    Use case ends.
+
+#### Use case: UC09 - View help
+
+**MSS**
+
+1. User requests to view help information.
+2. BizBook displays a help window with a link to the User Guide.
+3. User can copy the URL or click to open it in a browser.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. Help window is already open.
+
+  * 2a1. BizBook brings the existing help window to focus.
+
+    Use case ends.
+
+#### Use case: UC10 - Exit the application
+
+**MSS**
+
+1. User requests to exit BizBook.
+2. BizBook saves all current data to the storage file.
+3. BizBook closes the application window.
+
+   Use case ends.
 
 ### Non-Functional Requirements
 
