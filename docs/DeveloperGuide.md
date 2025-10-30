@@ -155,89 +155,192 @@ Classes used by multiple components are in the `seedu.description.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Undo/redo feature
+### Add Feature
 
-#### Proposed Implementation
+The `add` command allows users to add a new internship application to BizBook with all required fields.
 
-The proposed undo/redo mechanism is facilitated by `VersionedBizBook`. It extends `BizBook` with an undo/redo history, stored internally as an `bizBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+#### Implementation
 
-* `VersionedBizBook#commit()` — Saves the current BizBook state in its history.
-* `VersionedBizBook#undo()` — Restores the previous BizBook state from its history.
-* `VersionedBizBook#redo()` — Restores a previously undone BizBook state from its history.
+The add mechanism is facilitated by `AddCommand` and `AddCommandParser`. The parser validates and extracts the required fields (company name, industry, job type, description, email, status, and deadline) from the user input.
 
-These operations are exposed in the `Model` interface as `Model#commitBizBook()`, `Model#undoBizBook()` and `Model#redoBizBook()` respectively.
+The following sequence diagram shows how an add operation works:
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+![AddSequenceDiagram](images/AddSequenceDiagram.png)
 
-Step 1. The user launches BizBook for the first time. The `VersionedBizBook` will be initialized with the initial internship application state, and the `currentStatePointer` pointing to that single BizBook state.
-
-![UndoRedoState0](images/UndoRedoState0.png)
-
-Step 2. The user executes `delete 5` command to delete the 5th internship application in BizBook. The `delete` command calls `Model#commitBizBook()`, causing the modified state of BizBook after the `delete 5` command executes to be saved in the `bizBookStateList`, and the `currentStatePointer` is shifted to the newly inserted BizBook state.
-
-![UndoRedoState1](images/UndoRedoState1.png)
-
-Step 3. The user executes `add n/David i/Technology a/SWE Intern t/Backend e/david@example.com s/Saved d/2024-12-31 …​` to add a new internship application. The `add` command also calls `Model#commitBizBook()`, causing another modified BizBook state to be saved into the `bizBookStateList`.
-
-![UndoRedoState2](images/UndoRedoState2.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitBizBook()`, so the BizBook state will not be saved into the `bizBookStateList`.
-
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
 </div>
 
-Step 4. The user now decides that adding the internship application was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoBizBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous BizBook state, and restores BizBook to that state.
+How the `add` command works:
 
-![UndoRedoState3](images/UndoRedoState3.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</div>
-
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Logic.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-Similarly, how an undo operation goes through the `Model` component is shown below:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest description book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</div>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify BizBook, such as `list`, will usually not call `Model#commitBizBook()`, `Model#undoBizBook()` or `Model#redoBizBook()`. Thus, the `bizBookStateList` remains unchanged.
-
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitBizBook()`. Since the `currentStatePointer` is not pointing at the end of the `bizBookStateList`, all BizBook states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David i/Technology a/SWE Intern t/Backend e/david@example.com s/Saved d/2024-12-31 …​` command. This is the behavior that most modern desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
+1. When the user executes the `add` command (e.g., `add n/Google i/Technology t/SWE Intern d/Software engineering role e/recruit@google.com s/Applied dl/2024-12-31`), the `LogicManager` passes the input to `AddressBookParser`.
+2. `AddressBookParser` identifies this as an `add` command and creates an `AddCommandParser` to parse the arguments.
+3. `AddCommandParser` uses `ArgumentTokenizer` to extract all the prefixed fields (n/, i/, t/, d/, e/, s/, dl/) from the command string.
+4. `AddCommandParser` validates each field using the respective classes (`CompanyName`, `Industry`, `JobType`, etc.) and creates an `InternshipApplication` object.
+5. `AddCommandParser` creates and returns an `AddCommand` with the new `InternshipApplication`.
+6. `LogicManager` executes the `AddCommand`, which checks for duplicates in the `Model`.
+7. If no duplicate exists (same company name AND job type), the application is added to BizBook via `Model#addApplication()`.
+8. The command returns a `CommandResult` with a success message, which is displayed to the user.
 
 #### Design considerations:
 
-**Aspect: How undo & redo executes:**
+**Aspect: Duplicate detection:**
 
-* **Alternative 1 (current choice):** Saves the entire BizBook state.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
+* **Current implementation:** Two applications are considered duplicates if they have the same company name AND job type.
+  * Pros: Allows tracking multiple positions at the same company (e.g., "Google SWE Intern" and "Google PM Intern").
+  * Cons: Cannot track the same position applied in different rounds.
 
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the internship application being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
+* **Alternative:** Consider only company name for duplicates.
+  * Pros: Simpler logic.
+  * Cons: Cannot track multiple different positions at the same company.
 
-_{more aspects and alternatives to be added}_
+### Edit Feature
+
+The `edit` command allows users to modify any field of an existing internship application.
+
+#### Implementation
+
+The edit mechanism is facilitated by `EditCommand` and `EditCommandParser`. The parser creates an `EditApplicationDescriptor` containing the fields to be updated.
+
+The following sequence diagram shows how an edit operation works:
+
+![EditSequenceDiagram](images/EditSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `EditCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+</div>
+
+How the `edit` command works:
+
+1. When the user executes the `edit` command (e.g., `edit 1 s/Interviewing dl/2024-11-30`), the `LogicManager` passes the input to `AddressBookParser`.
+2. `AddressBookParser` identifies this as an `edit` command and creates an `EditCommandParser` to parse the arguments.
+3. `EditCommandParser` extracts the index and creates an `EditApplicationDescriptor` containing only the fields to be updated (in this example, status and deadline).
+4. `EditCommandParser` creates and returns an `EditCommand` with the index and descriptor.
+5. `LogicManager` executes the `EditCommand`, which retrieves the application at the specified index from the filtered list.
+6. `EditCommand` creates a new `InternshipApplication` by copying the original application and applying the changes from the descriptor.
+7. The edited application is validated to ensure it doesn't create a duplicate (same company name AND job type as another application).
+8. If valid, `Model#setApplication()` replaces the old application with the edited one.
+9. The command returns a `CommandResult` with a success message showing the updated application details.
+
+#### Design considerations:
+
+**Aspect: Editing behavior:**
+
+* **Current implementation:** Only specified fields are updated; unspecified fields remain unchanged.
+  * Pros: User-friendly - no need to re-enter all fields.
+  * Cons: Cannot easily "clear" optional fields.
+
+* **Alternative:** Require all fields to be specified.
+  * Pros: Explicit and predictable behavior.
+  * Cons: Tedious for users making small changes.
+
+### Find Feature
+
+The `find` command allows users to search for applications by company name using partial matching.
+
+#### Implementation
+
+The find mechanism uses `NameContainsKeywordsPredicate` to filter applications. The predicate performs case-insensitive partial matching, so searching for "tech" will match "TechCorp", "FinTech Solutions", etc.
+
+The following sequence diagram shows how a find operation works:
+
+![FindSequenceDiagram](images/FindSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FindCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+</div>
+
+How the `find` command works:
+
+1. When the user executes the `find` command (e.g., `find Google Microsoft`), the `LogicManager` passes the input to `AddressBookParser`.
+2. `AddressBookParser` identifies this as a `find` command and creates a `FindCommandParser` to parse the arguments.
+3. `FindCommandParser` splits the input into keywords (in this example, "Google" and "Microsoft") and creates a `NameContainsKeywordsPredicate` with these keywords.
+4. `FindCommandParser` creates and returns a `FindCommand` with the predicate.
+5. `LogicManager` executes the `FindCommand`, which calls `Model#updateFilteredApplicationList()` with the predicate.
+6. The `Model` applies the predicate to filter the application list. The predicate checks if any keyword appears as a substring in the company name (case-insensitive).
+7. The filtered list is updated in the UI, showing only applications whose company names contain any of the search keywords.
+8. The command returns a `CommandResult` with a message showing the number of applications found.
+
+#### Design considerations:
+
+**Aspect: Matching strategy:**
+
+* **Current implementation:** Partial substring matching (case-insensitive).
+  * Pros: More flexible - finds results even with incomplete company names.
+  * Cons: May return more results than expected.
+
+* **Alternative:** Exact word matching only.
+  * Pros: More precise results.
+  * Cons: Requires users to remember exact company names.
+
+### Filter Feature
+
+The `filter` command allows users to filter applications by status, industry, or job type.
+
+#### Implementation
+
+The filter mechanism uses predicate classes (`StatusPredicate`, `IndustryPredicate`, `JobTypePredicate`) to filter the application list. Multiple filters can be combined.
+
+The following sequence diagram shows how a filter operation works:
+
+![FilterSequenceDiagram](images/FilterSequenceDiagram.png)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `FilterCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+</div>
+
+How the `filter` command works:
+
+1. When the user executes the `filter` command (e.g., `filter s/Applied i/Technology`), the `LogicManager` passes the input to `AddressBookParser`.
+2. `AddressBookParser` identifies this as a `filter` command and creates a `FilterCommandParser` to parse the arguments.
+3. `FilterCommandParser` uses `ArgumentTokenizer` to extract the filter criteria (s/ for status, i/ for industry, t/ for job type).
+4. For each filter criterion present, `FilterCommandParser` creates the corresponding predicate (`StatusPredicate`, `IndustryPredicate`, or `JobTypePredicate`).
+5. If multiple filters are specified, they are combined using `Predicate.and()` to create a composite predicate that requires all conditions to match.
+6. `FilterCommandParser` creates and returns a `FilterCommand` with the combined predicate.
+7. `LogicManager` executes the `FilterCommand`, which calls `Model#updateFilteredApplicationList()` with the predicate.
+8. The `Model` applies the predicate to filter the application list, showing only applications that match all specified criteria.
+9. The command returns a `CommandResult` with a message showing the number of applications matching the filter.
+
+#### Design considerations:
+
+**Aspect: Multiple filter behavior:**
+
+* **Current implementation:** Multiple filters use AND logic (all conditions must match).
+  * Pros: Allows precise filtering (e.g., "Tech industry AND Saved status").
+  * Cons: May return no results if filters are too restrictive.
+
+* **Alternative:** Use OR logic for multiple filters.
+  * Pros: More results returned.
+  * Cons: Less precise filtering.
+
+### Sort Feature
+
+The `sort` command allows users to sort applications by company name, deadline, or status.
+
+#### Implementation
+
+The sort mechanism uses `Comparator` classes defined in `SortComparators`. For status sorting, applications are ordered by logical workflow: Saved → Applied → Interviewing → Offer → Rejected.
+
+How the `sort` command works:
+
+1. When the user executes the `sort` command (e.g., `sort deadline`), the `LogicManager` passes the input to `AddressBookParser`.
+2. `AddressBookParser` identifies this as a `sort` command and creates a `SortCommandParser` to parse the arguments.
+3. `SortCommandParser` validates the sort criterion (must be "name", "deadline", or "status") and retrieves the appropriate `Comparator` from `SortComparators`.
+4. `SortCommandParser` creates and returns a `SortCommand` with the comparator.
+5. `LogicManager` executes the `SortCommand`, which calls `Model#updateSortedApplicationList()` with the comparator.
+6. The `Model` sorts the application list using the provided comparator:
+   - **Name**: Alphabetical order by company name
+   - **Deadline**: Chronological order (earliest deadline first)
+   - **Status**: Logical workflow order (Saved → Applied → Interviewing → Offer → Rejected)
+7. The sorted list is updated in the UI, and the command returns a `CommandResult` with a success message.
+
+#### Design considerations:
+
+**Aspect: Status sort order:**
+
+* **Current implementation:** Sorts by logical application workflow order.
+  * Pros: Intuitive ordering that matches the application process.
+  * Cons: Not alphabetical.
+
+* **Alternative:** Sort status alphabetically.
+  * Pros: Predictable alphabetical ordering.
+  * Cons: Less intuitive for tracking application progress.
 
 ### \[Proposed\] Data archiving
 
@@ -373,15 +476,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-#### Use case: UC02 - Update application status
+#### Use case: UC02 - Edit an application
 
 **MSS**
 
 1. User requests to list all applications.
 2. BizBook shows a numbered list of applications.
-3. User requests to update the status of a specific application by index.
-4. BizBook validates the index and new status.
-5. BizBook updates the application status.
+3. User requests to edit a specific application by index, specifying fields to update.
+4. BizBook validates the index and new field values.
+5. BizBook updates the application with the new values.
 6. BizBook shows a success message with updated details.
 
    Use case ends.
@@ -394,79 +497,131 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
+* 3a. No fields to edit are provided.
+
+  * 3a1. BizBook shows an error message indicating at least one field must be provided.
+
+    Use case ends.
+
 * 4a. The given index is invalid.
 
   * 4a1. BizBook shows an error message.
 
     Use case resumes at step 3.
 
-* 4b. The given status is not valid.
+* 4b. One or more field values are invalid.
 
-  * 4b1. BizBook shows an error message with valid status options.
+  * 4b1. BizBook shows an error message with the specific validation error.
 
     Use case resumes at step 3.
 
-#### Use case: UC03 - Filter applications by status
+* 4c. The edited application would be a duplicate of an existing application.
+
+  * 4c1. BizBook shows an error message indicating the application already exists.
+
+    Use case resumes at step 3.
+
+#### Use case: UC03 - Filter applications
 
 **MSS**
 
-1. User requests to filter applications by a specific status.
-2. BizBook validates the status.
-3. BizBook displays all applications matching the status.
+1. User requests to filter applications by one or more criteria (status, industry, or job type).
+2. BizBook validates the filter criteria.
+3. BizBook displays all applications matching all specified criteria.
 4. BizBook shows the count of filtered applications.
 
    Use case ends.
 
 **Extensions**
 
-* 2a. The given status is invalid.
+* 1a. No filter criteria are provided.
 
-  * 2a1. BizBook shows an error message with valid status options.
-
-    Use case ends.
-
-* 3a. No applications match the given status.
-
-  * 3a1. BizBook shows a message indicating no matches found.
+  * 1a1. BizBook shows an error message with the correct filter command format.
 
     Use case ends.
 
-#### Use case: UC04 - Add notes to an application
+* 2a. One or more filter criteria are invalid.
+
+  * 2a1. BizBook shows an error message with valid options for the invalid criterion.
+
+    Use case ends.
+
+* 3a. No applications match the filter criteria.
+
+  * 3a1. BizBook shows an empty list with message "0 applications listed!"
+
+    Use case ends.
+
+#### Use case: UC04 - Find applications by company name
 
 **MSS**
 
-1. User requests to list all applications.
-2. BizBook shows a numbered list of applications.
-3. User requests to view details of a specific application by index.
-4. BizBook shows full details of the application.
-5. User requests to add notes to this application.
-6. BizBook validates the index and note content.
-7. BizBook adds the note to the application.
-8. BizBook shows a success message.
+1. User requests to find applications containing specific keywords in the company name.
+2. BizBook searches for applications with company names containing any of the keywords (case-insensitive, partial matching).
+3. BizBook displays all matching applications.
+4. BizBook shows the count of applications found.
 
    Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. No keywords are provided.
 
-  * 2a1. BizBook shows a message indicating no applications exist.
+  * 1a1. BizBook shows an error message with the correct find command format.
 
     Use case ends.
 
-* 4a. The given index is invalid.
+* 3a. No applications match the keywords.
 
-  * 4a1. BizBook shows an error message.
+  * 3a1. BizBook shows an empty list with message "0 applications listed!"
 
-    Use case resumes at step 3.
+    Use case ends.
 
-* 6a. The note exceeds maximum length.
+#### Use case: UC05 - Sort applications
 
-  * 6a1. BizBook shows an error message about note length limit.
+**MSS**
 
-    Use case resumes at step 5.
+1. User requests to sort applications by a specific criterion (name, deadline, or status).
+2. BizBook validates the sort criterion.
+3. BizBook sorts the application list according to the criterion.
+4. BizBook displays the sorted list.
+5. BizBook shows a success message.
 
-#### Use case: UC05 - Delete an application
+   Use case ends.
+
+**Extensions**
+
+* 1a. No sort criterion is provided.
+
+  * 1a1. BizBook shows an error message with the correct sort command format.
+
+    Use case ends.
+
+* 2a. The sort criterion is invalid.
+
+  * 2a1. BizBook shows an error message indicating valid sort criteria (name, deadline, status).
+
+    Use case ends.
+
+#### Use case: UC06 - List all applications
+
+**MSS**
+
+1. User requests to list all applications.
+2. BizBook displays all applications in the current order, removing any active filters or search results.
+3. BizBook shows the total count of applications.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. BizBook is empty.
+
+  * 2a1. BizBook shows an empty list.
+
+    Use case ends.
+
+#### Use case: UC07 - Delete an application
 
 **MSS**
 
@@ -568,7 +723,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file Expected: Shows the GUI with a set of sample internship applications. The window size may not be optimum.
 
 1. Saving window preferences
 
@@ -579,27 +734,189 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Deleting a internshipApplication
+### Adding an application
 
-1. Deleting a internshipApplication while all internshipApplications are being shown
+1. Adding an application to BizBook
 
-   1. Prerequisites: List all internshipApplications using the `list` command. Multiple internshipApplications in the list.
+   **Prerequisites:** There is no existing application in BizBook with the same company name AND job type combination.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   1. **Test case:** `add n/Google i/Technology t/Software Engineer Intern d/Backend development role e/recruit@google.com s/Applied dl/2024-12-31`<br>
+      **Expected:** An application is added to BizBook with the specified details. A new card is added to the GUI displaying the application's details including company name, industry, job type, description, email, status, and deadline.
 
-   1. Test case: `delete 0`<br>
-      Expected: No internshipApplication is deleted. Error details shown in the status message. Status bar remains the same.
+   1. **Test case:** `add n/Microsoft` (missing required fields)<br>
+      **Expected:** No application is added. Error message shown: "Invalid command format! add: Adds an internship application to BizBook..." with the correct command format displayed.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+   1. **Other incorrect add commands to try:**
+      - `add n/Google i/Technology` (missing job type, description, email, status, deadline)
+      - `add n/Google@ i/Technology t/SWE Intern d/Role e/recruit@google.com s/Applied dl/2024-12-31` (invalid company name with `@`)
+      - `add n/Google i/InvalidIndustry t/SWE Intern d/Role e/recruit@google.com s/Applied dl/2024-12-31` (invalid industry)
+      - `add n/Google i/Technology t/SWE Intern d/Role e/invalid-email s/Applied dl/2024-12-31` (invalid email format)
+      - `add n/Google i/Technology t/SWE Intern d/Role e/recruit@google.com s/InvalidStatus dl/2024-12-31` (invalid status)
+      - `add n/Google i/Technology t/SWE Intern d/Role e/recruit@google.com s/Applied dl/31-12-2024` (invalid date format)
+      
+      **Expected:** Similar to previous case. No application is added. Specific error messages are shown for each invalid field:
+      - Company name: "Company names should only contain alphanumeric characters, spaces, and the special characters & . , ' -"
+      - Industry: "Industry should be one of: Technology, Finance, Healthcare, Education, Retail, Consulting, Manufacturing, Government, Nonprofit, Other"
+      - Email: "Emails should be in the format local-part@domain and adhere to the following constraints..."
+      - Status: "Status should be one of: Saved, Applied, Interviewing, Offer, Rejected"
+      - Deadline: "Deadline should be in the format YYYY-MM-DD"
 
-1. _{ more test cases …​ }_
+   1. **Test case:** Add duplicate application<br>
+      First: `add n/Google i/Technology t/SWE Intern d/Role e/recruit@google.com s/Applied dl/2024-12-31`<br>
+      Then: `add n/Google i/Technology t/SWE Intern d/Different role e/different@google.com s/Saved dl/2024-11-30`<br>
+      **Expected:** Second application is not added. Error message: "This application already exists in BizBook" (because company name AND job type match).
+
+### Editing an application
+
+1. Editing an application in BizBook
+
+   **Prerequisites:** List all applications using the `list` command. Multiple applications in the list.
+
+   1. **Test case:** `edit 1 s/Interviewing dl/2024-11-30`<br>
+      **Expected:** The first application's status is updated to "Interviewing" and deadline to "2024-11-30". Success message shows the updated application details.
+
+   1. **Test case:** `edit 1 n/Microsoft`<br>
+      **Expected:** The first application's company name is updated to "Microsoft". Success message shows the updated application details.
+
+   1. **Test case:** `edit 0 s/Offer`<br>
+      **Expected:** No application is edited. Error message: "Invalid command format!" with the correct edit command format.
+
+   1. **Test case:** `edit 1` (no fields to edit)<br>
+      **Expected:** No application is edited. Error message: "At least one field to edit must be provided."
+
+   1. **Other incorrect edit commands to try:**
+      - `edit` (missing index)
+      - `edit x s/Offer` (where x is larger than the list size)
+      - `edit 1 s/InvalidStatus` (invalid status value)
+      - `edit 1 e/invalid-email` (invalid email format)
+      - `edit 1 dl/31-12-2024` (invalid date format)
+      
+      **Expected:** Similar error messages as in the add command for invalid field formats.
+
+### Finding applications
+
+1. Finding applications by company name
+
+   **Prerequisites:** Multiple applications in BizBook with various company names.
+
+   1. **Test case:** `find Google`<br>
+      **Expected:** All applications with "Google" in the company name are displayed (case-insensitive, partial matching). Status message shows the number of applications found.
+
+   1. **Test case:** `find Google Microsoft`<br>
+      **Expected:** All applications with "Google" OR "Microsoft" in the company name are displayed. Status message shows the number of applications found.
+
+   1. **Test case:** `find`<br>
+      **Expected:** Error message: "Invalid command format!" with the correct find command format.
+
+   1. **Test case:** `find xyz123` (no matching applications)<br>
+      **Expected:** Empty list displayed. Status message: "0 applications listed!"
+
+### Filtering applications
+
+1. Filtering applications by criteria
+
+   **Prerequisites:** Multiple applications in BizBook with various statuses, industries, and job types.
+
+   1. **Test case:** `filter s/Applied`<br>
+      **Expected:** Only applications with status "Applied" are displayed. Status message shows the number of filtered applications.
+
+   1. **Test case:** `filter i/Technology`<br>
+      **Expected:** Only applications in the "Technology" industry are displayed.
+
+   1. **Test case:** `filter s/Applied i/Technology`<br>
+      **Expected:** Only applications with status "Applied" AND industry "Technology" are displayed (AND logic).
+
+   1. **Test case:** `filter t/Software Engineer Intern`<br>
+      **Expected:** Only applications with job type "Software Engineer Intern" are displayed.
+
+   1. **Test case:** `filter` (no criteria provided)<br>
+      **Expected:** Error message: "Invalid command format!" with the correct filter command format.
+
+   1. **Other incorrect filter commands to try:**
+      - `filter s/InvalidStatus` (invalid status)
+      - `filter i/InvalidIndustry` (invalid industry)
+      
+      **Expected:** Error messages indicating the valid options for status or industry.
+
+### Sorting applications
+
+1. Sorting applications
+
+   **Prerequisites:** Multiple applications in BizBook.
+
+   1. **Test case:** `sort name`<br>
+      **Expected:** Applications are sorted alphabetically by company name. Success message: "Sorted all applications by name."
+
+   1. **Test case:** `sort deadline`<br>
+      **Expected:** Applications are sorted by deadline (earliest first). Success message: "Sorted all applications by deadline."
+
+   1. **Test case:** `sort status`<br>
+      **Expected:** Applications are sorted by status in workflow order: Saved → Applied → Interviewing → Offer → Rejected. Success message: "Sorted all applications by status."
+
+   1. **Test case:** `sort` (missing criterion)<br>
+      **Expected:** Error message: "Invalid command format!" with the correct sort command format.
+
+   1. **Test case:** `sort invalid`<br>
+      **Expected:** Error message: "Invalid sort criterion. Use 'name', 'deadline', or 'status'."
+
+### Deleting an application
+
+1. Deleting an application while all applications are being shown
+
+   **Prerequisites:** List all applications using the `list` command. Multiple applications in the list.
+
+   1. **Test case:** `delete 1`<br>
+      **Expected:** First application is deleted from the list. Details of the deleted application shown in the status message. Timestamp in the status bar is updated.
+
+   1. **Test case:** `delete 0`<br>
+      **Expected:** No application is deleted. Error message: "Invalid command format!" with the correct delete command format.
+
+   1. **Other incorrect delete commands to try:**
+      - `delete` (missing index)
+      - `delete x` (where x is larger than the list size)
+      - `delete -1` (negative index)
+      - `delete abc` (non-numeric index)
+      
+      **Expected:** Error messages indicating invalid index or format.
+
+### Listing all applications
+
+1. Listing all applications
+
+   1. **Test case:** `list`<br>
+      **Expected:** All applications in BizBook are displayed, removing any active filters or search results.
+
+### Clearing all applications
+
+1. Clearing all data
+
+   **Prerequisites:** BizBook contains at least one application.
+
+   1. **Test case:** `clear`<br>
+      **Expected:** All applications are removed from BizBook. Empty list is displayed. Success message: "BizBook has been cleared!"
+
+   1. **Test case:** `clear` (when BizBook is already empty)<br>
+      **Expected:** BizBook remains empty. Success message: "BizBook has been cleared!"
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. **Test case:** Delete the `data/addressbook.json` file, then launch BizBook<br>
+      **Expected:** BizBook starts with sample data containing several pre-populated internship applications.
 
-1. _{ more test cases …​ }_
+   1. **Test case:** Corrupt the `data/addressbook.json` file by adding invalid JSON syntax, then launch BizBook<br>
+      **Expected:** BizBook starts with an empty application list. A new valid `addressbook.json` file will be created when you add your first application.
+
+   1. **Test case:** Make the `data/addressbook.json` file read-only, then try to add an application<br>
+      **Expected:** Application appears to be added in the GUI, but changes are not saved. On restart, the application will not be present.
+
+### Exiting the application
+
+1. Exiting BizBook
+
+   1. **Test case:** `exit`<br>
+      **Expected:** BizBook closes. All data is saved to `data/addressbook.json`.
+
+   1. **Test case:** Click the close button (X) on the window<br>
+      **Expected:** Same as above. BizBook closes and data is saved.
