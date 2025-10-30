@@ -11,8 +11,8 @@ public abstract class Command {
     /**
      * Executes the command and returns the result message.
      *
-     * @param model {@code Model} which the command should operate on.
-     * @return feedback message of the operation result for display
+     * @param model The model which the command should operate on. Must not be null.
+     * @return Feedback message of the operation result for display.
      * @throws CommandException If an error occurs during command execution.
      */
     public abstract CommandResult execute(Model model) throws CommandException;

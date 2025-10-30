@@ -49,7 +49,7 @@ public class AddCommandIntegrationTest {
         // Try to add the same application again; identity is based on name and job type,
         // so this should be treated as a duplicate.
         assertCommandFailure(new AddCommand(applicationInList), model,
-                AddCommand.MESSAGE_DUPLICATE_Company);
+                AddCommand.MESSAGE_DUPLICATE_COMPANY);
     }
 
 }
