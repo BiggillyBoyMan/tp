@@ -4,7 +4,7 @@ skinparam ArrowFontStyle plain
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":BizBookParser" as BizBookParser LOGIC_COLOR
 participant ":FindCommandParser" as FindCommandParser LOGIC_COLOR
 participant "f:FindCommand" as FindCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
@@ -17,17 +17,17 @@ end box
 [-> LogicManager : execute("find Google")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("find Google")
-activate AddressBookParser
+LogicManager -> BizBookParser : parseCommand("find Google")
+activate BizBookParser
 
 create FindCommandParser
-AddressBookParser -> FindCommandParser
+BizBookParser -> FindCommandParser
 activate FindCommandParser
 
-FindCommandParser --> AddressBookParser
+FindCommandParser --> BizBookParser
 deactivate FindCommandParser
 
-AddressBookParser -> FindCommandParser : parse("Google")
+BizBookParser -> FindCommandParser : parse("Google")
 activate FindCommandParser
 
 create FindCommand
@@ -37,13 +37,13 @@ activate FindCommand
 FindCommand --> FindCommandParser : returns FindCommand
 deactivate FindCommand
 
-FindCommandParser --> AddressBookParser : f
+FindCommandParser --> BizBookParser : f
 deactivate FindCommandParser
-FindCommandParser -[hidden]-> AddressBookParser
+FindCommandParser -[hidden]-> BizBookParser
 destroy FindCommandParser
 
-AddressBookParser --> LogicManager : f
-deactivate AddressBookParser
+BizBookParser --> LogicManager : f
+deactivate BizBookParser
 
 LogicManager -> FindCommand : execute(m)
 activate FindCommand

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.BizBook;
 import seedu.address.model.company.InternshipApplication;
 
 /**
@@ -65,12 +65,12 @@ public class TypicalPersons {
     private TypicalPersons() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code BizBook} with all the typical persons.
      */
-    public static AddressBook getTypicalBizBook() {
-        AddressBook ab = new AddressBook();
+    public static BizBook getTypicalBizBook() {
+        BizBook ab = new BizBook();
         for (InternshipApplication internshipApplication : getTypicalPersons()) {
-            ab.addPerson(internshipApplication);
+            ab.addCompany(internshipApplication);
         }
         return ab;
     }
