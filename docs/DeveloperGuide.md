@@ -89,7 +89,7 @@ The `UI` component,
 
 Here's a (partial) class diagram of the `Logic` component:
 
-<img src="images/LogicClassDiagram.png" width="550"/>
+![Logic Class Diagram](images/LogicClassDiagram.png)
 
 The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
 
@@ -108,7 +108,7 @@ How the `Logic` component works:
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
-<img src="images/ParserClasses.png" width="600"/>
+<img src="images/ParserClasses.png" height="800"/>
 
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command companyName e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
@@ -117,7 +117,7 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/description/model/Model.java)
 
-<img src="images/ModelClassDiagram.png" width="450" />
+![Model Class Diagram](images/ModelClassDiagram.png)
 
 
 The `Model` component,
@@ -129,7 +129,7 @@ The `Model` component,
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in BizBook, which `Application` references. This allows BizBook to only require one `Tag` object per unique tag, instead of each `Application` needing their own `Tag` objects.<br>
 
-<img src="images/BetterModelClassDiagram.png" width="450" />
+![Better Model Class Diagram](images/BetterModelClassDiagram.png)
 
 </div>
 
@@ -647,6 +647,52 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 4a1. BizBook shows an error message.
 
     Use case resumes at step 3.
+
+#### Use case: UC08 - Clear all applications
+
+**MSS**
+
+1. User requests to clear all applications from BizBook.
+2. BizBook removes all applications.
+3. BizBook shows a success message confirming all data has been cleared.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. BizBook is already empty.
+
+  * 1a1. BizBook still shows the success message (no harm in clearing an empty list).
+
+    Use case ends.
+
+#### Use case: UC09 - View help
+
+**MSS**
+
+1. User requests to view help information.
+2. BizBook displays a help window with a link to the User Guide.
+3. User can copy the URL or click to open it in a browser.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. Help window is already open.
+
+  * 2a1. BizBook brings the existing help window to focus.
+
+    Use case ends.
+
+#### Use case: UC10 - Exit the application
+
+**MSS**
+
+1. User requests to exit BizBook.
+2. BizBook saves all current data to the storage file.
+3. BizBook closes the application window.
+
+   Use case ends.
 
 ### Non-Functional Requirements
 
