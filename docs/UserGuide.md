@@ -3,7 +3,7 @@ layout: page
 title: User Guide
 ---
 
-BizBook is a **desktop app for managing job applications, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BizBook can get your contact management tasks done faster than traditional GUI apps.
+**Welcome to BizBook** – a tool designed to help students manage internship applications with speed and simplicity. BizBook streamlines your everyday tasks, such as tracking application statuses and managing deadlines, allowing you to organize important information in a fast, efficient way. By typing commands, you can quickly add, update, search, and handle your applications with minimal effort, making it a valuable companion for any busy student on an internship hunt.
 
 * Table of Contents
 {:toc}
