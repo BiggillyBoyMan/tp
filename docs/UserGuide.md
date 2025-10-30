@@ -3,7 +3,16 @@ layout: page
 title: User Guide
 ---
 
-BizBook is a **desktop app for managing job applications, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BizBook can get your contact management tasks done faster than traditional GUI apps.
+**Welcome to BizBook** – a tool designed to help students manage internship applications with speed and simplicity. BizBook streamlines your everyday tasks, such as tracking application statuses and managing deadlines, allowing you to organize important information in a fast, efficient way. By typing commands, you can quickly add, update, search, and handle your applications with minimal effort, making it a valuable companion for any busy student on an internship hunt.
+
+### How BizBook addresses the problem:
+* BizBook exposes succinct commands for adding, editing, finding, filtering and sorting applications, so users can complete common tasks with a few keystrokes.
+* By keeping data local and serialised as JSON, users retain full control of their data and can transfer or back it up easily.
+* The combination of a CLI and a simple GUI gives both productivity (keyboard-first workflows) and visual clarity (cards, status bar and help window).
+
+### Background / comparison:
+* Many users track applications with spreadsheets (Excel/Sheets) or general-purpose task managers (Trello, Notion). Those tools are flexible but often slower for repetitive text-entry tasks.
+* Commercial applicant-tracking systems (e.g., Workable, Greenhouse) offer advanced features but are heavyweight and cloud-based. BizBook targets students and individuals who need a lightweight, local tool with fast keyboard-driven workflows.
 
 * Table of Contents
 {:toc}
@@ -22,30 +31,10 @@ BizBook is a **desktop app for managing job applications, optimized for use via 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar BizBook.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
-   Some example commands you can try:
-
-   * `list` : Lists all internship applications.
-
-   * `sort deadline` : Sorts applications by deadline.
-
-   * `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31` : Adds a Google application.
-
-   * `edit 1 s/Interviewing` : Edits the 1st application's status to "Interviewing".
-
-   * `delete 3` : Deletes the 3rd application shown in the current list.
-
-   * `find Google` : Finds all applications with the complete word "Google" in the company name.
-
-   * `filter s/Applied` : Filters to show only applications with "Applied" status.
-
-   * `clear` : Deletes all applications.
-
-   * `exit` : Exits the app.
 
 1. Let's try typing these in order and see the result!
 
-    **Step 1: Add your applications**
+    **Step 1: Add your applications** -
     First, let's clear the sample data and add 3 new applications.
     * `clear`
     * `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31`
@@ -54,7 +43,7 @@ BizBook is a **desktop app for managing job applications, optimized for use via 
     
     *Result:* Your list now shows 3 applications, in the order you added them.
 
-    **Step 2: Prioritize and update**
+    **Step 2: Prioritize and update** -
     You want to apply for the one with the *earliest* deadline first.
     * `sort deadline`
     
@@ -63,7 +52,7 @@ BizBook is a **desktop app for managing job applications, optimized for use via 
     
     *Result:* The ByteDance card at Index 1 updates its status to `Applied`.
 
-    **Step 3: Filter and delete**
+    **Step 3: Filter and delete** -
     Now you only want to see your "To-Do" list (status `Saved`).
     * `filter s/Saved`
     
@@ -76,11 +65,15 @@ BizBook is a **desktop app for managing job applications, optimized for use via 
     
     *Result:* The item at **Index 2** of the *current list* (DBS Bank) is permanently deleted.
 
-    **Step 4: Reset and final check**
+    **Step 4: Reset and final check** -
     Finally, clear the filter to see *all* your remaining applications.
     * `list`
     
     *Result:* The filter is cleared. You now see your remaining applications: **ByteDance** (Status: `Applied`) and **Google** (Status: `Saved`). `DBS Bank` is gone.
+
+    **Step 5: Exit** -
+    Now that you have finished adding all your applications, you can now exit BizBook!
+    * `exit`
     
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -132,11 +125,17 @@ Examples:
 * `add n/AT&T i/Technology a/Network Intern t/5G deployment e/careers@att.com s/Saved d/2024-12-20` (company name with `&`)
 * `add n/McDonald i/Operations a/Management Trainee t/Store operations e/hr@mcdonalds.com s/Applied d/2025-01-10` (company name with `'`)
 
+![add command](images/addCommand.png)
+sample output from running `add n/DBS Bank i/Finance a/Data Analyst Intern t/Analytics team e/internships@dbs.com s/Applied d/2025-01-15`
+
 ### Listing all applications : `list`
 
 Shows a list of all internship applications in BizBook.
 
 Format: `list`
+
+![list command](images/listCommand.png)
+sample output from running `list`
 
 ### Sorting applications : `sort`
 
@@ -161,6 +160,9 @@ Typical usage:
 * `list` followed by `sort deadline` shows all applications sorted by deadline to help you prioritize upcoming applications.
 * `sort status` helps you see your application pipeline in logical progression order.
 
+![sort command](images/sortCommand.png)
+sample output from running `sort deadline`
+
 ### Editing an application : `edit`
 
 Edits the details of an existing internship application.
@@ -179,6 +181,9 @@ Examples:
 * `edit 1 n/Google Singapore`
 * `edit 2 s/Interviewing d/2025-02-28`
 * `edit 3 a/Quant Intern t/Global Markets desk`
+
+![edit command](images/editCommandSuccess.png)
+sample output from running `edit 1 s/applied`
 
 ### Finding applications by name : `find`
 
@@ -200,6 +205,9 @@ Examples:
 * `find DBS OCBC` returns applications for `DBS Bank`, `OCBC`, and `DBS Group`
 * `find Tech` returns `TechCorp`, `FinTech`, `Tech Solutions`, and any company with "Tech" in the name
 * `find Meta` returns `Meta`, `Metaverse Inc`, and `MetaData Corp` (partial matches work)
+
+![find command](images/findCommand.png)
+sample output from running `find meta`
 
 ### Filtering applications by status and/or industry : `filter`
 
@@ -226,6 +234,9 @@ Typical usage:
 * `filter i/Technology s/Saved` to see all saved Technology positions you haven't applied to yet
 * `list` to return to viewing all applications
 
+![filter command](images/filterCommand.png)
+sample output from running `filter s/offer`
+
 ### Deleting an application : `delete`
 
 Deletes the specified internship application.
@@ -239,6 +250,9 @@ Format: `delete INDEX`
 Examples:
 * `list` followed by `delete 2` deletes the 2nd application in the list.
 * `find Google` followed by `delete 1` deletes the 1st application in the search results.
+
+![delete command](images/deleteCommand.png)
+sample output from running `delete 1`
 
 ### Clearing all entries : `clear`
 

@@ -14,7 +14,7 @@ import seedu.address.model.company.JobType;
 import seedu.address.model.industry.Industry;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser classes.
+ * Contains utility methods used for parsing strings in the various parser classes.
  */
 public class ParserUtil {
 
