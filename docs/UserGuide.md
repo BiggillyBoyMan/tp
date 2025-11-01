@@ -89,7 +89,7 @@ title: User Guide
   e.g. in `add n/COMPANY_NAME`, `COMPANY_NAME` is a parameter which can be used as `add n/Google`.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+  e.g. if the command specifies `help 123`, it will be interpreted as `help`. Similarly, `list abc` will be interpreted as `list`, and `clear xyz` will be interpreted as `clear`.
 
 * Items in square brackets are optional.<br>
   e.g `edit INDEX [n/COMPANY_NAME] [i/INDUSTRY] [a/JOB_ROLE] [e/EMAIL] [t/DESCRIPTION] [s/STATUS] [d/DEADLINE]` can be used with or without the description.
@@ -144,6 +144,9 @@ sample output from running `add n/DBS Bank i/Finance a/Data Analyst Intern t/Ana
 Shows a list of all internship applications in BizBook.
 
 Format: `list`
+
+> :information_source: **Note:**
+> Any parameters following `list` will be ignored. For example, `list 123` or `list abc` will execute as if only `list` was typed.
 
 ![list command](images/listCommand.png)
 sample output from running `list`
@@ -270,6 +273,9 @@ sample output from running `delete 1`
 Clears all entries from BizBook.
 
 Format: `clear`
+
+> :information_source: **Note:**
+> Any parameters following `clear` will be ignored. For example, `clear 123` or `clear abc` will execute as if only `clear` was typed.
 
 ### Exiting the program : `exit`
 

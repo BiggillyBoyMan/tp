@@ -933,6 +933,12 @@ testers are expected to do more *exploratory* testing.
    1. **Test case:** `list`<br>
       **Expected:** All applications in BizBook are displayed, removing any active filters or search results.
 
+   1. **Test case:** `list 123` (with extra parameters)<br>
+      **Expected:** Same as above. Extra parameters are ignored. All applications in BizBook are displayed.
+
+   1. **Test case:** `list abc xyz` (with multiple extra parameters)<br>
+      **Expected:** Same as above. All extra parameters are ignored. All applications in BizBook are displayed.
+
 ### Clearing all applications
 
 1. Clearing all data
@@ -941,6 +947,12 @@ testers are expected to do more *exploratory* testing.
 
    1. **Test case:** `clear`<br>
       **Expected:** All applications are removed from BizBook. Empty list is displayed. Success message: "BizBook has been cleared!"
+
+   1. **Test case:** `clear 123` (with extra parameters)<br>
+      **Expected:** Same as above. Extra parameters are ignored. All applications are removed from BizBook.
+
+   1. **Test case:** `clear abc xyz` (with multiple extra parameters)<br>
+      **Expected:** Same as above. All extra parameters are ignored. All applications are removed from BizBook.
 
    1. **Test case:** `clear` (when BizBook is already empty)<br>
       **Expected:** BizBook remains empty. Success message: "BizBook has been cleared!"
