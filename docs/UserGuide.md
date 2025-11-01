@@ -37,9 +37,9 @@ title: User Guide
     **Step 1: Add your applications** -
     First, let's clear the sample data and add 3 new applications.
     * `clear`
-    * `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31`
-    * `add n/DBS Bank i/Finance a/Data Analyst Intern t/Analytics team e/internships@dbs.com s/Saved d/2025-01-15`
-    * `add n/ByteDance i/Technology a/PM Intern t/TikTok team e/hr@bytedance.com s/Saved d/2024-12-20`
+    * `add n/Google a/SWE Intern e/careers@google.com t/Backend microservices i/Technology s/Saved d/2024-12-31`
+    * `add n/DBS Bank a/Data Analyst Intern e/internships@dbs.com t/Analytics team i/Finance s/Saved d/2025-01-15`
+    * `add n/ByteDance a/PM Intern e/hr@bytedance.com t/TikTok team i/Technology s/Saved d/2024-12-20`
     
     *Result:* Your list now shows 3 applications, in the order you added them.
 
@@ -111,7 +111,7 @@ Format: `help`
 Adds a new internship application to BizBook.
 All fields are **mandatory** — you must provide a value for every prefix in the correct format.
 
-Format: `add n/COMPANY_NAME i/INDUSTRY a/JOB_ROLE t/DESCRIPTION e/EMAIL s/STATUS d/DEADLINE`
+Format: `add n/COMPANY_NAME a/JOB_ROLE e/EMAIL t/DESCRIPTION i/INDUSTRY s/STATUS d/DEADLINE`
 
 Notes:
 - **All fields must be filled.** Omitting a field or using the wrong prefix will cause an error.
@@ -131,13 +131,13 @@ Notes:
 - You can add multiple applications to the same company as long as they are for different job roles (e.g., Google SWE Intern and Google PM Intern are both allowed)
 
 Examples:
-* `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31`
-* `add n/DBS Bank i/Finance a/Data Analyst Intern t/Analytics team e/internships@dbs.com s/Applied d/2025-01-15`
-* `add n/AT&T i/Technology a/Network Intern t/5G deployment e/careers@att.com s/Saved d/2024-12-20` (company name with `&`)
-* `add n/McDonald i/Operations a/Management Trainee t/Store operations e/hr@mcdonalds.com s/Applied d/2025-01-10` (company name with `'`)
+* `add n/Google a/SWE Intern e/careers@google.com t/Backend microservices i/Technology s/Saved d/2024-12-31`
+* `add n/DBS Bank a/Data Analyst Intern e/internships@dbs.com t/Analytics team i/Finance s/Applied d/2025-01-15`
+* `add n/AT&T a/Network Intern e/careers@att.com t/5G deployment i/Technology s/Saved d/2024-12-20` (company name with `&`)
+* `add n/McDonald a/Management Trainee e/hr@mcdonalds.com t/Store operations i/Operations s/Applied d/2025-01-10` (company name with `'`)
 
 ![add command](images/addCommand.png)
-sample output from running `add n/DBS Bank i/Finance a/Data Analyst Intern t/Analytics team e/internships@dbs.com s/Applied d/2025-01-15`
+sample output from running `add n/DBS Bank a/Data Analyst Intern e/internships@dbs.com t/Analytics team i/Finance s/Applied d/2025-01-15`
 
 ### Listing all applications : `list`
 
@@ -316,7 +316,7 @@ Furthermore, certain edits can cause the app to behave in unexpected ways (e.g.,
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/COMPANY_NAME i/INDUSTRY a/JOB_ROLE t/DESCRIPTION e/EMAIL s/STATUS d/DEADLINE` <br> e.g., `add n/Google i/Technology a/SWE Intern t/Backend microservices e/careers@google.com s/Saved d/2024-12-31`
+**Add** | `add n/COMPANY_NAME a/JOB_ROLE e/EMAIL t/DESCRIPTION i/INDUSTRY s/STATUS d/DEADLINE` <br> e.g., `add n/Google a/SWE Intern e/careers@google.com t/Backend microservices i/Technology s/Saved d/2024-12-31`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 1`
 **Edit** | `edit INDEX [n/COMPANY_NAME] [i/INDUSTRY] [a/JOB_ROLE] [e/EMAIL] [t/DESCRIPTION] [s/STATUS] [d/DEADLINE]`<br> e.g.,`edit 2 s/Interviewing d/2025-02-28`

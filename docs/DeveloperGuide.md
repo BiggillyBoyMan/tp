@@ -172,9 +172,9 @@ The following sequence diagram shows how an add operation works:
 
 How the `add` command works:
 
-1. When the user executes the `add` command (e.g., `add n/Google i/Technology t/SWE Intern d/Software engineering role e/recruit@google.com s/Applied dl/2024-12-31`), the `LogicManager` passes the input to `AddressBookParser`.
+1. When the user executes the `add` command (e.g., `add n/Google a/SWE Intern e/recruit@google.com t/Software engineering role i/Technology s/Applied d/2024-12-31`), the `LogicManager` passes the input to `AddressBookParser`.
 2. `AddressBookParser` identifies this as an `add` command and creates an `AddCommandParser` to parse the arguments.
-3. `AddCommandParser` uses `ArgumentTokenizer` to extract all the prefixed fields (n/, i/, t/, d/, e/, s/, dl/) from the command string.
+3. `AddCommandParser` uses `ArgumentTokenizer` to extract all the prefixed fields (n/, a/, e/, t/, i/, s/, d/) from the command string.
 4. `AddCommandParser` validates each field using the respective classes (`CompanyName`, `Industry`, `JobType`, etc.) and creates an `InternshipApplication` object.
 5. `AddCommandParser` creates and returns an `AddCommand` with the new `InternshipApplication`.
 6. `LogicManager` executes the `AddCommand`, which checks for duplicates in the `Model`.
@@ -210,7 +210,7 @@ The following sequence diagram shows how an edit operation works:
 
 How the `edit` command works:
 
-1. When the user executes the `edit` command (e.g., `edit 1 s/Interviewing dl/2024-11-30`), the `LogicManager` passes the input to `AddressBookParser`.
+1. When the user executes the `edit` command (e.g., `edit 1 s/Interviewing d/2024-11-30`), the `LogicManager` passes the input to `AddressBookParser`.
 2. `AddressBookParser` identifies this as an `edit` command and creates an `EditCommandParser` to parse the arguments.
 3. `EditCommandParser` extracts the index and creates an `EditApplicationDescriptor` containing only the fields to be updated (in this example, status and deadline).
 4. `EditCommandParser` creates and returns an `EditCommand` with the index and descriptor.
@@ -787,19 +787,19 @@ testers are expected to do more *exploratory* testing.
 
    **Prerequisites:** There is no existing application in BizBook with the same company name AND job type combination.
 
-   1. **Test case:** `add n/Google i/Technology t/Software Engineer Intern d/Backend development role e/recruit@google.com s/Applied dl/2024-12-31`<br>
+   1. **Test case:** `add n/Google a/Software Engineer Intern e/recruit@google.com t/Backend development role i/Technology s/Applied d/2024-12-31`<br>
       **Expected:** An application is added to BizBook with the specified details. A new card is added to the GUI displaying the application's details including company name, industry, job type, description, email, status, and deadline.
 
    1. **Test case:** `add n/Microsoft` (missing required fields)<br>
       **Expected:** No application is added. Error message shown: "Invalid command format! add: Adds an internship application to BizBook..." with the correct command format displayed.
 
    1. **Other incorrect add commands to try:**
-      - `add n/Google i/Technology` (missing job type, description, email, status, deadline)
-      - `add n/Google@ i/Technology t/SWE Intern d/Role e/recruit@google.com s/Applied dl/2024-12-31` (invalid company name with `@`)
-      - `add n/Google i/InvalidIndustry t/SWE Intern d/Role e/recruit@google.com s/Applied dl/2024-12-31` (invalid industry)
-      - `add n/Google i/Technology t/SWE Intern d/Role e/invalid-email s/Applied dl/2024-12-31` (invalid email format)
-      - `add n/Google i/Technology t/SWE Intern d/Role e/recruit@google.com s/InvalidStatus dl/2024-12-31` (invalid status)
-      - `add n/Google i/Technology t/SWE Intern d/Role e/recruit@google.com s/Applied dl/31-12-2024` (invalid date format)
+      - `add n/Google` (missing job type, description, email, status, deadline)
+      - `add n/ a/SWE Intern e/recruit@google.com t/Role i/Technology s/Applied d/2024-12-31` (invalid company name with no input after n/)
+      - `add n/Google a/SWE Intern e/recruit@google.com t/Role i/InvalidIndustry s/Applied d/2024-12-31` (invalid industry)
+      - `add n/Google a/SWE Intern e/invalid-email t/Role i/Technology s/Applied d/2024-12-31` (invalid email format)
+      - `add n/Google a/SWE Intern e/recruit@google.com t/Role i/Technology s/InvalidStatus d/2024-12-31` (invalid status)
+      - `add n/Google a/SWE Intern e/recruit@google.com t/Role i/Technology s/Applied d/31-12-2024` (invalid date format)
       
       **Expected:** Similar to previous case. No application is added. Specific error messages are shown for each invalid field:
       - Company name: "Company names should only contain alphanumeric characters, spaces, and the special characters & . , ' -"
@@ -809,8 +809,8 @@ testers are expected to do more *exploratory* testing.
       - Deadline: "Deadline should be in the format YYYY-MM-DD"
 
    1. **Test case:** Add duplicate application<br>
-      First: `add n/Google i/Technology t/SWE Intern d/Role e/recruit@google.com s/Applied dl/2024-12-31`<br>
-      Then: `add n/Google i/Technology t/SWE Intern d/Different role e/different@google.com s/Saved dl/2024-11-30`<br>
+      First: `add n/Google a/SWE Intern e/recruit@google.com t/Role i/Technology s/Applied d/2024-12-31`<br>
+      Then: `add n/Google a/SWE Intern e/different@google.com t/Roley i/Technology s/Saved d/2024-11-30`<br>
       **Expected:** Second application is not added. Error message: "This application already exists in BizBook" (because company name AND job type match).
 
 ### Editing an application
@@ -819,7 +819,7 @@ testers are expected to do more *exploratory* testing.
 
    **Prerequisites:** List all applications using the `list` command. Multiple applications in the list.
 
-   1. **Test case:** `edit 1 s/Interviewing dl/2024-11-30`<br>
+   1. **Test case:** `edit 1 s/Interviewing d/2024-11-30`<br>
       **Expected:** The first application's status is updated to "Interviewing" and deadline to "2024-11-30". Success message shows the updated application details.
 
    1. **Test case:** `edit 1 n/Microsoft`<br>
@@ -836,7 +836,7 @@ testers are expected to do more *exploratory* testing.
       - `edit x s/Offer` (where x is larger than the list size)
       - `edit 1 s/InvalidStatus` (invalid status value)
       - `edit 1 e/invalid-email` (invalid email format)
-      - `edit 1 dl/31-12-2024` (invalid date format)
+      - `edit 1 d/31-12-2024` (invalid date format)
       
       **Expected:** Similar error messages as in the add command for invalid field formats.
 
