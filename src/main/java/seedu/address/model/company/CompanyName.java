@@ -1,7 +1,6 @@
 package seedu.address.model.company;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -12,7 +11,7 @@ public class CompanyName {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Company names should only contain alphanumeric characters, spaces, and common special characters "
-            + "(& . - ' ,), and it should not be blank";
+            + "excluding parentheses (& . - ' ,), and it should not be blank";
 
     /*
      * The first character must not be a whitespace, otherwise " " (a blank string) becomes a valid input.
