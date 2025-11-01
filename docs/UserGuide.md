@@ -109,12 +109,23 @@ Format: `help`
 ### Adding an application: `add`
 
 Adds a new internship application to BizBook.
+All fields are **mandatory** — you must provide a value for every prefix in the correct format.
 
 Format: `add n/COMPANY_NAME i/INDUSTRY a/JOB_ROLE t/DESCRIPTION e/EMAIL s/STATUS d/DEADLINE`
 
 Notes:
+- **All fields must be filled.** Omitting a field or using the wrong prefix will cause an error.
 - `COMPANY_NAME` can contain alphanumeric characters, spaces, and these special characters: `& . - ' ,` (e.g., AT&T, McDonald's, Apple Inc., Coca-Cola)
 - `INDUSTRY` must be one of: Technology, Finance, Consulting, Healthcare, Marketing, Operations, Graphic Design
+- `JOB_ROLE` should only contain alphanumeric characters and spaces and should not be blank. (e.g., `Software Engineer Intern`, `Marketing Analyst Intern`)
+- `DESCRIPTION` should not be empty and cannot exceed 200 characters
+- `EMAIL` Emails should be of the format local-part@domain.tld and adhere to the following constraints:
+  - The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters.
+  - This is followed by a '@' and then a domain name (e.g., gmail, company, university).
+    - have each domain label start and end with alphanumeric characters
+    - have each domain label consist of alphanumeric characters, separated only by hyphens, if any
+  - The domain must be followed by a period and a top-level domain (e.g., .com, .edu, .org).
+      - A Top Level Domain should have at least 2 characters long
 - `STATUS` must be one of: Saved, Applied, Interviewing, Offer, Rejected.
 - `DEADLINE` must be in the format YYYY-MM-DD (e.g., 2024-12-31)
 - You can add multiple applications to the same company as long as they are for different job roles (e.g., Google SWE Intern and Google PM Intern are both allowed)
