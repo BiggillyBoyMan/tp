@@ -1,6 +1,7 @@
 package seedu.address.model.company;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -17,7 +18,7 @@ public class CompanyName {
      * The first character must not be a whitespace, otherwise " " (a blank string) becomes a valid input.
      * Allows alphanumeric characters and common special characters: & . - ' ,
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} &.,'\\-]*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum} &.,'\\-]*";
 
     public final String value;
     /**
