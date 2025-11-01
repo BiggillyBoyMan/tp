@@ -4,6 +4,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a parse error encountered by a parser.
+ * Extends {@link IllegalValueException} to provide detailed context for parsing failures.
  */
 public class ParseException extends IllegalValueException {
 

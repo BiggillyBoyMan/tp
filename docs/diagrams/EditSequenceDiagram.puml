@@ -4,7 +4,7 @@ skinparam ArrowFontStyle plain
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":BizBookParser" as BizBookParser LOGIC_COLOR
 participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
 participant "e:EditCommand" as EditCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
@@ -17,17 +17,17 @@ end box
 [-> LogicManager : execute("edit 1 s/Interviewing")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("edit 1 s/Interviewing")
-activate AddressBookParser
+LogicManager -> BizBookParser : parseCommand("edit 1 s/Interviewing")
+activate BizBookParser
 
 create EditCommandParser
-AddressBookParser -> EditCommandParser
+BizBookParser -> EditCommandParser
 activate EditCommandParser
 
-EditCommandParser --> AddressBookParser
+EditCommandParser --> BizBookParser
 deactivate EditCommandParser
 
-AddressBookParser -> EditCommandParser : parse("1 s/Interviewing")
+BizBookParser -> EditCommandParser : parse("1 s/Interviewing")
 activate EditCommandParser
 
 create EditCommand
@@ -37,13 +37,13 @@ activate EditCommand
 EditCommand --> EditCommandParser : returns EditCommand
 deactivate EditCommand
 
-EditCommandParser --> AddressBookParser : e
+EditCommandParser --> BizBookParser : e
 deactivate EditCommandParser
-EditCommandParser -[hidden]-> AddressBookParser
+EditCommandParser -[hidden]-> BizBookParser
 destroy EditCommandParser
 
-AddressBookParser --> LogicManager : e
-deactivate AddressBookParser
+BizBookParser --> LogicManager : e
+deactivate BizBookParser
 
 LogicManager -> EditCommand : execute(m)
 activate EditCommand

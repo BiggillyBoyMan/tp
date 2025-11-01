@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
-import seedu.address.model.AddressBook;
+import seedu.address.model.BizBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -45,7 +45,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COMPANY_SUCCESS,
                 Messages.format(editedApplication));
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new BizBook(model.getBizBook()),
                 new UserPrefs());
         expectedModel.setCompany(model.getFilteredCompanyList().get(0), editedApplication);
 
@@ -69,7 +69,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COMPANY_SUCCESS,
                 Messages.format(editedApplication));
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new BizBook(model.getBizBook()),
                 new UserPrefs());
         expectedModel.setCompany(lastApplication, editedApplication);
 
@@ -96,7 +96,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COMPANY_SUCCESS,
                 Messages.format(editedApplication));
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new BizBook(model.getBizBook()),
                 new UserPrefs());
         expectedModel.setCompany(model.getFilteredCompanyList().get(0), editedApplication);
 
@@ -118,7 +118,7 @@ public class EditCommandTest {
         showApplicationAtIndex(model, INDEX_FIRST_COMPANY);
 
         // edit application in filtered list into a duplicate in address book
-        InternshipApplication applicationInList = model.getAddressBook().getPersonList()
+        InternshipApplication applicationInList = model.getBizBook().getPersonList()
                 .get(INDEX_SECOND_COMPANY.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_COMPANY,
                 new EditPersonDescriptorBuilder(applicationInList).build());
@@ -145,7 +145,7 @@ public class EditCommandTest {
         showApplicationAtIndex(model, INDEX_FIRST_COMPANY);
         Index outOfBoundIndex = INDEX_SECOND_COMPANY;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getBizBook().getPersonList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_AWS).build());

@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.BizBook;
+import seedu.address.model.ReadOnlyBizBook;
 import seedu.address.model.applicationstatus.ApplicationStatus;
 import seedu.address.model.company.CompanyName;
 import seedu.address.model.company.Deadline;
@@ -17,7 +17,7 @@ import seedu.address.model.industry.Industry;
 
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code BizBook} with sample data.
  */
 public class SampleDataUtil {
     public static InternshipApplication[] getSamplePersons() {
@@ -28,10 +28,10 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyBizBook getSampleAddressBook() {
+        BizBook sampleAb = new BizBook();
         for (InternshipApplication sampleInternshipApplication : getSamplePersons()) {
-            sampleAb.addPerson(sampleInternshipApplication);
+            sampleAb.addCompany(sampleInternshipApplication);
         }
         return sampleAb;
     }
