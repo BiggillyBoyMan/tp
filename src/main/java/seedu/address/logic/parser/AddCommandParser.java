@@ -37,6 +37,15 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform to the expected format.
      */
     public AddCommand parse(String args) throws ParseException {
+        // Check for unrecognized prefixes (e.g., dL/ instead of d/)
+        String[] tokens = args.split(" ");
+        for (String token : tokens) {
+            if (token.matches("[a-zA-Z]{2,}/.*")) {
+                throw new ParseException("Invalid prefix detected: '"
+                        + token.substring(0, token.indexOf('/') + 1)
+                        + "'. Please use only valid prefixes.");
+            }
+        }
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_COMPANY_NAME,
                 PREFIX_DESCRIPTION, PREFIX_EMAIL, PREFIX_INDUSTRY, PREFIX_JOB_TYPE, PREFIX_STATUS, PREFIX_DEADLINE);
 
