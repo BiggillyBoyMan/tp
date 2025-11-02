@@ -344,7 +344,17 @@ How the `sort` command works:
 
 ### \[Proposed\] Data archiving
 
-_{Explain here how the data archiving feature will be implemented}_
+The data archiving feature will allow users to move completed or inactive internship applications out of their active list, while still retaining them for future reference. This helps keep the main application list focused and uncluttered, but preserves historical data for statistics and review.
+
+**Proposed Implementation:**
+- Introduce an "archived" status flag or a separate archived list in the model.
+- Add new commands: `archive INDEX` to move an application to the archive, and `unarchive INDEX` to restore it.
+- Update the UI to allow toggling between active and archived views.
+- Archived applications will be excluded from most commands (e.g., `list`, `filter`, `find`) unless explicitly requested.
+- Storage will persist the archive state, so archived applications remain archived across app restarts.
+- Statistics and analytics features can optionally include archived data if needed.
+
+This feature improves usability for users who want to keep a clean workspace but still need access to their full application history.
 
 
 --------------------------------------------------------------------------------------------------------------------
