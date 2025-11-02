@@ -272,11 +272,11 @@ How the `find` command works:
 
 ### Filter Feature
 
-The `filter` command allows users to filter applications by status, industry, or job type.
+The `filter` command allows users to filter applications by status and industry.
 
 #### Implementation
 
-The filter mechanism uses predicate classes (`StatusPredicate`, `IndustryPredicate`, `JobTypePredicate`) to filter the application list. Multiple filters can be combined.
+The filter mechanism uses predicate classes (`StatusPredicate`, `IndustryPredicate`) to filter the application list. Multiple filters (status and industry) can be combined.
 
 The following sequence diagram shows how a filter operation works:
 
@@ -289,7 +289,7 @@ How the `filter` command works:
 
 1. When the user executes the `filter` command (e.g., `filter s/Applied i/Technology`), the `LogicManager` passes the input to `BizBookParser`.
 2. `BizBookParser` identifies this as a `filter` command and creates a `FilterCommandParser` to parse the arguments.
-3. `FilterCommandParser` uses `ArgumentTokenizer` to extract the filter criteria (s/ for status, i/ for industry, t/ for job type).
+3. `FilterCommandParser` uses `ArgumentTokenizer` to extract the filter criteria (s/ for status, i/ for industry).
 4. For each filter criterion present, `FilterCommandParser` creates the corresponding predicate (`StatusPredicate`, `IndustryPredicate`, or `JobTypePredicate`).
 5. If multiple filters are specified, they are combined using `Predicate.and()` to create a composite predicate that requires all conditions to match.
 6. `FilterCommandParser` creates and returns a `FilterCommand` with the combined predicate.
@@ -779,7 +779,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file 
+   1. Double-click the jar file
       2. Expected: Shows the GUI with a set of sample internship applications. The window size may not be optimum.
 
 1. Saving window preferences
@@ -808,13 +808,14 @@ testers are expected to do more *exploratory* testing.
       - `add n/Google a/SWE Intern e/invalid-email t/Role i/Technology s/Applied d/2024-12-31` (invalid email format)
       - `add n/Google a/SWE Intern e/recruit@google.com t/Role i/Technology s/InvalidStatus d/2024-12-31` (invalid status)
       - `add n/Google a/SWE Intern e/recruit@google.com t/Role i/Technology s/Applied d/31-12-2024` (invalid date format)
-      
+      - `add n/Google a/SWE Intern e/recruit@google.com t/Role i/Technology s/Applied d/2030-01-01` (date not before 2030-01-01)
+
       **Expected:** Similar to previous case. No application is added. Specific error messages are shown for each invalid field:
       - Company name: "Company names should only contain alphanumeric characters, spaces, and the special characters & . , ' -"
       - Industry: "Industry should be one of: Technology, Finance, Healthcare, Education, Retail, Consulting, Manufacturing, Government, Nonprofit, Other"
       - Email: "Emails should be in the format local-part@domain and adhere to the following constraints..."
       - Status: "Status should be one of: Saved, Applied, Interviewing, Offer, Rejected"
-      - Deadline: "Deadline should be in the format YYYY-MM-DD"
+      - Deadline: "Deadline should be in the format YYYY-MM-DD and must be a date between 2020-01-01 and before 2030-01-01."
 
    1. **Test case:** Add duplicate application<br>
       First: `add n/Google a/SWE Intern e/recruit@google.com t/Role i/Technology s/Applied d/2024-12-31`<br>
@@ -845,7 +846,9 @@ testers are expected to do more *exploratory* testing.
       - `edit 1 s/InvalidStatus` (invalid status value)
       - `edit 1 e/invalid-email` (invalid email format)
       - `edit 1 d/31-12-2024` (invalid date format)
-      
+      - `edit 1 d/2030-01-01` (date not before 2030-01-01)
+      - `edit 1 d/2020-01-01` (date before today)
+
       **Expected:** Similar error messages as in the add command for invalid field formats.
 
 ### Finding applications
@@ -890,7 +893,7 @@ testers are expected to do more *exploratory* testing.
    1. **Other incorrect filter commands to try:**
       - `filter s/InvalidStatus` (invalid status)
       - `filter i/InvalidIndustry` (invalid industry)
-      
+
       **Expected:** Error messages indicating the valid options for status or industry.
 
 ### Sorting applications
@@ -931,7 +934,7 @@ testers are expected to do more *exploratory* testing.
       - `delete x` (where x is larger than the list size)
       - `delete -1` (negative index)
       - `delete abc` (non-numeric index)
-      
+
       **Expected:** Error messages indicating invalid index or format.
 
 ### Listing all applications
