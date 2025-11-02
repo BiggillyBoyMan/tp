@@ -91,10 +91,13 @@ public class InternshipApplication {
         }
 
         return otherInternshipApplication != null
-                && otherInternshipApplication.getName().value.trim().equalsIgnoreCase(getName().value.trim())
+                && otherInternshipApplication.getName().value.trim()
+                .equalsIgnoreCase(getName().value.trim())
                 && otherInternshipApplication.getIndustry().equals(getIndustry())
-                && otherInternshipApplication.getJobType().value.trim().equalsIgnoreCase(getJobType().value.trim())
-                && otherInternshipApplication.getDescription().value.trim().equalsIgnoreCase(getDescription().value.trim());
+                && otherInternshipApplication.getJobType().value.trim()
+                .equalsIgnoreCase(getJobType().value.trim())
+                && otherInternshipApplication.getDescription().value.trim()
+                .equalsIgnoreCase(getDescription().value.trim());
     }
     @Override
     public boolean equals(Object other) {
