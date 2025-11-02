@@ -42,11 +42,11 @@ public class InternshipApplicationTest {
         editedAlice = new CompanyBuilder(ALICE).withIndustry(VALID_INDUSTRY_FINANCE).build();
         assertFalse(ALICE.isSameApplication(editedAlice));
 
-        // same name, industry, and job type, but different description -> returns false (description part of duplicate check)
+        // same name+industry+jobType, diff description -> false (description checked)
         editedAlice = new CompanyBuilder(ALICE).withDescription(VALID_DESCRIPTION_AWS).build();
         assertFalse(ALICE.isSameApplication(editedAlice));
 
-        // same name, industry, and job type, different description -> returns false (allows same role with different specializations)
+        // same name+industry+jobType, diff jobType -> false (allows different specialization)
         editedAlice = new CompanyBuilder(ALICE).withJobType(VALID_JOB_TYPE_DA).build();
         assertFalse(ALICE.isSameApplication(editedAlice));
 
