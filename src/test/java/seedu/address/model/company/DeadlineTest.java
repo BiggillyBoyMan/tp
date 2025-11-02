@@ -15,7 +15,7 @@ public class DeadlineTest {
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String tomorrow = LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String yesterday = LocalDate.now().minusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        
+
         // Valid deadlines (today or future dates before 2030-01-01)
         assertTrue(Deadline.isValidDeadline(today)); // Today
         assertTrue(Deadline.isValidDeadline(tomorrow)); // Tomorrow

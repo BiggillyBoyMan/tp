@@ -779,7 +779,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file 
+   1. Double-click the jar file
       2. Expected: Shows the GUI with a set of sample internship applications. The window size may not be optimum.
 
 1. Saving window preferences
@@ -809,7 +809,7 @@ testers are expected to do more *exploratory* testing.
       - `add n/Google a/SWE Intern e/recruit@google.com t/Role i/Technology s/InvalidStatus d/2024-12-31` (invalid status)
       - `add n/Google a/SWE Intern e/recruit@google.com t/Role i/Technology s/Applied d/31-12-2024` (invalid date format)
       - `add n/Google a/SWE Intern e/recruit@google.com t/Role i/Technology s/Applied d/2030-01-01` (date not before 2030-01-01)
-      
+
       **Expected:** Similar to previous case. No application is added. Specific error messages are shown for each invalid field:
       - Company name: "Company names should only contain alphanumeric characters, spaces, and the special characters & . , ' -"
       - Industry: "Industry should be one of: Technology, Finance, Healthcare, Education, Retail, Consulting, Manufacturing, Government, Nonprofit, Other"
@@ -848,7 +848,7 @@ testers are expected to do more *exploratory* testing.
       - `edit 1 d/31-12-2024` (invalid date format)
       - `edit 1 d/2030-01-01` (date not before 2030-01-01)
       - `edit 1 d/2020-01-01` (date before today)
-      
+
       **Expected:** Similar error messages as in the add command for invalid field formats.
 
 ### Finding applications
@@ -893,7 +893,7 @@ testers are expected to do more *exploratory* testing.
    1. **Other incorrect filter commands to try:**
       - `filter s/InvalidStatus` (invalid status)
       - `filter i/InvalidIndustry` (invalid industry)
-      
+
       **Expected:** Error messages indicating the valid options for status or industry.
 
 ### Sorting applications
@@ -934,7 +934,7 @@ testers are expected to do more *exploratory* testing.
       - `delete x` (where x is larger than the list size)
       - `delete -1` (negative index)
       - `delete abc` (non-numeric index)
-      
+
       **Expected:** Error messages indicating invalid index or format.
 
 ### Listing all applications

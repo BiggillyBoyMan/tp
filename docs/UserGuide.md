@@ -40,13 +40,13 @@ title: User Guide
     * `add n/Google a/SWE Intern e/careers@google.com t/Backend microservices i/Technology s/Saved d/2024-12-31`
     * `add n/DBS Bank a/Data Analyst Intern e/internships@dbs.com t/Analytics team i/Finance s/Saved d/2025-01-15`
     * `add n/ByteDance a/PM Intern e/hr@bytedance.com t/TikTok team i/Technology s/Saved d/2024-12-20`
-    
+
     *Result:* Your list now shows 3 applications, in the order you added them.
 
     **Step 2: Prioritize and update** -
     You want to apply for the one with the *earliest* deadline first.
     * `sort deadline`
-    
+
     *Result:* The list immediately re-orders. **ByteDance** is now at **Index 1**. Let's say you applied for it.
     * `edit 1 s/Applied`
     
@@ -55,26 +55,26 @@ title: User Guide
     **Step 3: Filter and delete** -
     Now you only want to see your "To-Do" list (status `Saved`).
     * `filter s/Saved`
-    
+
     *Result:* The list is filtered, hiding "ByteDance". The status bar now says "2 applications listed".
     1.  **Google**
     2.  **DBS Bank**
 
     Looking at this filtered list, you decide you're not interested in DBS Bank (Index 2).
     * `delete 2`
-    
+
     *Result:* The item at **Index 2** of the *current list* (DBS Bank) is permanently deleted.
 
     **Step 4: Reset and final check** -
     Finally, clear the filter to see *all* your remaining applications.
     * `list`
-    
+
     *Result:* The filter is cleared. You now see your remaining applications: **ByteDance** (Status: `Applied`) and **Google** (Status: `Saved`). `DBS Bank` is gone.
 
     **Step 5: Exit** -
     Now that you have finished adding all your applications, you can now exit BizBook!
     * `exit`
-    
+
 1. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
