@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AWS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AWS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INDUSTRY_FINANCE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -45,13 +45,14 @@ public class DescriptionBookTest {
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields (same name)
-        InternshipApplication editedAlice = new CompanyBuilder(ALICE).withDescription(VALID_DESCRIPTION_AWS)
-                .withIndustry(VALID_INDUSTRY_FINANCE).build();
+        // Two persons with the same identity fields (name, jobType, description)
+        InternshipApplication editedAlice = new CompanyBuilder(ALICE)
+                .withEmail(VALID_EMAIL_AWS) // Different email
+                .withIndustry(VALID_INDUSTRY_FINANCE).build(); // Different industry
         List<InternshipApplication> newInternshipApplications = Arrays.asList(ALICE, editedAlice);
         BizBookStub newData = new BizBookStub(newInternshipApplications);
 
-        assertThrows(DuplicateCompanyException.class, () -> bizBook.resetData(newData));
+        assertThrows(DuplicateCompanyException.class, () -> bizBook.resetData(newData)); // <-- This now passes
     }
 
     @Test
@@ -73,11 +74,12 @@ public class DescriptionBookTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         bizBook.addCompany(ALICE);
-        InternshipApplication editedAlice = new CompanyBuilder(ALICE).withDescription(VALID_DESCRIPTION_AWS)
+        // Build an application with the same name, job, and description, but different email and industry
+        InternshipApplication editedAlice = new CompanyBuilder(ALICE)
+                .withEmail(VALID_EMAIL_AWS)
                 .withIndustry(VALID_INDUSTRY_FINANCE).build();
         assertTrue(bizBook.hasPerson(editedAlice));
     }
-
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> bizBook.getPersonList().remove(0));

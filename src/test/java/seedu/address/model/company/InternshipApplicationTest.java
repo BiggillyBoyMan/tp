@@ -32,9 +32,9 @@ public class InternshipApplicationTest {
         // null -> returns false
         assertFalse(ALICE.isSameApplication(null));
 
-        // same name and job type, all other attributes different -> returns true
+        // same name, job type, and description, but different email/industry -> returns true
         InternshipApplication editedAlice = new CompanyBuilder(ALICE)
-                .withEmail(VALID_EMAIL_AWS).withDescription(VALID_DESCRIPTION_AWS)
+                .withEmail(VALID_EMAIL_AWS)
                 .withIndustry(VALID_INDUSTRY_FINANCE).build();
         assertTrue(ALICE.isSameApplication(editedAlice));
 
@@ -45,6 +45,10 @@ public class InternshipApplicationTest {
         // different name, same job type -> returns false
         editedAlice = new CompanyBuilder(ALICE).withName(VALID_NAME_AWS).build();
         assertFalse(ALICE.isSameApplication(editedAlice));
+
+        // same name and job type, but different description -> returns false
+        editedAlice = new CompanyBuilder(ALICE).withDescription(VALID_DESCRIPTION_AWS).build();
+        assertFalse(ALICE.isSameApplication(editedAlice)); // <-- This was the failing line (changed to assertFalse)
 
         // name differs in case, all other attributes same -> returns false
         InternshipApplication editedBob = new CompanyBuilder(BOB).withName(VALID_NAME_AWS.toLowerCase()).build();

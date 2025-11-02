@@ -190,6 +190,7 @@ Notes:
 * `COMPANY_NAME` can contain alphanumeric characters, spaces, and these special characters: `& . - ' ,`
 * Input for `INDUSTRY` and `STATUS` is case-insensitive (e.g., `i/technology` and `s/applied` are accepted).
 * `DEADLINE` must be in the format YYYY-MM-DD (e.g., 2024-12-31)
+* Applications are unique by company + role + industry (e.g. BizBook will prevent users from updating or adding a application if its company name, description and role are the same )
 
 Examples:
 * `edit 1 n/Google Singapore`
