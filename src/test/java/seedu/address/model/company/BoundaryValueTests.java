@@ -61,15 +61,17 @@ public class BoundaryValueTests {
     }
 
     /**
-     * Tests that an empty description is allowed and can be constructed.
+     * Tests that an empty description is invalid and construction throws an IllegalArgumentException.
      */
     @Test
-    public void description_emptyString_valid() {
-        // Empty descriptions are allowed
-        assertTrue(Description.isValidDescription(""));
+    public void description_emptyString_invalid() {
+        // Empty descriptions are not allowed
+        assertFalse(Description.isValidDescription(""));
+        assertFalse(Description.isValidDescription("   "));
 
-        Description description = new Description("");
-        assertTrue(description.value.isEmpty());
+        // Should throw exception
+        assertThrows(IllegalArgumentException.class, () -> new Description(""));
+        assertThrows(IllegalArgumentException.class, () -> new Description("   "));
     }
 
     /**
