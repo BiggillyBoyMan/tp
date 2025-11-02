@@ -62,10 +62,10 @@ public class InternshipApplicationTest {
         editedBob = new CompanyBuilder(BOB).withJobType(BOB.getJobType().value.toLowerCase()).build();
         assertTrue(BOB.isSameApplication(editedBob));
 
-        // name has trailing spaces, all other attributes same -> returns false
+        // name has trailing spaces, all other attributes same -> returns true (trimmed before comparison)
         String nameWithTrailingSpaces = VALID_NAME_AWS + " ";
         editedBob = new CompanyBuilder(BOB).withName(nameWithTrailingSpaces).build();
-        assertFalse(BOB.isSameApplication(editedBob));
+        assertTrue(BOB.isSameApplication(editedBob));
     }
 
     @Test

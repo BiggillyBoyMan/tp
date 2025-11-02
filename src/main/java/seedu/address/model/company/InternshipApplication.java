@@ -83,7 +83,7 @@ public class InternshipApplication {
      * or the same role in different departments (different industries),
      * or the same role in the same department with different specializations (different descriptions).
      * Comparisons for name, job type, and description are case-insensitive.
-     * Trailing/leading spaces are NOT ignored - they matter for identity.
+     * Trailing/leading spaces are trimmed and ignored during comparison.
      * Description is included to distinguish different specializations of the same job type
      */
     public boolean isSameApplication(InternshipApplication otherInternshipApplication) {
@@ -92,10 +92,13 @@ public class InternshipApplication {
         }
 
         return otherInternshipApplication != null
-                && otherInternshipApplication.getName().value.equalsIgnoreCase(getName().value)
+                && otherInternshipApplication.getName().value.trim()
+                .equalsIgnoreCase(getName().value.trim())
                 && otherInternshipApplication.getIndustry().equals(getIndustry())
-                && otherInternshipApplication.getJobType().value.equalsIgnoreCase(getJobType().value)
-                && otherInternshipApplication.getDescription().value.equalsIgnoreCase(getDescription().value);
+                && otherInternshipApplication.getJobType().value.trim()
+                .equalsIgnoreCase(getJobType().value.trim())
+                && otherInternshipApplication.getDescription().value.trim()
+                .equalsIgnoreCase(getDescription().value.trim());
     }
     @Override
     public boolean equals(Object other) {
