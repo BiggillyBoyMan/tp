@@ -24,15 +24,15 @@ title: User Guide
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-T10-1/tp/).
+2. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-T10-1/tp/).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your BizBook application.
+3. Copy the file to the folder you want to use as the _home folder_ for your BizBook application.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar BizBook.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar BizBook.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+   ![Ui](images/SampleApp.png)
 
-1. Let's try typing these in order and see the result!
+5. Let's try typing these in order and see the result!
 
     **Step 1: Add your applications** -
     First, let's clear the sample data and add 3 new applications.
@@ -74,8 +74,8 @@ title: User Guide
     **Step 5: Exit** -
     Now that you have finished adding all your applications, you can now exit BizBook!
     * `exit`
-
-1. Refer to the [Features](#features) below for details of each command.
+    
+6. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
