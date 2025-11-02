@@ -88,7 +88,8 @@ public class InternshipApplication {
 
         return otherInternshipApplication != null
                 && otherInternshipApplication.getName().equals(getName())
-                && otherInternshipApplication.getJobType().equals(getJobType());
+                && otherInternshipApplication.getJobType().equals(getJobType())
+                && otherInternshipApplication.getDescription().equals(getDescription());
     }
     @Override
     public boolean equals(Object other) {

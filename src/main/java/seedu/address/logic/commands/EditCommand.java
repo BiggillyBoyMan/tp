@@ -56,7 +56,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_COMPANY_SUCCESS = "Edited Application: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_COMPANY =
-            "This application already exists in BizBook";
+            "This internship application already exists in BizBook";
 
     private final Index index;
     private final EditCompanyDescriptor editCompanyDescriptor;
