@@ -23,6 +23,15 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @throws ParseException if the user input does not conform to the expected format.
      */
     public FindCommand parse(String args) throws ParseException {
+        // Check for unrecognized prefixes (e.g., dL/ instead of d/)
+        String[] tokens = args.split(" ");
+        for (String token : tokens) {
+            if (token.matches("[a-zA-Z]{2,}/.*")) {
+                throw new ParseException("Invalid prefix detected: '"
+                    + token.substring(0, token.indexOf('/') + 1)
+                    + "'. Please use only valid prefixes.");
+            }
+        }
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(

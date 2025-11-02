@@ -108,6 +108,7 @@ Format: `add n/COMPANY_NAME a/JOB_ROLE e/EMAIL t/DESCRIPTION i/INDUSTRY s/STATUS
 
 Notes:
 - **All fields must be filled.** Omitting a field or using the wrong prefix will cause an error.
+- **Email (e/EMAIL) must be provided by the user. The software will not modify, validate ownership, or enforce uniqueness of the email address.** Shared email addresses (e.g., common HR or recruitment mailboxes) are allowed and expected behavior. If you use the same email for multiple applications (even across different companies), BizBook will accept all entries without warning.
 - `COMPANY_NAME` can contain alphanumeric characters, spaces, and these special characters: `& . - ' ,` (e.g., AT&T, McDonald's, Apple Inc., Coca-Cola)
 - `INDUSTRY` must be one of: Technology, Finance, Consulting, Healthcare, Marketing, Operations, Graphic Design
 - `JOB_ROLE` should only contain alphanumeric characters and spaces and should not be blank. (e.g., `Software Engineer Intern`, `Marketing Analyst Intern`)
