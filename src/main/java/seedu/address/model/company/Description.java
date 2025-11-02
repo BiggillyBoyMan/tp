@@ -4,32 +4,32 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents an Internship Application's optional description in BizBook.
+ * Represents an Internship Application's description in BizBook.
  * Guarantees: immutable; satisfies the length constraint as declared in {@link #isValidDescription(String)}
  */
 public class Description {
 
-    public static final String MESSAGE_CONSTRAINTS = "Description cannot exceed 200 characters";
+    public static final String MESSAGE_CONSTRAINTS = "Description should not be empty and cannot exceed 200 characters";
     public static final int MAX_LENGTH = 200;
 
     public final String value;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs a {@code Description}.
      *
-     * @param address A valid address.
+     * @param description A valid description.
      */
-    public Description(String address) {
-        requireNonNull(address);
-        checkArgument(isValidDescription(address), MESSAGE_CONSTRAINTS);
-        value = address;
+    public Description(String description) {
+        requireNonNull(description);
+        checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
+        value = description;
     }
     /**
      * Returns true if a given string is a valid description.
-     * The only constraint is the maximum length of 200 characters.
+     * A valid description must not be blank (after trimming) and cannot exceed 200 characters.
      */
     public static boolean isValidDescription(String test) {
-        return test.length() <= MAX_LENGTH;
+        return !test.trim().isEmpty() && test.length() <= MAX_LENGTH;
     }
     @Override
     public String toString() {

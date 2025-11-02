@@ -120,7 +120,7 @@ Notes:
 - `COMPANY_NAME` can contain alphanumeric characters, spaces, and these special characters: `& . - ' ,` (e.g., AT&T, McDonald's, Apple Inc., Coca-Cola)
 - `INDUSTRY` must be one of: Technology, Finance, Consulting, Healthcare, Marketing, Operations, Graphic Design
 - `JOB_ROLE` should only contain alphanumeric characters and spaces and should not be blank. (e.g., `Software Engineer Intern`, `Marketing Analyst Intern`)
-- `DESCRIPTION` should not be empty and cannot exceed 200 characters
+- `DESCRIPTION` must not be empty or contain only whitespace, and cannot exceed 200 characters. At least one non-whitespace character is required.
 - `EMAIL` Emails should be of the format local-part@domain.tld and adhere to the following constraints:
   - The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters.
   - This is followed by a '@' and then a domain name (e.g., gmail, company, university).
@@ -130,7 +130,11 @@ Notes:
       - A Top Level Domain should have at least 2 characters long
 - `STATUS` must be one of: Saved, Applied, Interviewing, Offer, Rejected.
 - `DEADLINE` must be in the format YYYY-MM-DD (e.g., 2024-12-31) and between 2020-01-01 and before 2030-01-01
-- You can add multiple applications to the same company as long as they are for different job roles (e.g., Google SWE Intern and Google PM Intern are both allowed)
+- **Duplicate detection**: Two applications are considered duplicates if they have the same company name, industry, job type, AND description (case-insensitive). This means you can add multiple applications to the same company in the following cases:
+  - **Different job types** (e.g., `Google - SWE Intern` and `Google - PM Intern` are both allowed)
+  - **Different industries** (e.g., `Google - Technology - SWE Intern` and `Google - Marketing - SWE Intern` are both allowed)
+  - **Same company, industry, and job type, but different descriptions** (e.g., `Google - Technology - SWE Intern - Backend microservices` and `Google - Technology - SWE Intern - Frontend development` are both allowed, as they represent different specializations)
+  - **Case variations are ignored** (e.g., `Google` and `google`, or `SWE Intern` and `swe intern` are treated as the same)
 
 Examples:
 * `add n/Google a/SWE Intern e/careers@google.com t/Backend microservices i/Technology s/Saved d/2024-12-31`
@@ -192,6 +196,7 @@ Notes:
 * `COMPANY_NAME` can contain alphanumeric characters, spaces, and these special characters: `& . - ' ,`
 * Input for `INDUSTRY` and `STATUS` is case-insensitive (e.g., `i/technology` and `s/applied` are accepted).
 * `DEADLINE` must be in the format YYYY-MM-DD (e.g., 2024-12-31) and between 2020-01-01 and before 2030-01-01
+* **Duplicate detection**: After editing, the application must not be a duplicate of another existing application. Two applications are duplicates if they have the same company name, industry, job type, AND description (case-insensitive). If your edit would create a duplicate, an error message will be shown.
 
 Examples:
 * `edit 1 n/Google Singapore`
