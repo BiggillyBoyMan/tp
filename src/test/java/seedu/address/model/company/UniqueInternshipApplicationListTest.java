@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AWS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AWS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INDUSTRY_FINANCE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -42,7 +43,8 @@ public class UniqueInternshipApplicationListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueCompanyList.add(ALICE);
-        InternshipApplication editedAlice = new CompanyBuilder(ALICE).withDescription(VALID_DESCRIPTION_AWS)
+        InternshipApplication editedAlice = new CompanyBuilder(ALICE)
+                .withEmail(VALID_EMAIL_AWS)
                 .withIndustry(VALID_INDUSTRY_FINANCE).build();
         assertTrue(uniqueCompanyList.contains(editedAlice));
     }

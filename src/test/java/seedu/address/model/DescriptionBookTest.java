@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AWS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AWS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INDUSTRY_FINANCE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -46,7 +46,8 @@ public class DescriptionBookTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields (same name)
-        InternshipApplication editedAlice = new CompanyBuilder(ALICE).withDescription(VALID_DESCRIPTION_AWS)
+        InternshipApplication editedAlice = new CompanyBuilder(ALICE)
+                .withEmail(VALID_EMAIL_AWS) // Different email
                 .withIndustry(VALID_INDUSTRY_FINANCE).build();
         List<InternshipApplication> newInternshipApplications = Arrays.asList(ALICE, editedAlice);
         BizBookStub newData = new BizBookStub(newInternshipApplications);
@@ -73,7 +74,8 @@ public class DescriptionBookTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         bizBook.addCompany(ALICE);
-        InternshipApplication editedAlice = new CompanyBuilder(ALICE).withDescription(VALID_DESCRIPTION_AWS)
+        InternshipApplication editedAlice = new CompanyBuilder(ALICE)
+                .withEmail(VALID_EMAIL_AWS)
                 .withIndustry(VALID_INDUSTRY_FINANCE).build();
         assertTrue(bizBook.hasPerson(editedAlice));
     }
