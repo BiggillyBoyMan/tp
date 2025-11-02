@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
 public class Deadline {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Deadline should be a valid date in the format YYYY-MM-DD (e.g., 2024-12-31) and before 2030-01-01.";
+            "Deadline should be in YYYY-MM-DD format and between 2020-01-01 and before 2030-01-01.";
     public static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     public static final DateTimeFormatter DISPLAY_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
@@ -50,9 +50,9 @@ public class Deadline {
             if (!test.equals(reformattedDate)) {
                 return false;
             }
-            LocalDate today = LocalDate.now();
+            LocalDate minAllowed = LocalDate.of(2020, 1, 1);
             LocalDate maxAllowed = LocalDate.of(2030, 1, 1);
-            return !parsedDate.isBefore(today) && parsedDate.isBefore(maxAllowed);
+            return !parsedDate.isBefore(minAllowed) && parsedDate.isBefore(maxAllowed);
         } catch (DateTimeParseException e) {
             return false;
         }

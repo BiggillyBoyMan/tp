@@ -815,7 +815,7 @@ testers are expected to do more *exploratory* testing.
       - Industry: "Industry should be one of: Technology, Finance, Healthcare, Education, Retail, Consulting, Manufacturing, Government, Nonprofit, Other"
       - Email: "Emails should be in the format local-part@domain and adhere to the following constraints..."
       - Status: "Status should be one of: Saved, Applied, Interviewing, Offer, Rejected"
-      - Deadline: "Deadline should be in the format YYYY-MM-DD and must be a date between today and before 2030-01-01."
+      - Deadline: "Deadline should be in the format YYYY-MM-DD and must be a date between 2020-01-01 and before 2030-01-01."
 
    1. **Test case:** Add duplicate application<br>
       First: `add n/Google a/SWE Intern e/recruit@google.com t/Role i/Technology s/Applied d/2024-12-31`<br>

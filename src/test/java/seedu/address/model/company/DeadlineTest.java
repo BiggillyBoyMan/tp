@@ -16,14 +16,15 @@ public class DeadlineTest {
         String tomorrow = LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String yesterday = LocalDate.now().minusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-        // Valid deadlines (today or future dates before 2030-01-01)
+        // Valid deadlines (between 2020-01-01 and before 2030-01-01)
+        assertTrue(Deadline.isValidDeadline("2020-01-01")); // Minimum allowed date
         assertTrue(Deadline.isValidDeadline(today)); // Today
         assertTrue(Deadline.isValidDeadline(tomorrow)); // Tomorrow
+        assertTrue(Deadline.isValidDeadline("2024-12-31")); // Past date but within range
         assertTrue(Deadline.isValidDeadline("2029-12-31")); // Just before limit
 
         // Invalid deadlines
-        assertFalse(Deadline.isValidDeadline(yesterday)); // Yesterday (past date)
-        assertFalse(Deadline.isValidDeadline("1990-01-01")); // Past date
+        assertFalse(Deadline.isValidDeadline("2019-12-31")); // Before minimum allowed date
         assertFalse(Deadline.isValidDeadline("2030-01-01")); // Exactly at limit (not before)
         assertFalse(Deadline.isValidDeadline("2030-12-31")); // After limit
         assertFalse(Deadline.isValidDeadline("9999-12-31")); // Far future date
