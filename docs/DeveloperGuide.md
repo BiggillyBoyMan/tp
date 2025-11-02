@@ -3,7 +3,7 @@ layout: page
 title: Developer Guide
 ---
 * Table of Contents
-{:toc}
+  {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -28,7 +28,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 ### Architecture
 
-<img src="images/ArchitectureDiagram.png" width="280" />
+<img src="images/ArchitectureDiagram.png" width="281">
 
 The ***Architecture Diagram*** given above explains the high-level design of the App.
 
@@ -101,10 +101,10 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 How the `Logic` component works:
 
 1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to delete a internshipApplication).<br>
+2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
+3. The command can communicate with the `Model` when it is executed (e.g. to delete a internshipApplication).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
@@ -186,12 +186,12 @@ How the `add` command works:
 **Aspect: Duplicate detection:**
 
 * **Current implementation:** Two applications are considered duplicates if they have the same company name AND job type.
-  * Pros: Allows tracking multiple positions at the same company (e.g., "Google SWE Intern" and "Google PM Intern").
-  * Cons: Cannot track the same position applied in different rounds.
+    * Pros: Allows tracking multiple positions at the same company (e.g., "Google SWE Intern" and "Google PM Intern").
+    * Cons: Cannot track the same position applied in different rounds.
 
 * **Alternative:** Consider only company name for duplicates.
-  * Pros: Simpler logic.
-  * Cons: Cannot track multiple different positions at the same company.
+    * Pros: Simpler logic.
+    * Cons: Cannot track multiple different positions at the same company.
 
 ### Edit Feature
 
@@ -225,12 +225,12 @@ How the `edit` command works:
 **Aspect: Editing behavior:**
 
 * **Current implementation:** Only specified fields are updated; unspecified fields remain unchanged.
-  * Pros: User-friendly - no need to re-enter all fields.
-  * Cons: Cannot easily "clear" optional fields.
+    * Pros: User-friendly - no need to re-enter all fields.
+    * Cons: Cannot easily "clear" optional fields.
 
 * **Alternative:** Require all fields to be specified.
-  * Pros: Explicit and predictable behavior.
-  * Cons: Tedious for users making small changes.
+    * Pros: Explicit and predictable behavior.
+    * Cons: Tedious for users making small changes.
 
 ### Find Feature
 
@@ -263,12 +263,12 @@ How the `find` command works:
 **Aspect: Matching strategy:**
 
 * **Current implementation:** Partial substring matching (case-insensitive).
-  * Pros: More flexible - finds results even with incomplete company names.
-  * Cons: May return more results than expected.
+    * Pros: More flexible - finds results even with incomplete company names.
+    * Cons: May return more results than expected.
 
 * **Alternative:** Exact word matching only.
-  * Pros: More precise results.
-  * Cons: Requires users to remember exact company names.
+    * Pros: More precise results.
+    * Cons: Requires users to remember exact company names.
 
 ### Filter Feature
 
@@ -302,12 +302,12 @@ How the `filter` command works:
 **Aspect: Multiple filter behavior:**
 
 * **Current implementation:** Multiple filters use AND logic (all conditions must match).
-  * Pros: Allows precise filtering (e.g., "Tech industry AND Saved status").
-  * Cons: May return no results if filters are too restrictive.
+    * Pros: Allows precise filtering (e.g., "Tech industry AND Saved status").
+    * Cons: May return no results if filters are too restrictive.
 
 * **Alternative:** Use OR logic for multiple filters.
-  * Pros: More results returned.
-  * Cons: Less precise filtering.
+    * Pros: More results returned.
+    * Cons: Less precise filtering.
 
 ### Sort Feature
 
@@ -325,9 +325,9 @@ How the `sort` command works:
 4. `SortCommandParser` creates and returns a `SortCommand` with the comparator.
 5. `LogicManager` executes the `SortCommand`, which calls `Model#updateSortedApplicationList()` with the comparator.
 6. The `Model` sorts the application list using the provided comparator:
-   - **Name**: Alphabetical order by company name
-   - **Deadline**: Chronological order (earliest deadline first)
-   - **Status**: Logical workflow order (Saved → Applied → Interviewing → Offer → Rejected)
+    - **Name**: Alphabetical order by company name
+    - **Deadline**: Chronological order (earliest deadline first)
+    - **Status**: Logical workflow order (Saved → Applied → Interviewing → Offer → Rejected)
 7. The sorted list is updated in the UI, and the command returns a `CommandResult` with a success message.
 
 #### Design considerations:
@@ -335,12 +335,12 @@ How the `sort` command works:
 **Aspect: Status sort order:**
 
 * **Current implementation:** Sorts by logical application workflow order.
-  * Pros: Intuitive ordering that matches the application process.
-  * Cons: Not alphabetical.
+    * Pros: Intuitive ordering that matches the application process.
+    * Cons: Not alphabetical.
 
 * **Alternative:** Sort status alphabetically.
-  * Pros: Predictable alphabetical ordering.
-  * Cons: Less intuitive for tracking application progress.
+    * Pros: Predictable alphabetical ordering.
+    * Cons: Less intuitive for tracking application progress.
 
 ### \[Proposed\] Data archiving
 
@@ -442,39 +442,39 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. Required fields are missing.
 
-  * 1a1. BizBook shows an error message indicating which fields are missing.
+    * 1a1. BizBook shows an error message indicating which fields are missing.
 
-    Use case ends.
+      Use case ends.
 
 * 2a. Company name format is invalid.
 
-  * 2a1. BizBook shows an error message about invalid format.
+    * 2a1. BizBook shows an error message about invalid format.
 
-    Use case ends.
+      Use case ends.
 
 * 2b. Industry is not from the predefined list.
 
-  * 2b1. BizBook shows an error message with valid industry options.
+    * 2b1. BizBook shows an error message with valid industry options.
 
-    Use case ends.
+      Use case ends.
 
 * 2c. Status is not from the predefined list.
 
-  * 2c1. BizBook shows an error message with valid status options.
+    * 2c1. BizBook shows an error message with valid status options.
 
-    Use case ends.
+      Use case ends.
 
 * 2d. Deadline format is invalid.
 
-  * 2d1. BizBook shows an error message about the required YYYY-MM-DD format.
+    * 2d1. BizBook shows an error message about the required YYYY-MM-DD format.
 
-    Use case ends.
+      Use case ends.
 
 * 2e. An application for this company already exists.
 
-  * 2e1. BizBook shows a duplicate company error message.
+    * 2e1. BizBook shows a duplicate company error message.
 
-    Use case ends.
+      Use case ends.
 
 #### Use case: UC02 - Edit an application
 
@@ -493,33 +493,33 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. The list is empty.
 
-  * 2a1. BizBook shows a message indicating no applications exist.
+    * 2a1. BizBook shows a message indicating no applications exist.
 
-    Use case ends.
+      Use case ends.
 
 * 3a. No fields to edit are provided.
 
-  * 3a1. BizBook shows an error message indicating at least one field must be provided.
+    * 3a1. BizBook shows an error message indicating at least one field must be provided.
 
-    Use case ends.
+      Use case ends.
 
 * 4a. The given index is invalid.
 
-  * 4a1. BizBook shows an error message.
+    * 4a1. BizBook shows an error message.
 
-    Use case resumes at step 3.
+      Use case resumes at step 3.
 
 * 4b. One or more field values are invalid.
 
-  * 4b1. BizBook shows an error message with the specific validation error.
+    * 4b1. BizBook shows an error message with the specific validation error.
 
-    Use case resumes at step 3.
+      Use case resumes at step 3.
 
 * 4c. The edited application would be a duplicate of an existing application.
 
-  * 4c1. BizBook shows an error message indicating the application already exists.
+    * 4c1. BizBook shows an error message indicating the application already exists.
 
-    Use case resumes at step 3.
+      Use case resumes at step 3.
 
 #### Use case: UC03 - Filter applications
 
@@ -536,21 +536,21 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. No filter criteria are provided.
 
-  * 1a1. BizBook shows an error message with the correct filter command format.
+    * 1a1. BizBook shows an error message with the correct filter command format.
 
-    Use case ends.
+      Use case ends.
 
 * 2a. One or more filter criteria are invalid.
 
-  * 2a1. BizBook shows an error message with valid options for the invalid criterion.
+    * 2a1. BizBook shows an error message with valid options for the invalid criterion.
 
-    Use case ends.
+      Use case ends.
 
 * 3a. No applications match the filter criteria.
 
-  * 3a1. BizBook shows an empty list with message "0 applications listed!"
+    * 3a1. BizBook shows an empty list with message "0 applications listed!"
 
-    Use case ends.
+      Use case ends.
 
 #### Use case: UC04 - Find applications by company name
 
@@ -567,15 +567,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. No keywords are provided.
 
-  * 1a1. BizBook shows an error message with the correct find command format.
+    * 1a1. BizBook shows an error message with the correct find command format.
 
-    Use case ends.
+      Use case ends.
 
 * 3a. No applications match the keywords.
 
-  * 3a1. BizBook shows an empty list with message "0 applications listed!"
+    * 3a1. BizBook shows an empty list with message "0 applications listed!"
 
-    Use case ends.
+      Use case ends.
 
 #### Use case: UC05 - Sort applications
 
@@ -593,15 +593,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. No sort criterion is provided.
 
-  * 1a1. BizBook shows an error message with the correct sort command format.
+    * 1a1. BizBook shows an error message with the correct sort command format.
 
-    Use case ends.
+      Use case ends.
 
 * 2a. The sort criterion is invalid.
 
-  * 2a1. BizBook shows an error message indicating valid sort criteria (name, deadline, status).
+    * 2a1. BizBook shows an error message indicating valid sort criteria (name, deadline, status).
 
-    Use case ends.
+      Use case ends.
 
 #### Use case: UC06 - List all applications
 
@@ -617,9 +617,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. BizBook is empty.
 
-  * 2a1. BizBook shows an empty list.
+    * 2a1. BizBook shows an empty list.
 
-    Use case ends.
+      Use case ends.
 
 #### Use case: UC07 - Delete an application
 
@@ -638,15 +638,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. The list is empty.
 
-  * 2a1. BizBook shows a message indicating no applications exist.
+    * 2a1. BizBook shows a message indicating no applications exist.
 
-    Use case ends.
+      Use case ends.
 
 * 4a. The given index is invalid.
 
-  * 4a1. BizBook shows an error message.
+    * 4a1. BizBook shows an error message.
 
-    Use case resumes at step 3.
+      Use case resumes at step 3.
 
 #### Use case: UC08 - Clear all applications
 
@@ -662,9 +662,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. BizBook is already empty.
 
-  * 1a1. BizBook still shows the success message (no harm in clearing an empty list).
+    * 1a1. BizBook still shows the success message (no harm in clearing an empty list).
 
-    Use case ends.
+      Use case ends.
 
 #### Use case: UC09 - View help
 
@@ -680,9 +680,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. Help window is already open.
 
-  * 2a1. BizBook brings the existing help window to focus.
+    * 2a1. BizBook brings the existing help window to focus.
 
-    Use case ends.
+      Use case ends.
 
 #### Use case: UC10 - Exit the application
 
@@ -767,19 +767,19 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file 
-      2. Expected: Shows the GUI with a set of sample internship applications. The window size may not be optimum.
+    2. Double-click the jar file
+        1. Expected: Shows the GUI with a set of sample internship applications. The window size may not be optimum.
 
-1. Saving window preferences
+2. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+    2. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+3. _{ more test cases …​ }_
 
 ### Adding an application
 
@@ -787,31 +787,30 @@ testers are expected to do more *exploratory* testing.
 
    **Prerequisites:** There is no existing application in BizBook with the same company name AND job type combination.
 
-   1. **Test case:** `add n/Google a/Software Engineer Intern e/recruit@google.com t/Backend development role i/Technology s/Applied d/2024-12-31`<br>
-      **Expected:** An application is added to BizBook with the specified details. A new card is added to the GUI displaying the application's details including company name, industry, job type, description, email, status, and deadline.
+    1. **Test case:** `add n/Google a/Software Engineer Intern e/recruit@google.com t/Backend development role i/Technology s/Applied d/2024-12-31`<br>
+       **Expected:** An application is added to BizBook with the specified details. A new card is added to the GUI displaying the application's details including company name, industry, job type, description, email, status, and deadline.
 
-   1. **Test case:** `add n/Microsoft` (missing required fields)<br>
-      **Expected:** No application is added. Error message shown: "Invalid command format! add: Adds an internship application to BizBook..." with the correct command format displayed.
+    2. **Test case:** `add n/Microsoft` (missing required fields)<br>
+       **Expected:** No application is added. Error message shown: "Invalid command format! add: Adds an internship application to BizBook..." with the correct command format displayed.
 
-   1. **Other incorrect add commands to try:**
-      - `add n/Google` (missing job type, description, email, status, deadline)
-      - `add n/ a/SWE Intern e/recruit@google.com t/Role i/Technology s/Applied d/2024-12-31` (invalid company name with no input after n/)
-      - `add n/Google a/SWE Intern e/recruit@google.com t/Role i/InvalidIndustry s/Applied d/2024-12-31` (invalid industry)
-      - `add n/Google a/SWE Intern e/invalid-email t/Role i/Technology s/Applied d/2024-12-31` (invalid email format)
-      - `add n/Google a/SWE Intern e/recruit@google.com t/Role i/Technology s/InvalidStatus d/2024-12-31` (invalid status)
-      - `add n/Google a/SWE Intern e/recruit@google.com t/Role i/Technology s/Applied d/31-12-2024` (invalid date format)
-      
-      **Expected:** Similar to previous case. No application is added. Specific error messages are shown for each invalid field:
-      - Company name: "Company names should only contain alphanumeric characters, spaces, and the special characters & . , ' -"
-      - Industry: "Industry should be one of: Technology, Finance, Healthcare, Education, Retail, Consulting, Manufacturing, Government, Nonprofit, Other"
-      - Email: "Emails should be in the format local-part@domain and adhere to the following constraints..."
-      - Status: "Status should be one of: Saved, Applied, Interviewing, Offer, Rejected"
-      - Deadline: "Deadline should be in the format YYYY-MM-DD"
+    3. **Other incorrect add commands to try:**
+        - `add n/Google` (missing job type, description, email, status, deadline)
+        - `add n/ a/SWE Intern e/recruit@google.com t/Role i/Technology s/Applied d/2024-12-31` (invalid company name with no input after n/)
+        - `add n/Google a/SWE Intern e/recruit@google.com t/Role i/InvalidIndustry s/Applied d/2024-12-31` (invalid industry)
+        - `add n/Google a/SWE Intern e/invalid-email t/Role i/Technology s/Applied d/2024-12-31` (invalid email format)
+        - `add n/Google a/SWE Intern e/recruit@google.com t/Role i/Technology s/InvalidStatus d/2024-12-31` (invalid status)
+        - `add n/Google a/SWE Intern e/recruit@google.com t/Role i/Technology s/Applied d/31-12-2024` (invalid date format)
+          **Expected:** Similar to previous case. No application is added. Specific error messages are shown for each invalid field:
+        - Company name: "Company names should only contain alphanumeric characters, spaces, and the special characters & . , ' -"
+        - Industry: "Industry should be one of: Technology, Finance, Healthcare, Education, Retail, Consulting, Manufacturing, Government, Nonprofit, Other"
+        - Email: "Emails should be in the format local-part@domain and adhere to the following constraints..."
+        - Status: "Status should be one of: Saved, Applied, Interviewing, Offer, Rejected"
+        - Deadline: "Deadline should be in the format YYYY-MM-DD"
 
-   1. **Test case:** Add duplicate application<br>
-      First: `add n/Google a/SWE Intern e/recruit@google.com t/Role i/Technology s/Applied d/2024-12-31`<br>
-      Then: `add n/Google a/SWE Intern e/different@google.com t/Roley i/Technology s/Saved d/2024-11-30`<br>
-      **Expected:** Second application is not added. Error message: "This application already exists in BizBook" (because company name AND job type match).
+    4. **Test case:** Add duplicate application<br>
+       First: `add n/Google a/SWE Intern e/recruit@google.com t/Role i/Technology s/Applied d/2024-12-31`<br>
+       Then: `add n/Google a/SWE Intern e/different@google.com t/Roley i/Technology s/Saved d/2024-11-30`<br>
+       **Expected:** Second application is not added. Error message: "This application already exists in BizBook" (because company name AND job type match).
 
 ### Editing an application
 
@@ -819,26 +818,25 @@ testers are expected to do more *exploratory* testing.
 
    **Prerequisites:** List all applications using the `list` command. Multiple applications in the list.
 
-   1. **Test case:** `edit 1 s/Interviewing d/2024-11-30`<br>
-      **Expected:** The first application's status is updated to "Interviewing" and deadline to "2024-11-30". Success message shows the updated application details.
+    1. **Test case:** `edit 1 s/Interviewing d/2024-11-30`<br>
+       **Expected:** The first application's status is updated to "Interviewing" and deadline to "2024-11-30". Success message shows the updated application details.
 
-   1. **Test case:** `edit 1 n/Microsoft`<br>
-      **Expected:** The first application's company name is updated to "Microsoft". Success message shows the updated application details.
+    2. **Test case:** `edit 1 n/Microsoft`<br>
+       **Expected:** The first application's company name is updated to "Microsoft". Success message shows the updated application details.
 
-   1. **Test case:** `edit 0 s/Offer`<br>
-      **Expected:** No application is edited. Error message: "Invalid command format!" with the correct edit command format.
+    3. **Test case:** `edit 0 s/Offer`<br>
+       **Expected:** No application is edited. Error message: "Invalid command format!" with the correct edit command format.
 
-   1. **Test case:** `edit 1` (no fields to edit)<br>
-      **Expected:** No application is edited. Error message: "At least one field to edit must be provided."
+    4. **Test case:** `edit 1` (no fields to edit)<br>
+       **Expected:** No application is edited. Error message: "At least one field to edit must be provided."
 
-   1. **Other incorrect edit commands to try:**
-      - `edit` (missing index)
-      - `edit x s/Offer` (where x is larger than the list size)
-      - `edit 1 s/InvalidStatus` (invalid status value)
-      - `edit 1 e/invalid-email` (invalid email format)
-      - `edit 1 d/31-12-2024` (invalid date format)
-      
-      **Expected:** Similar error messages as in the add command for invalid field formats.
+    5. **Other incorrect edit commands to try:**
+        - `edit` (missing index)
+        - `edit x s/Offer` (where x is larger than the list size)
+        - `edit 1 s/InvalidStatus` (invalid status value)
+        - `edit 1 e/invalid-email` (invalid email format)
+        - `edit 1 d/31-12-2024` (invalid date format)
+          **Expected:** Similar error messages as in the add command for invalid field formats.
 
 ### Finding applications
 
@@ -846,17 +844,17 @@ testers are expected to do more *exploratory* testing.
 
    **Prerequisites:** Multiple applications in BizBook with various company names.
 
-   1. **Test case:** `find Google`<br>
-      **Expected:** All applications with "Google" in the company name are displayed (case-insensitive, partial matching). Status message shows the number of applications found.
+    1. **Test case:** `find Google`<br>
+       **Expected:** All applications with "Google" in the company name are displayed (case-insensitive, partial matching). Status message shows the number of applications found.
 
-   1. **Test case:** `find Google Microsoft`<br>
-      **Expected:** All applications with "Google" OR "Microsoft" in the company name are displayed. Status message shows the number of applications found.
+    2. **Test case:** `find Google Microsoft`<br>
+       **Expected:** All applications with "Google" OR "Microsoft" in the company name are displayed. Status message shows the number of applications found.
 
-   1. **Test case:** `find`<br>
-      **Expected:** Error message: "Invalid command format!" with the correct find command format.
+    3. **Test case:** `find`<br>
+       **Expected:** Error message: "Invalid command format!" with the correct find command format.
 
-   1. **Test case:** `find xyz123` (no matching applications)<br>
-      **Expected:** Empty list displayed. Status message: "0 applications listed!"
+    4. **Test case:** `find xyz123` (no matching applications)<br>
+       **Expected:** Empty list displayed. Status message: "0 applications listed!"
 
 ### Filtering applications
 
@@ -864,26 +862,25 @@ testers are expected to do more *exploratory* testing.
 
    **Prerequisites:** Multiple applications in BizBook with various statuses, industries, and job types.
 
-   1. **Test case:** `filter s/Applied`<br>
-      **Expected:** Only applications with status "Applied" are displayed. Status message shows the number of filtered applications.
+    1. **Test case:** `filter s/Applied`<br>
+       **Expected:** Only applications with status "Applied" are displayed. Status message shows the number of filtered applications.
 
-   1. **Test case:** `filter i/Technology`<br>
-      **Expected:** Only applications in the "Technology" industry are displayed.
+    2. **Test case:** `filter i/Technology`<br>
+       **Expected:** Only applications in the "Technology" industry are displayed.
 
-   1. **Test case:** `filter s/Applied i/Technology`<br>
-      **Expected:** Only applications with status "Applied" AND industry "Technology" are displayed (AND logic).
+    3. **Test case:** `filter s/Applied i/Technology`<br>
+       **Expected:** Only applications with status "Applied" AND industry "Technology" are displayed (AND logic).
 
-   1. **Test case:** `filter t/Software Engineer Intern`<br>
-      **Expected:** Only applications with job type "Software Engineer Intern" are displayed.
+    4. **Test case:** `filter t/Software Engineer Intern`<br>
+       **Expected:** Only applications with job type "Software Engineer Intern" are displayed.
 
-   1. **Test case:** `filter` (no criteria provided)<br>
-      **Expected:** Error message: "Invalid command format!" with the correct filter command format.
+    5. **Test case:** `filter` (no criteria provided)<br>
+       **Expected:** Error message: "Invalid command format!" with the correct filter command format.
 
-   1. **Other incorrect filter commands to try:**
-      - `filter s/InvalidStatus` (invalid status)
-      - `filter i/InvalidIndustry` (invalid industry)
-      
-      **Expected:** Error messages indicating the valid options for status or industry.
+    6. **Other incorrect filter commands to try:**
+        - `filter s/InvalidStatus` (invalid status)
+        - `filter i/InvalidIndustry` (invalid industry)
+          **Expected:** Error messages indicating the valid options for status or industry.
 
 ### Sorting applications
 
@@ -891,20 +888,20 @@ testers are expected to do more *exploratory* testing.
 
    **Prerequisites:** Multiple applications in BizBook.
 
-   1. **Test case:** `sort name`<br>
-      **Expected:** Applications are sorted alphabetically by company name. Success message: "Sorted all applications by name."
+    1. **Test case:** `sort name`<br>
+       **Expected:** Applications are sorted alphabetically by company name. Success message: "Sorted all applications by name."
 
-   1. **Test case:** `sort deadline`<br>
-      **Expected:** Applications are sorted by deadline (earliest first). Success message: "Sorted all applications by deadline."
+    2. **Test case:** `sort deadline`<br>
+       **Expected:** Applications are sorted by deadline (earliest first). Success message: "Sorted all applications by deadline."
 
-   1. **Test case:** `sort status`<br>
-      **Expected:** Applications are sorted by status in workflow order: Saved → Applied → Interviewing → Offer → Rejected. Success message: "Sorted all applications by status."
+    3. **Test case:** `sort status`<br>
+       **Expected:** Applications are sorted by status in workflow order: Saved → Applied → Interviewing → Offer → Rejected. Success message: "Sorted all applications by status."
 
-   1. **Test case:** `sort` (missing criterion)<br>
-      **Expected:** Error message: "Invalid command format!" with the correct sort command format.
+    4. **Test case:** `sort` (missing criterion)<br>
+       **Expected:** Error message: "Invalid command format!" with the correct sort command format.
 
-   1. **Test case:** `sort invalid`<br>
-      **Expected:** Error message: "Invalid sort criterion. Use 'name', 'deadline', or 'status'."
+    5. **Test case:** `sort invalid`<br>
+       **Expected:** Error message: "Invalid sort criterion. Use 'name', 'deadline', or 'status'."
 
 ### Deleting an application
 
@@ -912,32 +909,31 @@ testers are expected to do more *exploratory* testing.
 
    **Prerequisites:** List all applications using the `list` command. Multiple applications in the list.
 
-   1. **Test case:** `delete 1`<br>
-      **Expected:** First application is deleted from the list. Details of the deleted application shown in the status message. Timestamp in the status bar is updated.
+    1. **Test case:** `delete 1`<br>
+       **Expected:** First application is deleted from the list. Details of the deleted application shown in the status message. Timestamp in the status bar is updated.
 
-   1. **Test case:** `delete 0`<br>
-      **Expected:** No application is deleted. Error message: "Invalid command format!" with the correct delete command format.
+    2. **Test case:** `delete 0`<br>
+       **Expected:** No application is deleted. Error message: "Invalid command format!" with the correct delete command format.
 
-   1. **Other incorrect delete commands to try:**
-      - `delete` (missing index)
-      - `delete x` (where x is larger than the list size)
-      - `delete -1` (negative index)
-      - `delete abc` (non-numeric index)
-      
-      **Expected:** Error messages indicating invalid index or format.
+    3. **Other incorrect delete commands to try:**
+        - `delete` (missing index)
+        - `delete x` (where x is larger than the list size)
+        - `delete -1` (negative index)
+        - `delete abc` (non-numeric index)
+          **Expected:** Error messages indicating invalid index or format.
 
 ### Listing all applications
 
 1. Listing all applications
 
-   1. **Test case:** `list`<br>
-      **Expected:** All applications in BizBook are displayed, removing any active filters or search results.
+    1. **Test case:** `list`<br>
+       **Expected:** All applications in BizBook are displayed, removing any active filters or search results.
 
-   1. **Test case:** `list 123` (with extra parameters)<br>
-      **Expected:** Same as above. Extra parameters are ignored. All applications in BizBook are displayed.
+    2. **Test case:** `list 123` (with extra parameters)<br>
+       **Expected:** Same as above. Extra parameters are ignored. All applications in BizBook are displayed.
 
-   1. **Test case:** `list abc xyz` (with multiple extra parameters)<br>
-      **Expected:** Same as above. All extra parameters are ignored. All applications in BizBook are displayed.
+    3. **Test case:** `list abc xyz` (with multiple extra parameters)<br>
+       **Expected:** Same as above. All extra parameters are ignored. All applications in BizBook are displayed.
 
 ### Clearing all applications
 
@@ -945,37 +941,37 @@ testers are expected to do more *exploratory* testing.
 
    **Prerequisites:** BizBook contains at least one application.
 
-   1. **Test case:** `clear`<br>
-      **Expected:** All applications are removed from BizBook. Empty list is displayed. Success message: "BizBook has been cleared!"
+    1. **Test case:** `clear`<br>
+       **Expected:** All applications are removed from BizBook. Empty list is displayed. Success message: "BizBook has been cleared!"
 
-   1. **Test case:** `clear 123` (with extra parameters)<br>
-      **Expected:** Same as above. Extra parameters are ignored. All applications are removed from BizBook.
+    2. **Test case:** `clear 123` (with extra parameters)<br>
+       **Expected:** Same as above. Extra parameters are ignored. All applications are removed from BizBook.
 
-   1. **Test case:** `clear abc xyz` (with multiple extra parameters)<br>
-      **Expected:** Same as above. All extra parameters are ignored. All applications are removed from BizBook.
+    3. **Test case:** `clear abc xyz` (with multiple extra parameters)<br>
+       **Expected:** Same as above. All extra parameters are ignored. All applications are removed from BizBook.
 
-   1. **Test case:** `clear` (when BizBook is already empty)<br>
-      **Expected:** BizBook remains empty. Success message: "BizBook has been cleared!"
+    4. **Test case:** `clear` (when BizBook is already empty)<br>
+       **Expected:** BizBook remains empty. Success message: "BizBook has been cleared!"
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-   1. **Test case:** Delete the `data/addressbook.json` file, then launch BizBook<br>
-      **Expected:** BizBook starts with sample data containing several pre-populated internship applications.
+    1. **Test case:** Delete the `data/addressbook.json` file, then launch BizBook<br>
+       **Expected:** BizBook starts with sample data containing several pre-populated internship applications.
 
-   1. **Test case:** Corrupt the `data/addressbook.json` file by adding invalid JSON syntax, then launch BizBook<br>
-      **Expected:** BizBook starts with an empty application list. A new valid `addressbook.json` file will be created when you add your first application.
+    2. **Test case:** Corrupt the `data/addressbook.json` file by adding invalid JSON syntax, then launch BizBook<br>
+       **Expected:** BizBook starts with an empty application list. A new valid `addressbook.json` file will be created when you add your first application.
 
-   1. **Test case:** Make the `data/addressbook.json` file read-only, then try to add an application<br>
-      **Expected:** Application appears to be added in the GUI, but changes are not saved. On restart, the application will not be present.
+    3. **Test case:** Make the `data/addressbook.json` file read-only, then try to add an application<br>
+       **Expected:** Application appears to be added in the GUI, but changes are not saved. On restart, the application will not be present.
 
 ### Exiting the application
 
 1. Exiting BizBook
 
-   1. **Test case:** `exit`<br>
-      **Expected:** BizBook closes. All data is saved to `data/addressbook.json`.
+    1. **Test case:** `exit`<br>
+       **Expected:** BizBook closes. All data is saved to `data/addressbook.json`.
 
-   1. **Test case:** Click the close button (X) on the window<br>
-      **Expected:** Same as above. BizBook closes and data is saved.
+    2. **Test case:** Click the close button (X) on the window<br>
+       **Expected:** Same as above. BizBook closes and data is saved.

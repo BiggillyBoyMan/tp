@@ -190,7 +190,7 @@ Examples:
 * `edit 2 s/Interviewing d/2025-02-28`
 * `edit 3 a/Quant Intern t/Global Markets desk`
 
-![edit command](images:./editCommandSuccess.png)
+![edit command](images/editCommandSuccess.png)
 sample output from running `edit 1 s/applied`
 
 ### Finding applications by name : `find`
