@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AWS;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_INDUSTRY_FINANCE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalBizBook;
@@ -45,10 +44,10 @@ public class DescriptionBookTest {
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields (same name)
+        // Two persons with the same identity fields (same name, industry, job type, description)
         InternshipApplication editedAlice = new CompanyBuilder(ALICE)
-                .withEmail(VALID_EMAIL_AWS) // Different email
-                .withIndustry(VALID_INDUSTRY_FINANCE).build();
+                .withEmail(VALID_EMAIL_AWS) // Different email (not part of duplicate check)
+                .build(); // Keep same name, industry, job type, description
         List<InternshipApplication> newInternshipApplications = Arrays.asList(ALICE, editedAlice);
         BizBookStub newData = new BizBookStub(newInternshipApplications);
 
@@ -75,8 +74,8 @@ public class DescriptionBookTest {
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         bizBook.addCompany(ALICE);
         InternshipApplication editedAlice = new CompanyBuilder(ALICE)
-                .withEmail(VALID_EMAIL_AWS)
-                .withIndustry(VALID_INDUSTRY_FINANCE).build();
+                .withEmail(VALID_EMAIL_AWS) // Different email (not part of duplicate check)
+                .build(); // Keep same name, industry, job type, description
         assertTrue(bizBook.hasPerson(editedAlice));
     }
 
