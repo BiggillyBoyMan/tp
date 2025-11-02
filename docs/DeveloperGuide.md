@@ -272,11 +272,11 @@ How the `find` command works:
 
 ### Filter Feature
 
-The `filter` command allows users to filter applications by status, industry, or job type.
+The `filter` command allows users to filter applications by status and industry.
 
 #### Implementation
 
-The filter mechanism uses predicate classes (`StatusPredicate`, `IndustryPredicate`, `JobTypePredicate`) to filter the application list. Multiple filters can be combined.
+The filter mechanism uses predicate classes (`StatusPredicate`, `IndustryPredicate`) to filter the application list. Multiple filters (status and industry) can be combined.
 
 The following sequence diagram shows how a filter operation works:
 
@@ -289,7 +289,7 @@ How the `filter` command works:
 
 1. When the user executes the `filter` command (e.g., `filter s/Applied i/Technology`), the `LogicManager` passes the input to `BizBookParser`.
 2. `BizBookParser` identifies this as a `filter` command and creates a `FilterCommandParser` to parse the arguments.
-3. `FilterCommandParser` uses `ArgumentTokenizer` to extract the filter criteria (s/ for status, i/ for industry, t/ for job type).
+3. `FilterCommandParser` uses `ArgumentTokenizer` to extract the filter criteria (s/ for status, i/ for industry).
 4. For each filter criterion present, `FilterCommandParser` creates the corresponding predicate (`StatusPredicate`, `IndustryPredicate`, or `JobTypePredicate`).
 5. If multiple filters are specified, they are combined using `Predicate.and()` to create a composite predicate that requires all conditions to match.
 6. `FilterCommandParser` creates and returns a `FilterCommand` with the combined predicate.

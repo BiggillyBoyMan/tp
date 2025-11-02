@@ -115,7 +115,8 @@ Format: `add n/COMPANY_NAME a/JOB_ROLE e/EMAIL t/DESCRIPTION i/INDUSTRY s/STATUS
 
 Notes:
 - **All fields must be filled.** Omitting a field or using the wrong prefix will cause an error.
-- **Email (e/EMAIL) must be provided by the user. The software will not modify, validate ownership, or enforce uniqueness of the email address.** Shared email addresses (e.g., common HR or recruitment mailboxes) are allowed and expected behavior. If you use the same email for multiple applications (even across different companies), BizBook will accept all entries without warning.
+- **Email (e/EMAIL) refers to the company or recruiter's contact email for the application (e.g., careers@google.com), not your own/applicant’s email.**
+- The email must be provided by the user. The software will not modify, validate ownership, or enforce uniqueness of the email address. Shared email addresses (e.g., common HR or recruitment mailboxes) are allowed and expected behavior. If you use the same email for multiple applications (even across different companies), BizBook will accept all entries without warning.
 - `COMPANY_NAME` can contain alphanumeric characters, spaces, and these special characters: `& . - ' ,` (e.g., AT&T, McDonald's, Apple Inc., Coca-Cola)
 - `INDUSTRY` must be one of: Technology, Finance, Consulting, Healthcare, Marketing, Operations, Graphic Design
 - `JOB_ROLE` should only contain alphanumeric characters and spaces and should not be blank. (e.g., `Software Engineer Intern`, `Marketing Analyst Intern`)
@@ -225,6 +226,8 @@ Examples:
 sample output from running `find meta`
 
 ### Filtering applications by status and/or industry : `filter`
+
+Note: The filter command only supports filtering by status (s/) and industry (i/). Filtering by job type is not supported.
 
 Filters and displays applications based on their status and/or industry. The filter does not modify the stored data, only affects what is displayed.
 
