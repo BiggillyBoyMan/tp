@@ -15,7 +15,7 @@ title: User Guide
 * Commercial applicant-tracking systems (e.g., Workable, Greenhouse) offer advanced features but are heavyweight and cloud-based. BizBook targets students and individuals who need a lightweight, local tool with fast keyboard-driven workflows.
 
 * Table of Contents
-{:toc}
+  {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -34,47 +34,40 @@ title: User Guide
 
 5. Let's try typing these in order and see the result!
 
-    **Step 1: Add your applications** -
-    First, let's clear the sample data and add 3 new applications.
+   **Step 1: Add your applications** -
+   First, let's clear the sample data and add 3 new applications.
     * `clear`
     * `add n/Google a/SWE Intern e/careers@google.com t/Backend microservices i/Technology s/Saved d/2024-12-31`
     * `add n/DBS Bank a/Data Analyst Intern e/internships@dbs.com t/Analytics team i/Finance s/Saved d/2025-01-15`
     * `add n/ByteDance a/PM Intern e/hr@bytedance.com t/TikTok team i/Technology s/Saved d/2024-12-20`
-    
-    *Result:* Your list now shows 3 applications, in the order you added them.
+      *Result:* Your list now shows 3 applications, in the order you added them.
 
-    **Step 2: Prioritize and update** -
-    You want to apply for the one with the *earliest* deadline first.
+   **Step 2: Prioritize and update** -
+   You want to apply for the one with the *earliest* deadline first.
     * `sort deadline`
-    
-    *Result:* The list immediately re-orders. **ByteDance** is now at **Index 1**. Let's say you applied for it.
+      *Result:* The list immediately re-orders. **ByteDance** is now at **Index 1**. Let's say you applied for it.
     * `edit 1 s/Applied`
-    
-    *Result:* The ByteDance card at Index 1 updates its status to `Applied`.
+      *Result:* The ByteDance card at Index 1 updates its status to `Applied`.
 
-    **Step 3: Filter and delete** -
-    Now you only want to see your "To-Do" list (status `Saved`).
+   **Step 3: Filter and delete** -
+   Now you only want to see your "To-Do" list (status `Saved`).
     * `filter s/Saved`
-    
-    *Result:* The list is filtered, hiding "ByteDance". The status bar now says "2 applications listed".
+      *Result:* The list is filtered, hiding "ByteDance". The status bar now says "2 applications listed".
     1.  **Google**
     2.  **DBS Bank**
 
-    Looking at this filtered list, you decide you're not interested in DBS Bank (Index 2).
+   Looking at this filtered list, you decide you're not interested in DBS Bank (Index 2).
     * `delete 2`
-    
-    *Result:* The item at **Index 2** of the *current list* (DBS Bank) is permanently deleted.
+      *Result:* The item at **Index 2** of the *current list* (DBS Bank) is permanently deleted.
 
-    **Step 4: Reset and final check** -
-    Finally, clear the filter to see *all* your remaining applications.
+   **Step 4: Reset and final check** -
+   Finally, clear the filter to see *all* your remaining applications.
     * `list`
-    
-    *Result:* The filter is cleared. You now see your remaining applications: **ByteDance** (Status: `Applied`) and **Google** (Status: `Saved`). `DBS Bank` is gone.
+      *Result:* The filter is cleared. You now see your remaining applications: **ByteDance** (Status: `Applied`) and **Google** (Status: `Saved`). `DBS Bank` is gone.
 
-    **Step 5: Exit** -
-    Now that you have finished adding all your applications, you can now exit BizBook!
+   **Step 5: Exit** -
+   Now that you have finished adding all your applications, you can now exit BizBook!
     * `exit`
-    
 6. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -120,12 +113,12 @@ Notes:
 - `JOB_ROLE` should only contain alphanumeric characters and spaces and should not be blank. (e.g., `Software Engineer Intern`, `Marketing Analyst Intern`)
 - `DESCRIPTION` should not be empty and cannot exceed 200 characters
 - `EMAIL` Emails should be of the format local-part@domain.tld and adhere to the following constraints:
-  - The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters.
-  - This is followed by a '@' and then a domain name (e.g., gmail, company, university).
-    - have each domain label start and end with alphanumeric characters
-    - have each domain label consist of alphanumeric characters, separated only by hyphens, if any
-  - The domain must be followed by a period and a top-level domain (e.g., .com, .edu, .org).
-      - A Top Level Domain should have at least 2 characters long
+    - The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+_.-). The local-part may not start or end with any special characters.
+    - This is followed by a '@' and then a domain name (e.g., gmail, company, university).
+        - have each domain label start and end with alphanumeric characters
+        - have each domain label consist of alphanumeric characters, separated only by hyphens, if any
+    - The domain must be followed by a period and a top-level domain (e.g., .com, .edu, .org).
+        - A Top Level Domain should have at least 2 characters long
 - `STATUS` must be one of: Saved, Applied, Interviewing, Offer, Rejected.
 - `DEADLINE` must be in the format YYYY-MM-DD (e.g., 2024-12-31)
 - You can add multiple applications to the same company as long as they are for different job roles (e.g., Google SWE Intern and Google PM Intern are both allowed)
@@ -190,14 +183,14 @@ Notes:
 * `COMPANY_NAME` can contain alphanumeric characters, spaces, and these special characters: `& . - ' ,`
 * Input for `INDUSTRY` and `STATUS` is case-insensitive (e.g., `i/technology` and `s/applied` are accepted).
 * `DEADLINE` must be in the format YYYY-MM-DD (e.g., 2024-12-31)
-* Applications are unique by company + role + industry (e.g. BizBook will prevent users from updating or adding a application if its company name, description and role are the same )
+* Applications are unique by company + role + description (e.g. BizBook will prevent users from updating or adding a application if its company name, description and role are the same )
 
 Examples:
 * `edit 1 n/Google Singapore`
 * `edit 2 s/Interviewing d/2025-02-28`
 * `edit 3 a/Quant Intern t/Global Markets desk`
 
-![edit command](images/editCommandSuccess.png)
+![edit command](images:./editCommandSuccess.png)
 sample output from running `edit 1 s/applied`
 
 ### Finding applications by name : `find`
