@@ -100,7 +100,7 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 How the `Logic` component works:
 
-1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
+1. When `Logic` is called upon to execute a command, it is passed to an `BizBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
 1. The command can communicate with the `Model` when it is executed (e.g. to delete a internshipApplication).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
@@ -111,7 +111,7 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <img src="images/ParserClasses.png" height="800"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command companyName e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
+* When called upon to parse a user command, the `BizBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command companyName e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `BizBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
@@ -172,8 +172,8 @@ The following sequence diagram shows how an add operation works:
 
 How the `add` command works:
 
-1. When the user executes the `add` command (e.g., `add n/Google a/SWE Intern e/recruit@google.com t/Software engineering role i/Technology s/Applied d/2024-12-31`), the `LogicManager` passes the input to `AddressBookParser`.
-2. `AddressBookParser` identifies this as an `add` command and creates an `AddCommandParser` to parse the arguments.
+1. When the user executes the `add` command (e.g., `add n/Google a/SWE Intern e/recruit@google.com t/Software engineering role i/Technology s/Applied d/2024-12-31`), the `LogicManager` passes the input to `BizBookParser`.
+2. `BizBookParser` identifies this as an `add` command and creates an `AddCommandParser` to parse the arguments.
 3. `AddCommandParser` uses `ArgumentTokenizer` to extract all the prefixed fields (n/, a/, e/, t/, i/, s/, d/) from the command string.
 4. `AddCommandParser` validates each field using the respective classes (`CompanyName`, `Industry`, `JobType`, etc.) and creates an `InternshipApplication` object.
 5. `AddCommandParser` creates and returns an `AddCommand` with the new `InternshipApplication`.
@@ -210,8 +210,8 @@ The following sequence diagram shows how an edit operation works:
 
 How the `edit` command works:
 
-1. When the user executes the `edit` command (e.g., `edit 1 s/Interviewing d/2024-11-30`), the `LogicManager` passes the input to `AddressBookParser`.
-2. `AddressBookParser` identifies this as an `edit` command and creates an `EditCommandParser` to parse the arguments.
+1. When the user executes the `edit` command (e.g., `edit 1 s/Interviewing d/2024-11-30`), the `LogicManager` passes the input to `BizBookParser`.
+2. `BizBookParser` identifies this as an `edit` command and creates an `EditCommandParser` to parse the arguments.
 3. `EditCommandParser` extracts the index and creates an `EditApplicationDescriptor` containing only the fields to be updated (in this example, status and deadline).
 4. `EditCommandParser` creates and returns an `EditCommand` with the index and descriptor.
 5. `LogicManager` executes the `EditCommand`, which retrieves the application at the specified index from the filtered list.
@@ -249,8 +249,8 @@ The following sequence diagram shows how a find operation works:
 
 How the `find` command works:
 
-1. When the user executes the `find` command (e.g., `find Google Microsoft`), the `LogicManager` passes the input to `AddressBookParser`.
-2. `AddressBookParser` identifies this as a `find` command and creates a `FindCommandParser` to parse the arguments.
+1. When the user executes the `find` command (e.g., `find Google Microsoft`), the `LogicManager` passes the input to `BizBookParser`.
+2. `BizBookParser` identifies this as a `find` command and creates a `FindCommandParser` to parse the arguments.
 3. `FindCommandParser` splits the input into keywords (in this example, "Google" and "Microsoft") and creates a `NameContainsKeywordsPredicate` with these keywords.
 4. `FindCommandParser` creates and returns a `FindCommand` with the predicate.
 5. `LogicManager` executes the `FindCommand`, which calls `Model#updateFilteredApplicationList()` with the predicate.
@@ -287,8 +287,8 @@ The following sequence diagram shows how a filter operation works:
 
 How the `filter` command works:
 
-1. When the user executes the `filter` command (e.g., `filter s/Applied i/Technology`), the `LogicManager` passes the input to `AddressBookParser`.
-2. `AddressBookParser` identifies this as a `filter` command and creates a `FilterCommandParser` to parse the arguments.
+1. When the user executes the `filter` command (e.g., `filter s/Applied i/Technology`), the `LogicManager` passes the input to `BizBookParser`.
+2. `BizBookParser` identifies this as a `filter` command and creates a `FilterCommandParser` to parse the arguments.
 3. `FilterCommandParser` uses `ArgumentTokenizer` to extract the filter criteria (s/ for status, i/ for industry, t/ for job type).
 4. For each filter criterion present, `FilterCommandParser` creates the corresponding predicate (`StatusPredicate`, `IndustryPredicate`, or `JobTypePredicate`).
 5. If multiple filters are specified, they are combined using `Predicate.and()` to create a composite predicate that requires all conditions to match.
@@ -319,8 +319,8 @@ The sort mechanism uses `Comparator` classes defined in `SortComparators`. For s
 
 How the `sort` command works:
 
-1. When the user executes the `sort` command (e.g., `sort deadline`), the `LogicManager` passes the input to `AddressBookParser`.
-2. `AddressBookParser` identifies this as a `sort` command and creates a `SortCommandParser` to parse the arguments.
+1. When the user executes the `sort` command (e.g., `sort deadline`), the `LogicManager` passes the input to `BizBookParser`.
+2. `BizBookParser` identifies this as a `sort` command and creates a `SortCommandParser` to parse the arguments.
 3. `SortCommandParser` validates the sort criterion (must be "name", "deadline", or "status") and retrieves the appropriate `Comparator` from `SortComparators`.
 4. `SortCommandParser` creates and returns a `SortCommand` with the comparator.
 5. `LogicManager` executes the `SortCommand`, which calls `Model#updateSortedApplicationList()` with the comparator.
