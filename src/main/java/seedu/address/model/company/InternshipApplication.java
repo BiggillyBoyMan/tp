@@ -77,9 +77,12 @@ public class InternshipApplication {
 
 
     /**
-     * Returns true if both applications have the same company name and job type.
+     * Returns true if both applications have the same company name, industry, and job type.
      * This defines a weaker notion of equality between two applications.
-     * This allows multiple applications to the same company for different roles.
+     * This allows multiple applications to the same company for different roles (different job types),
+     * or the same role in different departments (different industries).
+     * Description is not included in duplicate detection as it is free-form text that may vary
+     * for the same job posting.
      * Comparisons are case-insensitive to prevent duplicates with different letter cases.
      */
     public boolean isSameApplication(InternshipApplication otherInternshipApplication) {
@@ -88,9 +91,9 @@ public class InternshipApplication {
         }
 
         return otherInternshipApplication != null
-                && otherInternshipApplication.getName().value.equalsIgnoreCase(getName().value)
-                && otherInternshipApplication.getJobType().value.equalsIgnoreCase(getJobType().value)
-                && otherInternshipApplication.getDescription().equals(getDescription());
+                && otherInternshipApplication.getName().value.trim().equalsIgnoreCase(getName().value.trim())
+                && otherInternshipApplication.getIndustry().equals(getIndustry())
+                && otherInternshipApplication.getJobType().value.trim().equalsIgnoreCase(getJobType().value.trim());
     }
     @Override
     public boolean equals(Object other) {

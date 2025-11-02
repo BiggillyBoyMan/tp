@@ -32,27 +32,35 @@ public class InternshipApplicationTest {
         // null -> returns false
         assertFalse(ALICE.isSameApplication(null));
 
-        // same name and job type, all other attributes different -> returns true
+        // same name, industry, job type, and description -> returns true (all key attributes match)
         InternshipApplication editedAlice = new CompanyBuilder(ALICE)
                 .withEmail(VALID_EMAIL_AWS)
-                .withIndustry(VALID_INDUSTRY_FINANCE).build();
+                .build();
         assertTrue(ALICE.isSameApplication(editedAlice));
 
-        // same name, different job type -> returns false (allows multiple roles at same company)
-        editedAlice = new CompanyBuilder(ALICE).withJobType(VALID_JOB_TYPE_DA).build();
+        // same name and job type, but different industry -> returns false (industry part of duplicate check)
+        editedAlice = new CompanyBuilder(ALICE).withIndustry(VALID_INDUSTRY_FINANCE).build();
         assertFalse(ALICE.isSameApplication(editedAlice));
 
-        // different name, same job type -> returns false
-        editedAlice = new CompanyBuilder(ALICE).withName(VALID_NAME_AWS).build();
-        assertFalse(ALICE.isSameApplication(editedAlice));
-
-        // same name and job type, but different description -> returns false
+        // same name, industry, and job type, but different description -> returns false (description part of duplicate check)
         editedAlice = new CompanyBuilder(ALICE).withDescription(VALID_DESCRIPTION_AWS).build();
         assertFalse(ALICE.isSameApplication(editedAlice));
 
-        // name differs in case, all other attributes same -> returns false
-        InternshipApplication editedBob = new CompanyBuilder(BOB).withName(VALID_NAME_AWS.toLowerCase()).build();
-        assertFalse(BOB.isSameApplication(editedBob));
+        // same name, industry, and job type, different description -> returns false (allows same role with different specializations)
+        editedAlice = new CompanyBuilder(ALICE).withJobType(VALID_JOB_TYPE_DA).build();
+        assertFalse(ALICE.isSameApplication(editedAlice));
+
+        // different name, same industry, job type, and description -> returns false
+        editedAlice = new CompanyBuilder(ALICE).withName(VALID_NAME_AWS).build();
+        assertFalse(ALICE.isSameApplication(editedAlice));
+
+        // name differs in case, all other attributes same -> returns true (case-insensitive)
+        InternshipApplication editedBob = new CompanyBuilder(BOB).withName(BOB.getName().value.toLowerCase()).build();
+        assertTrue(BOB.isSameApplication(editedBob));
+
+        // job type differs in case, all other attributes same -> returns true (case-insensitive)
+        editedBob = new CompanyBuilder(BOB).withJobType(BOB.getJobType().value.toLowerCase()).build();
+        assertTrue(BOB.isSameApplication(editedBob));
 
         // name has trailing spaces, all other attributes same -> returns false
         String nameWithTrailingSpaces = VALID_NAME_AWS + " ";
