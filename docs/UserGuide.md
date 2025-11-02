@@ -129,7 +129,7 @@ Notes:
   - The domain must be followed by a period and a top-level domain (e.g., .com, .edu, .org).
       - A Top Level Domain should have at least 2 characters long
 - `STATUS` must be one of: Saved, Applied, Interviewing, Offer, Rejected.
-- `DEADLINE` must be in the format YYYY-MM-DD (e.g., 2024-12-31)
+- `DEADLINE` must be in the format YYYY-MM-DD (e.g., 2024-12-31) and between today and before 2030-01-01
 - You can add multiple applications to the same company as long as they are for different job roles (e.g., Google SWE Intern and Google PM Intern are both allowed)
 
 Examples:
@@ -191,7 +191,7 @@ Notes:
 * Existing values will be overwritten by the new inputs.
 * `COMPANY_NAME` can contain alphanumeric characters, spaces, and these special characters: `& . - ' ,`
 * Input for `INDUSTRY` and `STATUS` is case-insensitive (e.g., `i/technology` and `s/applied` are accepted).
-* `DEADLINE` must be in the format YYYY-MM-DD (e.g., 2024-12-31)
+* `DEADLINE` must be in the format YYYY-MM-DD (e.g., 2024-12-31) and between today and before 2030-01-01
 
 Examples:
 * `edit 1 n/Google Singapore`
