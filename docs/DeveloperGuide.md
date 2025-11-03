@@ -36,7 +36,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/description/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/description/MainApp.java)) is in charge of the app launch and shut down.
+**`Main`** (consisting of classes [`Main`](https://github.com/AY2526S1-CS2103T-T10-1/tp/blob/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/AY2526S1-CS2103T-T10-1/tp/blob/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
@@ -100,7 +100,7 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 How the `Logic` component works:
 
-1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
+1. When `Logic` is called upon to execute a command, it is passed to an `BizBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
 1. The command can communicate with the `Model` when it is executed (e.g. to delete a internshipApplication).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
@@ -111,7 +111,7 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <img src="images/ParserClasses.png" height="800"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command companyName e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
+* When called upon to parse a user command, the `BizBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command companyName e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `BizBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
@@ -172,8 +172,8 @@ The following sequence diagram shows how an add operation works:
 
 How the `add` command works:
 
-1. When the user executes the `add` command (e.g., `add n/Google a/SWE Intern e/recruit@google.com t/Software engineering role i/Technology s/Applied d/2024-12-31`), the `LogicManager` passes the input to `AddressBookParser`.
-2. `AddressBookParser` identifies this as an `add` command and creates an `AddCommandParser` to parse the arguments.
+1. When the user executes the `add` command (e.g., `add n/Google a/SWE Intern e/recruit@google.com t/Software engineering role i/Technology s/Applied d/2024-12-31`), the `LogicManager` passes the input to `BizBookParser`.
+2. `BizBookParser` identifies this as an `add` command and creates an `AddCommandParser` to parse the arguments.
 3. `AddCommandParser` uses `ArgumentTokenizer` to extract all the prefixed fields (n/, a/, e/, t/, i/, s/, d/) from the command string.
 4. `AddCommandParser` validates each field using the respective classes (`CompanyName`, `Industry`, `JobType`, etc.) and creates an `InternshipApplication` object.
 5. `AddCommandParser` creates and returns an `AddCommand` with the new `InternshipApplication`.
@@ -210,8 +210,8 @@ The following sequence diagram shows how an edit operation works:
 
 How the `edit` command works:
 
-1. When the user executes the `edit` command (e.g., `edit 1 s/Interviewing d/2024-11-30`), the `LogicManager` passes the input to `AddressBookParser`.
-2. `AddressBookParser` identifies this as an `edit` command and creates an `EditCommandParser` to parse the arguments.
+1. When the user executes the `edit` command (e.g., `edit 1 s/Interviewing d/2024-11-30`), the `LogicManager` passes the input to `BizBookParser`.
+2. `BizBookParser` identifies this as an `edit` command and creates an `EditCommandParser` to parse the arguments.
 3. `EditCommandParser` extracts the index and creates an `EditApplicationDescriptor` containing only the fields to be updated (in this example, status and deadline).
 4. `EditCommandParser` creates and returns an `EditCommand` with the index and descriptor.
 5. `LogicManager` executes the `EditCommand`, which retrieves the application at the specified index from the filtered list.
@@ -249,8 +249,8 @@ The following sequence diagram shows how a find operation works:
 
 How the `find` command works:
 
-1. When the user executes the `find` command (e.g., `find Google Microsoft`), the `LogicManager` passes the input to `AddressBookParser`.
-2. `AddressBookParser` identifies this as a `find` command and creates a `FindCommandParser` to parse the arguments.
+1. When the user executes the `find` command (e.g., `find Google Microsoft`), the `LogicManager` passes the input to `BizBookParser`.
+2. `BizBookParser` identifies this as a `find` command and creates a `FindCommandParser` to parse the arguments.
 3. `FindCommandParser` splits the input into keywords (in this example, "Google" and "Microsoft") and creates a `NameContainsKeywordsPredicate` with these keywords.
 4. `FindCommandParser` creates and returns a `FindCommand` with the predicate.
 5. `LogicManager` executes the `FindCommand`, which calls `Model#updateFilteredApplicationList()` with the predicate.
@@ -272,11 +272,11 @@ How the `find` command works:
 
 ### Filter Feature
 
-The `filter` command allows users to filter applications by status, industry, or job type.
+The `filter` command allows users to filter applications by status and industry.
 
 #### Implementation
 
-The filter mechanism uses predicate classes (`StatusPredicate`, `IndustryPredicate`, `JobTypePredicate`) to filter the application list. Multiple filters can be combined.
+The filter mechanism uses predicate classes (`StatusPredicate`, `IndustryPredicate`) to filter the application list. Multiple filters (status and industry) can be combined.
 
 The following sequence diagram shows how a filter operation works:
 
@@ -287,9 +287,9 @@ The following sequence diagram shows how a filter operation works:
 
 How the `filter` command works:
 
-1. When the user executes the `filter` command (e.g., `filter s/Applied i/Technology`), the `LogicManager` passes the input to `AddressBookParser`.
-2. `AddressBookParser` identifies this as a `filter` command and creates a `FilterCommandParser` to parse the arguments.
-3. `FilterCommandParser` uses `ArgumentTokenizer` to extract the filter criteria (s/ for status, i/ for industry, t/ for job type).
+1. When the user executes the `filter` command (e.g., `filter s/Applied i/Technology`), the `LogicManager` passes the input to `BizBookParser`.
+2. `BizBookParser` identifies this as a `filter` command and creates a `FilterCommandParser` to parse the arguments.
+3. `FilterCommandParser` uses `ArgumentTokenizer` to extract the filter criteria (s/ for status, i/ for industry).
 4. For each filter criterion present, `FilterCommandParser` creates the corresponding predicate (`StatusPredicate`, `IndustryPredicate`, or `JobTypePredicate`).
 5. If multiple filters are specified, they are combined using `Predicate.and()` to create a composite predicate that requires all conditions to match.
 6. `FilterCommandParser` creates and returns a `FilterCommand` with the combined predicate.
@@ -319,8 +319,8 @@ The sort mechanism uses `Comparator` classes defined in `SortComparators`. For s
 
 How the `sort` command works:
 
-1. When the user executes the `sort` command (e.g., `sort deadline`), the `LogicManager` passes the input to `AddressBookParser`.
-2. `AddressBookParser` identifies this as a `sort` command and creates a `SortCommandParser` to parse the arguments.
+1. When the user executes the `sort` command (e.g., `sort deadline`), the `LogicManager` passes the input to `BizBookParser`.
+2. `BizBookParser` identifies this as a `sort` command and creates a `SortCommandParser` to parse the arguments.
 3. `SortCommandParser` validates the sort criterion (must be "name", "deadline", or "status") and retrieves the appropriate `Comparator` from `SortComparators`.
 4. `SortCommandParser` creates and returns a `SortCommand` with the comparator.
 5. `LogicManager` executes the `SortCommand`, which calls `Model#updateSortedApplicationList()` with the comparator.
@@ -344,7 +344,17 @@ How the `sort` command works:
 
 ### \[Proposed\] Data archiving
 
-_{Explain here how the data archiving feature will be implemented}_
+The data archiving feature will allow users to move completed or inactive internship applications out of their active list, while still retaining them for future reference. This helps keep the main application list focused and uncluttered, but preserves historical data for statistics and review.
+
+**Proposed Implementation:**
+- Introduce an "archived" status flag or a separate archived list in the model.
+- Add new commands: `archive INDEX` to move an application to the archive, and `unarchive INDEX` to restore it.
+- Update the UI to allow toggling between active and archived views.
+- Archived applications will be excluded from most commands (e.g., `list`, `filter`, `find`) unless explicitly requested.
+- Storage will persist the archive state, so archived applications remain archived across app restarts.
+- Statistics and analytics features can optionally include archived data if needed.
+
+This feature improves usability for users who want to keep a clean workspace but still need access to their full application history.
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -769,7 +779,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file 
+   1. Double-click the jar file
       2. Expected: Shows the GUI with a set of sample internship applications. The window size may not be optimum.
 
 1. Saving window preferences
@@ -778,8 +788,6 @@ testers are expected to do more *exploratory* testing.
 
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
-
-1. _{ more test cases …​ }_
 
 ### Adding an application
 
@@ -800,13 +808,14 @@ testers are expected to do more *exploratory* testing.
       - `add n/Google a/SWE Intern e/invalid-email t/Role i/Technology s/Applied d/2024-12-31` (invalid email format)
       - `add n/Google a/SWE Intern e/recruit@google.com t/Role i/Technology s/InvalidStatus d/2024-12-31` (invalid status)
       - `add n/Google a/SWE Intern e/recruit@google.com t/Role i/Technology s/Applied d/31-12-2024` (invalid date format)
-      
+      - `add n/Google a/SWE Intern e/recruit@google.com t/Role i/Technology s/Applied d/2030-01-01` (date not before 2030-01-01)
+
       **Expected:** Similar to previous case. No application is added. Specific error messages are shown for each invalid field:
       - Company name: "Company names should only contain alphanumeric characters, spaces, and the special characters & . , ' -"
       - Industry: "Industry should be one of: Technology, Finance, Healthcare, Education, Retail, Consulting, Manufacturing, Government, Nonprofit, Other"
       - Email: "Emails should be in the format local-part@domain and adhere to the following constraints..."
       - Status: "Status should be one of: Saved, Applied, Interviewing, Offer, Rejected"
-      - Deadline: "Deadline should be in the format YYYY-MM-DD"
+      - Deadline: "Deadline should be in the format YYYY-MM-DD and must be a date between 2020-01-01 and before 2030-01-01."
 
    1. **Test case:** Add duplicate application<br>
       First: `add n/Google a/SWE Intern e/recruit@google.com t/Role i/Technology s/Applied d/2024-12-31`<br>
@@ -837,7 +846,9 @@ testers are expected to do more *exploratory* testing.
       - `edit 1 s/InvalidStatus` (invalid status value)
       - `edit 1 e/invalid-email` (invalid email format)
       - `edit 1 d/31-12-2024` (invalid date format)
-      
+      - `edit 1 d/2030-01-01` (date not before 2030-01-01)
+      - `edit 1 d/2020-01-01` (date before today)
+
       **Expected:** Similar error messages as in the add command for invalid field formats.
 
 ### Finding applications
@@ -882,7 +893,7 @@ testers are expected to do more *exploratory* testing.
    1. **Other incorrect filter commands to try:**
       - `filter s/InvalidStatus` (invalid status)
       - `filter i/InvalidIndustry` (invalid industry)
-      
+
       **Expected:** Error messages indicating the valid options for status or industry.
 
 ### Sorting applications
@@ -923,7 +934,7 @@ testers are expected to do more *exploratory* testing.
       - `delete x` (where x is larger than the list size)
       - `delete -1` (negative index)
       - `delete abc` (non-numeric index)
-      
+
       **Expected:** Error messages indicating invalid index or format.
 
 ### Listing all applications
