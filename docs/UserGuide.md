@@ -14,7 +14,7 @@ title: User Guide
 * Many users track applications with spreadsheets (Excel/Sheets) or general-purpose task managers (Trello, Notion). Those tools are flexible but often slower for repetitive text-entry tasks.
 * Commercial applicant-tracking systems (e.g., Workable, Greenhouse) offer advanced features but are heavyweight and cloud-based. BizBook targets students and individuals who need a lightweight, local tool with fast keyboard-driven workflows.
 
-* Table of Contents
+### Table of Contents
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
@@ -162,10 +162,11 @@ Sorts all internship applications in the current list by the specified field.
 Format: `sort FIELD`
 
 Notes:
+* Ensure you run `list` before sorting 
 * `FIELD` must be one of: `name`, `status`, or `deadline`
 * The field name is case-insensitive (e.g., `sort NAME` works the same as `sort name`)
 * Sorting persists until you run another sort command with a different field
-* Applications remain sorted even after adding, editing, or deleting entries
+* Applications will be listed in chronological order after a command is added (e.g. add, delete, list)
 
 Examples:
 * `sort name` - Sorts applications alphabetically by company name
@@ -274,12 +275,12 @@ sample output from running `delete 1`
 
 ### Clearing all entries : `clear`
 
-Clears all entries from BizBook.
+Clears all entries from BizBook. 
 
 Format: `clear`
 
 > :information_source: **Note:**
-> Any parameters following `clear` will be ignored. For example, `clear 123` or `clear abc` will execute as if only `clear` was typed.
+> Any parameters following `clear` will be ignored. For example, `clear 123` or `clear abc` will execute as if only `clear` was typed. Only run `clear` if you want to clear all application, this process is irreversible. 
 
 ### Exiting the program : `exit`
 
@@ -293,7 +294,7 @@ Data are saved to disk automatically after any command that changes data. There 
 
 ### Editing the data file
 
-Data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users may edit that file directly.
+Data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Do not edit the JSON file manually
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, the app will discard all data and start with an empty data file at the next run. Always back up the file before editing it.<br>
