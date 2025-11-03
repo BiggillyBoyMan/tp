@@ -26,6 +26,9 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.company.InternshipApplication;
 import seedu.address.testutil.CompanyBuilder;
 
+/**
+ * Adds an internship application into BizBook.
+ */
 public class AddCommandTest {
 
     @Test
