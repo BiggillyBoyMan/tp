@@ -47,7 +47,6 @@ public class DeleteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_APPLICATION_SUCCESS,
                 Messages.format(internshipApplicationToDelete)));
     }
-    
     @Override
     public boolean equals(Object other) {
         if (other == this) {
