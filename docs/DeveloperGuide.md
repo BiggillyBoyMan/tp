@@ -108,7 +108,7 @@ How the `Logic` component works:
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
-![Parser Class Diagram](images/ParserClasses.png)
+<img src="images/ParserClasses.png" height="400"/>
 
 How the parsing works:
 * When called upon to parse a user command, the `BizBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command companyName e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `BizBookParser` returns back as a `Command` object.
