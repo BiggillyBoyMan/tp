@@ -89,6 +89,9 @@ The `UI` component,
 
 Here's a (partial) class diagram of the `Logic` component:
 
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Zoom in on your browser to see the diagram details more clearly.
+</div>
+
 ![Logic Class Diagram](images/LogicClassDiagram.png)
 
 The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
@@ -107,6 +110,9 @@ How the `Logic` component works:
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** Zoom in on your browser to see the diagram details more clearly.
+</div>
 
 <img src="images/ParserClasses.png" style="width: 600px;"/>
 
