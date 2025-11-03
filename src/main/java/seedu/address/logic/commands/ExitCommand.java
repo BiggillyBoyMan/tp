@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.model.Model;
 
 /**
- * Terminates the program.
+ * Terminates the program, type exit or click on exit from the "file" tab to exit.
  */
 public class ExitCommand extends Command {
 
