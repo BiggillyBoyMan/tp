@@ -89,8 +89,7 @@ The `UI` component,
 
 Here's a (partial) class diagram of the `Logic` component:
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** Zoom in on your browser to see the diagram details more clearly.
-</div>
+*Zoom in on your browser to see the diagram details more clearly.*
 
 ![Logic Class Diagram](images/LogicClassDiagram.png)
 
@@ -111,10 +110,9 @@ How the `Logic` component works:
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** Zoom in on your browser to see the diagram details more clearly.
-</div>
+*Zoom in on your browser to see the diagram details more clearly.*
 
-<img src="images/ParserClasses.png" style="width: 600px;"/>
+<img src="images/ParserClasses.png" width="600"/>
 
 How the parsing works:
 * When called upon to parse a user command, the `BizBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command companyName e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `BizBookParser` returns back as a `Command` object.
