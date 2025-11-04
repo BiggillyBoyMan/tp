@@ -32,6 +32,18 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 The ***Architecture Diagram*** given above explains the high-level design of the App.
 
+**Architecture Style:**
+BizBook follows a **multi-layered architecture** with clear separation of concerns:
+- **Presentation Layer** (UI): Handles user interaction via JavaFX GUI and CLI command box
+- **Application Layer** (Logic): Processes commands and orchestrates business logic
+- **Domain Layer** (Model): Represents internship applications and business rules
+- **Data Layer** (Storage): Persists data as JSON files
+
+This layered approach ensures:
+- **Modularity**: Each layer can be modified independently
+- **Testability**: Components can be unit tested in isolation
+- **Maintainability**: Clear boundaries between UI, logic, and data concerns
+
 Given below is a quick overview of main components and how they interact with each other.
 
 **Main components of the architecture**
