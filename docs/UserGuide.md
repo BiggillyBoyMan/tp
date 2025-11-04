@@ -3,7 +3,19 @@ layout: page
 title: User Guide
 ---
 
+BizBook is built for:
+* **University students** actively applying for internships who need to track multiple applications, deadlines, and statuses.
+* Users who are **comfortable with basic command-line interfaces (CLI)** and prefer typing commands over navigating menus.
+
 **Welcome to BizBook** – a tool designed to help students manage internship applications with speed and simplicity. BizBook streamlines your everyday tasks, such as tracking application statuses and managing deadlines, allowing you to organize important information in a fast, efficient way. By typing commands, you can quickly add, update, search, and handle your applications with minimal effort, making it a valuable companion for any busy student on an internship hunt.
+
+**Why BizBook?**
+
+Picture this: You've just attended the NUS Career Fair. Your bag is stuffed with brochures from Google, DBS, ByteDance, and 15 other companies. You have 8 applications to submit by next week, 3 interviews to prepare for, and a looming sense that you're about to lose track of everything in a messy spreadsheet.
+
+**BizBook solves this chaos.** 
+
+With lightning-fast commands, you can add all 20 applications in under 10 minutes, sort them by deadline to see what's urgent, filter by industry to focus on tech roles, and update statuses as you progress—all without touching your mouse. No more hunting through spreadsheet tabs, no more missed deadlines buried on page 2, no more "Did I already apply to this company?"
 
 ### How BizBook addresses the problem:
 * BizBook exposes succinct commands for adding, editing, finding, filtering and sorting applications, so users can complete common tasks with a few keystrokes.
