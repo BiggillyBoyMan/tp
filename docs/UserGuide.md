@@ -26,6 +26,7 @@ With lightning-fast commands, you can add all 20 applications in under 10 minute
 * Many users track applications with spreadsheets (Excel/Sheets) or general-purpose task managers (Trello, Notion). Those tools are flexible but often slower for repetitive text-entry tasks.
 * Commercial applicant-tracking systems (e.g., Workable, Greenhouse) offer advanced features but are heavyweight and cloud-based. BizBook targets students and individuals who need a lightweight, local tool with fast keyboard-driven workflows.
 
+### Table of Contents:
 * Table of Contents
 {:toc}
 
