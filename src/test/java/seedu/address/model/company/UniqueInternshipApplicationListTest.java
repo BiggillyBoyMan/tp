@@ -44,8 +44,8 @@ public class UniqueInternshipApplicationListTest {
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueCompanyList.add(ALICE);
         InternshipApplication editedAlice = new CompanyBuilder(ALICE)
-                .withEmail(VALID_EMAIL_AWS)
-                .withIndustry(VALID_INDUSTRY_FINANCE).build();
+                .withEmail(VALID_EMAIL_AWS) // Different email (not part of duplicate check)
+                .build(); // Keep same name, industry, job type, description
         assertTrue(uniqueCompanyList.contains(editedAlice));
     }
 

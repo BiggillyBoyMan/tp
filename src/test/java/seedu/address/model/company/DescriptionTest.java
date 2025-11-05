@@ -15,8 +15,13 @@ public class DescriptionTest {
 
     @Test
     public void constructor_invalidDescription_throwsIllegalArgumentException() {
+        // exceeds max length
         String invalidDescription = "a".repeat(201); // 201 characters, exceeds max length
         assertThrows(IllegalArgumentException.class, () -> new Description(invalidDescription));
+
+        // empty or blank descriptions
+        assertThrows(IllegalArgumentException.class, () -> new Description(""));
+        assertThrows(IllegalArgumentException.class, () -> new Description("   "));
     }
 
     @Test
@@ -27,9 +32,12 @@ public class DescriptionTest {
         // invalid descriptions - exceeds 200 characters
         assertFalse(Description.isValidDescription("a".repeat(201))); // 201 characters
 
+        // invalid descriptions - empty or blank
+        assertFalse(Description.isValidDescription("")); // empty string is invalid
+        assertFalse(Description.isValidDescription(" ")); // spaces only is invalid
+        assertFalse(Description.isValidDescription("   ")); // multiple spaces only is invalid
+
         // valid descriptions
-        assertTrue(Description.isValidDescription("")); // empty string is valid
-        assertTrue(Description.isValidDescription(" ")); // spaces only is valid
         assertTrue(Description.isValidDescription("Blk 456, Den Road, #01-355"));
         assertTrue(Description.isValidDescription("-")); // one character
         // long description

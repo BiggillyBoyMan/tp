@@ -115,8 +115,9 @@ public class ParserUtilTest {
 
     @Test
     public void parseDescription_invalidValue_throwsParseException() {
-        // Assuming your Description class constraints prevent empty strings, or strings that violate max length
         assertThrows(ParseException.class, () -> ParserUtil.parseDescription(INVALID_DESCRIPTION));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDescription(""));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDescription("   "));
     }
 
     @Test
